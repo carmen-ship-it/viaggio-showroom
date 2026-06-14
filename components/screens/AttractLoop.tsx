@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef } from "react";
 import { motion } from "framer-motion";
 import { HeroMedia } from "@/components/media/HeroMedia";
 import { FallbackArtwork } from "@/components/media/fallback-art/FallbackArtwork";
@@ -21,11 +22,26 @@ export function AttractLoop({
   onStart,
 }: AttractLoopProps) {
   const heroSpec = getFallbackSpec(mediaId);
+  const startedRef = useRef(false);
+
+  const handleStart = () => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    onStart();
+  };
 
   return (
     <button
       type="button"
-      onClick={onStart}
+      onPointerDown={(event) => {
+        if (event.button !== 0) return;
+        handleStart();
+      }}
+      onKeyDown={(event) => {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        handleStart();
+      }}
       className="relative h-screen w-full cursor-pointer overflow-hidden text-left"
       aria-label="Tocá para empezar"
     >

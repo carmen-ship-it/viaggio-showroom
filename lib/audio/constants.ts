@@ -32,3 +32,6 @@ export const AMBIENT_FADE_MS = 2000;
 
 /** Interaction SFX debounce to avoid rapid-fire on fast taps (ms). */
 export const INTERACTION_DEBOUNCE_MS = 120;
+
+/** Home attract screen handles audio unlock via "Tocá para empezar" — no separate overlay. */
+export const ATTRACT_AUDIO_UNLOCK_PATH = "/";

@@ -8,6 +8,7 @@ import {
   INTERACTION_DEBOUNCE_MS,
 } from "./constants";
 import { CHANNEL_POLICIES } from "./channels";
+import { configureMobileAudioElement, SILENT_WAV_DATA_URI } from "./mobile-playback";
 import { channelForAssetId, resolveAudioAsset } from "./resolve-audio";
 
 interface ActiveTrack {
@@ -29,6 +30,8 @@ export class AudioEngine {
   private lastInteractionAt = 0;
   private visibilityBound = false;
   private availabilityCache = new Map<string, boolean>();
+  private unlockProbe: HTMLAudioElement | null = null;
+  private playbackUnlocked = false;
 
   constructor(preferences: AudioPreferences) {
     this.preferences = preferences;
@@ -141,9 +144,73 @@ export class AudioEngine {
       element.preload = "metadata";
       element.src = src;
       element.loop = loop;
+      configureMobileAudioElement(element);
       this.elementPool.set(key, element);
     }
     return element;
+  }
+
+  isPlaybackUnlocked(): boolean {
+    return this.playbackUnlocked;
+  }
+
+  /**
+   * Must run synchronously inside pointerdown/click (iOS Safari + Android Chrome).
+   * Primes the page for audio and starts ambient without awaiting network probes.
+   */
+  unlockFromUserGesture(ambientAssetId: string): boolean {
+    this.bindVisibility();
+    this.playbackUnlocked = true;
+
+    if (!this.unlockProbe) {
+      this.unlockProbe = new Audio(SILENT_WAV_DATA_URI);
+      this.unlockProbe.volume = 0.001;
+      configureMobileAudioElement(this.unlockProbe);
+    }
+
+    try {
+      void this.unlockProbe.play();
+    } catch {
+      /* gesture context may still allow ambient play */
+    }
+
+    return this.startAmbientFromUserGesture(ambientAssetId);
+  }
+
+  /** Resume or start ambient synchronously — no await before HTMLAudioElement.play(). */
+  startAmbientFromUserGesture(assetId: string): boolean {
+    this.bindVisibility();
+    this.playbackUnlocked = true;
+
+    const resolved = resolveAudioAsset(assetId, this.manifestAssets);
+    if (!resolved) return false;
+
+    const existing = this.tracks.get("ambient");
+    if (existing?.assetId === assetId) {
+      if (existing.state === "playing") {
+        this.syncAmbientVolume(false);
+        return true;
+      }
+      if (existing.state === "paused" && !this.preferences.masterMuted) {
+        try {
+          void existing.element.play();
+          existing.state = "playing";
+          this.applyVolume(existing);
+          this.notify();
+          return true;
+        } catch {
+          existing.state = "unavailable";
+          this.notify();
+          return false;
+        }
+      }
+    }
+
+    return this.playAssetSync(assetId, {
+      channel: "ambient",
+      fadeIn: true,
+      skipProbe: true,
+    });
   }
 
   private computeGain(channel: AudioChannel): number {
@@ -194,7 +261,13 @@ export class AudioEngine {
     }
 
     try {
-      const response = await fetch(src, { method: "HEAD" });
+      let response = await fetch(src, { method: "HEAD" });
+      if (!response.ok) {
+        response = await fetch(src, {
+          method: "GET",
+          headers: { Range: "bytes=0-0" },
+        });
+      }
       const available = response.ok;
       this.availabilityCache.set(src, available);
       return available;
@@ -204,12 +277,14 @@ export class AudioEngine {
     }
   }
 
-  async playAsset(
+  private playAssetSync(
     assetId: string,
-    options: { channel?: AudioChannel; fadeIn?: boolean } = {},
-  ): Promise<boolean> {
-    this.bindVisibility();
-
+    options: {
+      channel?: AudioChannel;
+      fadeIn?: boolean;
+      skipProbe?: boolean;
+    } = {},
+  ): boolean {
     const resolved = resolveAudioAsset(assetId, this.manifestAssets);
     if (!resolved) return false;
 
@@ -229,22 +304,11 @@ export class AudioEngine {
       this.lastInteractionAt = now;
     }
 
-    const available = await this.probeAvailability(resolved.src);
-    if (!available) {
-      const existing = this.tracks.get(channel);
-      if (existing?.assetId === assetId) {
-        existing.state = "unavailable";
-        this.notify();
-      }
-      return false;
-    }
-    const playbackSrc = resolved.src;
-
     if (policy.exclusive) {
       this.stopChannel(channel, { keepElement: false });
     }
 
-    const element = this.getOrCreateElement(assetId, playbackSrc, resolved.loop);
+    const element = this.getOrCreateElement(assetId, resolved.src, resolved.loop);
     const track: ActiveTrack = {
       assetId,
       channel,
@@ -275,16 +339,18 @@ export class AudioEngine {
       const target = this.computeGain(channel);
       element.volume = 0;
       try {
-        await element.play();
+        void element.play();
         track.state = "playing";
+        this.playbackUnlocked = true;
         this.fadeVolume(element, 0, target, AMBIENT_FADE_MS);
       } catch {
         track.state = "unavailable";
       }
     } else {
       try {
-        await element.play();
+        void element.play();
         track.state = "playing";
+        this.playbackUnlocked = true;
       } catch {
         track.state = "unavailable";
       }
@@ -297,6 +363,41 @@ export class AudioEngine {
     return track.state === "playing";
   }
 
+  async playAsset(
+    assetId: string,
+    options: { channel?: AudioChannel; fadeIn?: boolean; skipProbe?: boolean } = {},
+  ): Promise<boolean> {
+    this.bindVisibility();
+
+    const resolved = resolveAudioAsset(assetId, this.manifestAssets);
+    if (!resolved) return false;
+
+    const channel = options.channel ?? resolved.channel ?? channelForAssetId(assetId);
+
+    if (channel === "ambient") {
+      const existing = this.tracks.get("ambient");
+      if (existing?.assetId === assetId && existing.state === "playing") {
+        return true;
+      }
+    }
+
+    if (options.skipProbe) {
+      return this.playAssetSync(assetId, options);
+    }
+
+    const available = await this.probeAvailability(resolved.src);
+    if (!available) {
+      const existing = this.tracks.get(channel);
+      if (existing?.assetId === assetId) {
+        existing.state = "unavailable";
+        this.notify();
+      }
+      return false;
+    }
+
+    return this.playAssetSync(assetId, options);
+  }
+
   /** Start or resume the global showroom ambient loop without restarting playback. */
   async ensureAmbientPlaying(assetId: string): Promise<boolean> {
     const existing = this.tracks.get("ambient");
@@ -307,8 +408,9 @@ export class AudioEngine {
       }
       if (existing.state === "paused" && !this.preferences.masterMuted) {
         try {
-          await existing.element.play();
+          void existing.element.play();
           existing.state = "playing";
+          this.playbackUnlocked = true;
           this.applyVolume(existing);
           this.notify();
           return true;
@@ -318,6 +420,10 @@ export class AudioEngine {
           return false;
         }
       }
+    }
+
+    if (this.playbackUnlocked) {
+      return this.playAsset(assetId, { channel: "ambient", fadeIn: true, skipProbe: true });
     }
 
     return this.playAsset(assetId, { channel: "ambient", fadeIn: true });
@@ -417,6 +523,12 @@ export class AudioEngine {
 
   destroy(): void {
     this.stopAll();
+    this.playbackUnlocked = false;
+    if (this.unlockProbe) {
+      this.unlockProbe.pause();
+      this.unlockProbe.src = "";
+      this.unlockProbe = null;
+    }
     for (const element of this.elementPool.values()) {
       element.src = "";
     }

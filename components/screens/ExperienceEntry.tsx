@@ -51,7 +51,7 @@ export function ExperienceEntry({
   const handleAttractStart = () => {
     void unlockAudio();
     stopNarration();
-    trackEvent({ type: "session_start", metadata: { phase: "attract_touch" } });
+    trackEvent({ type: "session_start", metadata: { phase: "attract_touch", audioUnlock: true } });
     setPhase("welcome");
   };
 

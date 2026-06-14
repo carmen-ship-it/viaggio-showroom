@@ -1,13 +1,21 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { usePathname } from "next/navigation";
 import { useAudio } from "@/lib/audio/AudioProvider";
+import { ATTRACT_AUDIO_UNLOCK_PATH } from "@/lib/audio/constants";
 import { cn } from "@/lib/utils/cn";
 
 export function AudioUnlockOverlay() {
+  const pathname = usePathname() ?? "";
   const { needsUnlockPrompt, unlockAudio } = useAudio();
 
   if (!needsUnlockPrompt) return null;
+  if (pathname === ATTRACT_AUDIO_UNLOCK_PATH) return null;
+
+  const handleUnlock = () => {
+    void unlockAudio();
+  };
 
   return (
     <motion.button
@@ -20,7 +28,7 @@ export function AudioUnlockOverlay() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      onClick={() => void unlockAudio()}
+      onPointerDown={handleUnlock}
     >
       <div className="mx-6 max-w-md text-center">
         <p className="type-label text-[var(--color-accent-warm)]">Viaggio Motors</p>

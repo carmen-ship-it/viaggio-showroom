@@ -20,6 +20,7 @@ import {
 } from "./audio-session";
 import { DEFAULT_AUDIO_PREFERENCES } from "./constants";
 import { SHOWROOM_AMBIENT_ASSET_ID } from "./host-narration";
+import { SILENT_WAV_DATA_URI } from "./mobile-playback";
 import { AudioEngine } from "./AudioEngine";
 
 interface AudioContextValue {
@@ -96,24 +97,53 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (isAudioUnlockedPersisted()) {
+    const persisted = isAudioUnlockedPersisted();
+    if (persisted) {
       setAudioUnlocked(true);
       setNeedsUnlockPrompt(false);
-      return;
     }
 
     const probe = new Audio();
-    probe.src =
-      "data:audio/wav;base64,UklGRigAAABXQVZFZm10IBIAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAA=";
+    probe.src = SILENT_WAV_DATA_URI;
     probe.volume = 0.001;
-    void probe.play().then(() => {
-      setAudioUnlocked(true);
-      setNeedsUnlockPrompt(false);
-      persistAudioUnlocked();
-    }).catch(() => {
-      setNeedsUnlockPrompt(true);
-    });
+    void probe
+      .play()
+      .then(() => {
+        setAudioUnlocked(true);
+        setNeedsUnlockPrompt(false);
+        persistAudioUnlocked();
+      })
+      .catch(() => {
+        if (!persisted) {
+          setNeedsUnlockPrompt(true);
+        }
+      });
   }, []);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !audioUnlocked) return;
+    const activeEngine = engineRef.current;
+    if (!activeEngine) return;
+    if (activeEngine.getChannelState("ambient") === "playing") return;
+
+    const resumeFromGesture = () => {
+      const engineInstance = engineRef.current;
+      if (!engineInstance) return;
+      const started = engineInstance.unlockFromUserGesture(SHOWROOM_AMBIENT_ASSET_ID);
+      if (started && !ambientStartedRef.current) {
+        ambientStartedRef.current = true;
+        trackEvent({ type: "ambient_start", metadata: { assetId: SHOWROOM_AMBIENT_ASSET_ID } });
+      }
+    };
+
+    window.addEventListener("pointerdown", resumeFromGesture, { once: true, passive: true });
+    window.addEventListener("touchstart", resumeFromGesture, { once: true, passive: true });
+
+    return () => {
+      window.removeEventListener("pointerdown", resumeFromGesture);
+      window.removeEventListener("touchstart", resumeFromGesture);
+    };
+  }, [audioUnlocked]);
 
   useEffect(() => {
     return () => engineRef.current?.destroy();
@@ -123,9 +153,14 @@ export function AudioProvider({ children }: { children: ReactNode }) {
 
   const unlockAudio = useCallback(async () => {
     if (!engine) return;
+    const started = engine.unlockFromUserGesture(SHOWROOM_AMBIENT_ASSET_ID);
     setAudioUnlocked(true);
     setNeedsUnlockPrompt(false);
     persistAudioUnlocked();
+    if (started) {
+      ambientStartedRef.current = true;
+      trackEvent({ type: "ambient_start", metadata: { assetId: SHOWROOM_AMBIENT_ASSET_ID } });
+    }
     trackEvent({ type: "audio_unlocked" });
   }, [engine]);
 
