@@ -41,15 +41,27 @@ export function useHostNarration({
       timerRef.current = null;
     }
 
-    if (!enabled || !audioUnlocked || !trackKey) return;
-    if (!preferences.narrationAutoPlay || preferences.masterMuted) return;
+    const stopOnLeave = () => {
+      stopNarration();
+    };
+
+    if (!enabled || !audioUnlocked || !trackKey) {
+      return stopOnLeave;
+    }
+    if (!preferences.narrationAutoPlay || preferences.masterMuted) {
+      return stopOnLeave;
+    }
 
     const track = getHostTrack(trackKey);
-    if (!track) return;
+    if (!track) {
+      return stopOnLeave;
+    }
 
-    if (!allowReplay && wasHostTrackPlayed(track.sessionKey)) return;
+    if (!allowReplay && wasHostTrackPlayed(track.sessionKey)) {
+      return stopOnLeave;
+    }
     if (track.cooldownMs && isHostTrackOnCooldown(track.sessionKey, track.cooldownMs)) {
-      return;
+      return stopOnLeave;
     }
 
     timerRef.current = setTimeout(() => {
@@ -63,6 +75,7 @@ export function useHostNarration({
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
+      stopNarration();
     };
   }, [
     enabled,
@@ -72,15 +85,9 @@ export function useHostNarration({
     preferences.masterMuted,
     allowReplay,
     playHostNarration,
+    stopNarration,
     screenId,
     tourId,
     topicId,
   ]);
-
-  useEffect(() => {
-    return () => {
-      if (screenId === "S01") return;
-      stopNarration();
-    };
-  }, [screenId, stopNarration]);
 }

@@ -19,7 +19,6 @@ import {
   persistAudioUnlocked,
 } from "./audio-session";
 import { DEFAULT_AUDIO_PREFERENCES } from "./constants";
-import { SHOWROOM_AMBIENT_ASSET_ID } from "./host-narration";
 import { AudioEngine } from "./AudioEngine";
 
 interface AudioContextValue {
@@ -124,13 +123,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     setNeedsUnlockPrompt(false);
     persistAudioUnlocked();
     trackEvent({ type: "audio_unlocked" });
-    if (!preferences.masterMuted) {
-      await engine.playAsset(SHOWROOM_AMBIENT_ASSET_ID, {
-        channel: "ambient",
-        fadeIn: true,
-      });
-    }
-  }, [engine, preferences.masterMuted]);
+  }, [engine]);
 
   const resetAudioSession = useCallback(() => {
     engine?.stopAll();

@@ -16,7 +16,6 @@ export {
 } from "./resolve-audio";
 export {
   HOST_NARRATION_TRACKS,
-  SHOWROOM_AMBIENT_ASSET_ID,
   resolveHostTrackKey,
   getHostTrack,
 } from "./host-narration";

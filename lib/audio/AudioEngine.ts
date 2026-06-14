@@ -7,7 +7,7 @@ import {
   INTERACTION_DEBOUNCE_MS,
 } from "./constants";
 import { CHANNEL_POLICIES } from "./channels";
-import { channelForAssetId, resolveAudioAsset, resolvePlaybackSrc } from "./resolve-audio";
+import { channelForAssetId, resolveAudioAsset } from "./resolve-audio";
 
 interface ActiveTrack {
   assetId: string;
@@ -195,20 +195,15 @@ export class AudioEngine {
     }
 
     const available = await this.probeAvailability(resolved.src);
-    let playbackSrc = resolved.src;
     if (!available) {
-      const wavSrc = resolvePlaybackSrc(resolved.src);
-      if (wavSrc && (await this.probeAvailability(wavSrc))) {
-        playbackSrc = wavSrc;
-      } else {
-        const existing = this.tracks.get(channel);
-        if (existing?.assetId === assetId) {
-          existing.state = "unavailable";
-          this.notify();
-        }
-        return false;
+      const existing = this.tracks.get(channel);
+      if (existing?.assetId === assetId) {
+        existing.state = "unavailable";
+        this.notify();
       }
+      return false;
     }
+    const playbackSrc = resolved.src;
 
     if (policy.exclusive) {
       this.stopChannel(channel, { keepElement: false });

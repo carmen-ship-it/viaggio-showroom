@@ -83,10 +83,3 @@ export function channelForAssetId(assetId: string): AudioChannel {
   return "narration";
 }
 
-/** WAV fallback when MP3 not generated (dev without ffmpeg). */
-export function resolvePlaybackSrc(src: string): string | null {
-  if (src.endsWith(".mp3")) {
-    return src.replace(/\.mp3$/, ".wav");
-  }
-  return null;
-}

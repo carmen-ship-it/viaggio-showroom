@@ -32,11 +32,13 @@ export function useTourNarration({
   const { preferences, playNarration, stopNarration, playInteraction } = useAudio();
   const prevStepRef = useRef<string | null>(null);
 
-  const narrationAssetId = buildNarrationAssetId(personaId, {
+  const rawAssetId = buildNarrationAssetId(personaId, {
     audioAssetId: narrationData?.audioAssetId,
     stepId,
     topicId,
   });
+  const narrationAssetId =
+    rawAssetId?.startsWith("audio-narration-host") === true ? rawAssetId : null;
 
   useEffect(() => {
     if (!enabled || !narrationAssetId) return;

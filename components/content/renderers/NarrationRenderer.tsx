@@ -2,9 +2,9 @@
 
 import { motion } from "framer-motion";
 import { fadeUp, transition } from "@/lib/motion/variants";
-import { buildNarrationAssetId } from "@/lib/audio/resolve-audio";
 import { NarrationControls } from "@/components/audio/NarrationControls";
 import type { NarrationBlockData } from "@/types/blocks";
+import type { ContentTone } from "@/types/content-tone";
 import type { PersonaId } from "@/types/persona";
 import { cn } from "@/lib/utils/cn";
 
@@ -20,6 +20,7 @@ interface NarrationRendererProps {
   personaName?: string;
   personaRole?: string;
   className?: string;
+  tone?: ContentTone;
 }
 
 export function NarrationRenderer({
@@ -28,16 +29,22 @@ export function NarrationRenderer({
   personaName,
   personaRole,
   className,
+  tone = "dark",
 }: NarrationRendererProps) {
+  const isLight = tone === "light";
   const accent = personaId ? PERSONA_COLORS[personaId] : "var(--color-accent)";
-  const narrationAssetId = personaId
-    ? buildNarrationAssetId(personaId, { audioAssetId: data.audioAssetId })
-    : data.audioAssetId ?? null;
+  const narrationAssetId =
+    data.audioAssetId?.startsWith("audio-narration-host") === true
+      ? data.audioAssetId
+      : null;
 
   return (
     <motion.blockquote
       className={cn(
-        "relative rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-8",
+        "relative rounded-2xl border p-6 md:p-8",
+        isLight
+          ? "border-black/10 bg-white shadow-md shadow-black/5"
+          : "border-white/10 bg-white/[0.03]",
         className,
       )}
       initial={fadeUp.initial}
@@ -55,9 +62,23 @@ export function NarrationRenderer({
             {personaName.charAt(0)}
           </div>
           <div>
-            <p className="text-sm font-medium">{personaName}</p>
+            <p
+              className={cn(
+                "text-sm font-semibold",
+                isLight ? "text-[var(--text-on-light)]" : "font-medium text-white",
+              )}
+            >
+              {personaName}
+            </p>
             {personaRole ? (
-              <p className="text-xs text-white/50">{personaRole}</p>
+              <p
+                className={cn(
+                  "text-xs",
+                  isLight ? "text-[var(--text-secondary-on-light)]" : "text-white/50",
+                )}
+              >
+                {personaRole}
+              </p>
             ) : null}
           </div>
         </footer>
@@ -70,10 +91,17 @@ export function NarrationRenderer({
           {data.emphasis}
         </p>
       ) : null}
-      <p className="text-lg leading-relaxed text-white/85 md:text-xl">{data.text}</p>
+      <p
+        className={cn(
+          "text-lg leading-relaxed md:text-xl",
+          isLight ? "text-[var(--text-on-light)]" : "text-white/85",
+        )}
+      >
+        {data.text}
+      </p>
       {narrationAssetId ? (
         <div className="mt-4">
-          <NarrationControls assetId={narrationAssetId} />
+          <NarrationControls assetId={narrationAssetId} tone={tone} />
         </div>
       ) : null}
     </motion.blockquote>

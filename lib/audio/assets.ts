@@ -12,13 +12,6 @@ export interface AudioAssetDefinition {
 
 export const GLOBAL_AUDIO_ASSETS: AudioAssetDefinition[] = [
   {
-    id: "audio-ambient-showroom",
-    src: "/assets/audio/ambient/showroom-loop.mp3",
-    channel: "ambient",
-    loop: true,
-    label: "Música ambiental del showroom",
-  },
-  {
     id: "audio-sfx-nav-tap",
     src: "/assets/audio/sfx/nav-tap.mp3",
     channel: "interaction",
