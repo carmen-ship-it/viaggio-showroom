@@ -87,7 +87,7 @@ export function CompareHubScreen({
   return (
     <div className="flex min-h-screen flex-col bg-[var(--canvas-soft)]">
       <motion.div
-        className="flex flex-1 flex-col gap-8 px-6 py-10 lg:flex-row lg:px-12 lg:py-14"
+        className="flex flex-1 flex-col gap-8 px-6 py-10 lg:flex-row lg:px-[var(--spacing-kiosk)] lg:py-14"
         initial={fadeUp.initial}
         animate={fadeUp.animate}
         transition={transition.reveal}

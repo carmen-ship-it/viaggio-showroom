@@ -17,12 +17,13 @@ const VERDICT_CONFIG: Record<
     label: "Ellos ganan",
     srLabel: "Ventaja competidor",
     className:
-      "border-[var(--color-accent-neutral)]/40 bg-[var(--color-accent-neutral)]/15 text-white/80",
+      "border-[var(--color-accent-neutral)]/50 bg-[var(--color-accent-neutral)]/20 text-white/90",
   },
   tie: {
     label: "Empate",
     srLabel: "Equivalente",
-    className: "border-white/15 bg-white/[0.06] text-white/70",
+    className:
+      "border-white/25 bg-white/[0.1] text-white/90",
   },
 };
 

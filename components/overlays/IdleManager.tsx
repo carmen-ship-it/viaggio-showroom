@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAudioOptional } from "@/lib/audio/AudioProvider";
+import { clearAllHostSessionKeys } from "@/lib/audio/audio-session";
 import { trackEvent } from "@/lib/analytics/trackEvent";
 import { formatScreenLabel } from "@/lib/config/demo-mode";
 import { routes } from "@/lib/navigation/routes";
@@ -13,6 +15,7 @@ const IDLE_RESET_MS = 5 * 60 * 1000;
 
 export function IdleManager() {
   const router = useRouter();
+  const audio = useAudioOptional();
   const [showPrompt, setShowPrompt] = useState(false);
   const promptTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const resetTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -26,11 +29,16 @@ export function IdleManager() {
 
   const resetToAttract = useCallback(() => {
     trackEvent({ type: "session_start", metadata: { action: "idle_reset" } });
+    audio?.stopAll();
+    clearAllHostSessionKeys();
+    if (typeof window !== "undefined") {
+      window.dispatchEvent(new CustomEvent("viaggio-audio-reset"));
+    }
     setShowPrompt(false);
     clearTimers();
     router.push(routes.home());
     router.refresh();
-  }, [clearTimers, router]);
+  }, [audio, clearTimers, router]);
 
   const scheduleIdle = useCallback(() => {
     clearTimers();

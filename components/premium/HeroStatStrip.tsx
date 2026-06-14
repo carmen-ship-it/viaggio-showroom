@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
 import type { VehicleKeyStat } from "@/types/vehicle";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { shouldHighlightPrimaryCta } from "@/lib/config/demo-mode";
 import { fadeUp, transition } from "@/lib/motion/variants";
 import { GlassCard } from "./GlassCard";
 
@@ -12,23 +13,59 @@ interface HeroStatStripProps {
   className?: string;
 }
 
-function parseNumeric(value: string): { prefix: string; num: number; suffix: string } | null {
+type ParsedStat = {
+  prefix: string;
+  num: number;
+  suffix: string;
+  animate: boolean;
+  format: (n: number) => string;
+};
+
+function formatThousandsWithDot(n: number): string {
+  return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function parseStatValue(value: string): ParsedStat | null {
   const match = value.match(/^([^0-9]*)([\d.,]+)(.*)$/);
   if (!match) return null;
-  const num = parseFloat(match[2].replace(/,/g, ""));
+
+  const [, prefix, numPart, suffix] = match;
+
+  // South American thousands: 42.900 → 42900 (not 42.9)
+  if (/^\d{1,3}(\.\d{3})+$/.test(numPart)) {
+    const num = parseInt(numPart.replace(/\./g, ""), 10);
+    return {
+      prefix,
+      num,
+      suffix,
+      animate: true,
+      format: (n) => `${prefix}${formatThousandsWithDot(n)}${suffix}`,
+    };
+  }
+
+  const num = parseFloat(numPart.replace(/,/g, ""));
   if (Number.isNaN(num)) return null;
-  return { prefix: match[1], num, suffix: match[3] };
+
+  const simpleSuffix = suffix === "" || /^\s*HP$/i.test(suffix);
+  return {
+    prefix,
+    num,
+    suffix,
+    animate: simpleSuffix && Number.isInteger(num),
+    format: (n) => `${prefix}${Math.round(n).toLocaleString("es-BO")}${suffix}`,
+  };
 }
 
 function AnimatedStat({ value, label }: VehicleKeyStat) {
   const reduced = useReducedMotion();
+  const kioskStatic = shouldHighlightPrimaryCta();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true });
-  const parsed = parseNumeric(value);
+  const parsed = parseStatValue(value);
   const [display, setDisplay] = useState(value);
 
   useEffect(() => {
-    if (!parsed || reduced || !inView) {
+    if (!parsed?.animate || reduced || kioskStatic || !inView) {
       setDisplay(value);
       return;
     }
@@ -41,13 +78,13 @@ function AnimatedStat({ value, label }: VehicleKeyStat) {
       const progress = Math.min((now - start) / duration, 1);
       const eased = 1 - (1 - progress) ** 3;
       const current = Math.round(parsed.num * eased);
-      setDisplay(`${parsed.prefix}${current.toLocaleString("es-BO")}${parsed.suffix}`);
+      setDisplay(parsed.format(current));
       if (progress < 1) frame = requestAnimationFrame(tick);
     };
 
     frame = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(frame);
-  }, [inView, parsed, reduced, value]);
+  }, [inView, parsed, reduced, kioskStatic, value]);
 
   return (
     <div ref={ref} className="flex flex-col gap-1 px-2 py-1 md:px-4">

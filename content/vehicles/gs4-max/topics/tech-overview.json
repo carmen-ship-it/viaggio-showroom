@@ -22,7 +22,7 @@
       "personaId": "sofia",
       "sortOrder": 1,
       "data": {
-        "text": "Pantalla central de 12.3 pulgadas, conectividad smartphone y asistencias que hacen cada viaje más cómodo y seguro. Es la cabina más completa de su segmento en Santa Cruz.",
+        "text": "Pantalla central de 10,1 pulgadas, conectividad smartphone y asistencias que hacen cada viaje más cómodo y seguro. Es la cabina más completa de su segmento en Santa Cruz.",
         "emphasis": "Tecnología pensada para el conductor boliviano"
       }
     },
@@ -34,7 +34,7 @@
         "features": [
           {
             "icon": "display",
-            "title": "Pantalla 12.3\"",
+            "title": "Pantalla 10,1\"",
             "description": "Interfaz clara y rápida para navegación, música y controles del vehículo."
           },
           {
@@ -61,7 +61,7 @@
       "sortOrder": 3,
       "data": {
         "stats": [
-          { "value": "12.3\"", "label": "Pantalla central" },
+          { "value": "10,1\"", "label": "Pantalla central" },
           { "value": "360°", "label": "Cámara panorámica" }
         ]
       }

@@ -25,40 +25,44 @@ export function ShowroomShell({
   const dealership = getDealership();
   const hideDevChrome = shouldHideDeveloperTools();
   const visibleNavSections = hideDevChrome ? [] : navSections;
+  const kioskBare = hideDevChrome;
 
   return (
     <div
       className={cn(
         "min-h-screen bg-[var(--color-background)] text-[var(--color-foreground)]",
+        kioskBare && "bg-transparent",
         className,
       )}
     >
-      <header className="border-b border-[var(--color-border)] px-4 py-4">
-        <div className="flex items-start justify-between gap-4">
-          <div>
-            <p className="text-xs uppercase tracking-wide text-[var(--color-foreground-muted)]">
-              {dealership.brand}
-            </p>
-            <h1 className="text-lg font-medium">{dealership.name}</h1>
-            {vehicleName ? (
-              <p className="text-sm text-[var(--color-foreground-muted)]">
-                {vehicleName}
+      {!kioskBare ? (
+        <header className="border-b border-[var(--color-border)] px-4 py-4">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs uppercase tracking-wide text-[var(--color-foreground-muted)]">
+                {dealership.brand}
               </p>
+              <h1 className="text-lg font-medium">{dealership.name}</h1>
+              {vehicleName ? (
+                <p className="text-sm text-[var(--color-foreground-muted)]">
+                  {vehicleName}
+                </p>
+              ) : null}
+            </div>
+            {screenId ? (
+              <span className="rounded bg-[var(--color-surface-muted)] px-2 py-1 text-xs">
+                {screenId}
+              </span>
             ) : null}
           </div>
-          {screenId && !hideDevChrome ? (
-            <span className="rounded bg-[var(--color-surface-muted)] px-2 py-1 text-xs">
-              {screenId}
-            </span>
-          ) : null}
-        </div>
-      </header>
+        </header>
+      ) : null}
 
       {visibleNavSections.length > 0 ? (
         <ShowroomNav sections={visibleNavSections} currentPath={currentPath} />
       ) : null}
 
-      <main className="px-4 py-6">{children}</main>
+      <main className={cn(kioskBare ? "p-0" : "px-4 py-6")}>{children}</main>
     </div>
   );
 }

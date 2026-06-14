@@ -96,7 +96,7 @@ export function TourPlayer({
   const accentColor = isFamily ? "#D4C4B0" : "var(--color-accent-trust)";
 
   return (
-    <div className="flex min-h-screen flex-col overflow-hidden bg-[var(--canvas-deep)]">
+    <div className="flex min-h-screen max-h-screen flex-col overflow-hidden bg-[var(--canvas-deep)]">
       <div className="relative h-1 w-full shrink-0 bg-white/5">
         <motion.div
           className="h-full"
@@ -131,10 +131,10 @@ export function TourPlayer({
           exit={crossfade.exit}
           transition={transition.crossfade}
         >
-          <div className="relative mx-4 shrink-0 md:mx-[var(--spacing-kiosk)] lg:h-[48vh] lg:min-h-[420px]">
+          <div className="relative mx-4 shrink-0 md:mx-[var(--spacing-kiosk)] lg:max-h-[42vh] lg:min-h-[320px]">
             <TourMedia
               mediaId={String(stepMediaId)}
-              className="h-[38vh] min-h-[320px] lg:absolute lg:inset-0 lg:h-full lg:min-h-0"
+              className="h-[32vh] min-h-[280px] max-h-[42vh] lg:absolute lg:inset-0 lg:h-full lg:max-h-none lg:min-h-0"
               title={current.title}
               transitionLine={index > 0 ? current.transitionLine : undefined}
               showStepCaption={false}
@@ -179,12 +179,12 @@ export function TourPlayer({
           </div>
 
           {current.topic ? (
-            <div className="shrink-0 px-6 py-4 md:px-[var(--spacing-kiosk)] md:py-6">
+            <div className="max-h-[26vh] shrink-0 overflow-y-auto px-6 py-3 md:px-[var(--spacing-kiosk)] md:py-4">
               <TopicRenderer
                 topic={current.topic}
                 persona={persona}
                 heroFullBleed={false}
-                className="gap-6"
+                className="gap-4"
               />
             </div>
           ) : hideDevChrome ? null : (

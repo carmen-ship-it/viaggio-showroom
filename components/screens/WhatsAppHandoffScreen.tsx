@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Dealership } from "@/types/dealership";
@@ -18,6 +18,7 @@ import {
   getOrCreateResumeToken,
 } from "@/lib/session/resume-token";
 import { useSession } from "@/lib/session/SessionProvider";
+import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import { trackEvent } from "@/lib/analytics/trackEvent";
 
 const TOPIC_LABELS: Record<string, string> = {
@@ -53,6 +54,8 @@ export function WhatsAppHandoffScreen({
 
   const [resumeToken, setResumeToken] = useState("");
   const [resumeUrl, setResumeUrl] = useState("");
+  const { playQrReveal } = useInteractionSound();
+  const qrPlayedRef = useRef(false);
 
   useEffect(() => {
     recordTrustSignal("whatsapp_intent");
@@ -64,6 +67,13 @@ export function WhatsAppHandoffScreen({
     setResumeToken(token);
     setResumeUrl(buildResumeUrl(window.location.origin, vehicle.slug, token));
   }, [vehicle.slug]);
+
+  useEffect(() => {
+    if (qrPlayedRef.current) return;
+    qrPlayedRef.current = true;
+    const timer = setTimeout(() => playQrReveal(), 400);
+    return () => clearTimeout(timer);
+  }, [playQrReveal]);
 
   const topicLabels = topicsVisited
     .slice(0, 4)

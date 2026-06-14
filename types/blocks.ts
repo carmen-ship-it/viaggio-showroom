@@ -7,6 +7,11 @@ export interface HeroBlockData {
 export interface NarrationBlockData {
   text: string;
   emphasis?: string;
+  /** Maps to media-manifest or lib/audio/assets registry */
+  audioAssetId?: string;
+  /** Kiosk auto-advance vs full script when both variants exist */
+  variant?: "short" | "full";
+  autoPlay?: boolean;
 }
 
 export interface FeatureGridItem {

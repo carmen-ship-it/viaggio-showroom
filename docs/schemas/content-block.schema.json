@@ -54,7 +54,10 @@
             "required": ["text"],
             "properties": {
               "text": { "type": "string" },
-              "emphasis": { "type": "string" }
+              "emphasis": { "type": "string" },
+              "audioAssetId": { "type": "string" },
+              "variant": { "type": "string", "enum": ["short", "full"] },
+              "autoPlay": { "type": "boolean" }
             },
             "additionalProperties": false
           }

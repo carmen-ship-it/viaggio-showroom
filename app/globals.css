@@ -186,3 +186,12 @@ html[data-reduce-motion="true"] *::after {
       0 0 32px rgba(200, 169, 110, 0.45);
   }
 }
+
+html[data-audio-muted="true"] [data-audio-indicator] {
+  opacity: 0.5;
+}
+
+html[data-headphone-mode="true"] {
+  --audio-ambient-bias: 0.55;
+  --audio-narration-bias: 1.15;
+}

@@ -8,6 +8,8 @@ import { CinematicShell } from "@/components/cinematic/CinematicShell";
 import { PageTransition } from "@/components/cinematic/PageTransition";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { useSession, type VisitorPath } from "@/lib/session/SessionProvider";
+import { useAudio } from "@/lib/audio/AudioProvider";
+import { useHostNarration } from "@/lib/audio/useHostNarration";
 import { trackEvent } from "@/lib/analytics/trackEvent";
 import { demoModeConfig } from "@/lib/config/demo-mode";
 import { AttractLoop } from "./AttractLoop";
@@ -37,7 +39,21 @@ export function ExperienceEntry({
 }: ExperienceEntryProps) {
   const router = useRouter();
   const { setVisitorPath } = useSession();
+  const { unlockAudio, stopNarration } = useAudio();
   const [phase, setPhase] = useState<EntryPhase>("attract");
+
+  useHostNarration({
+    screenId: "S01",
+    enabled: phase === "attract",
+    allowReplay: true,
+  });
+
+  const handleAttractStart = () => {
+    void unlockAudio();
+    stopNarration();
+    trackEvent({ type: "session_start", metadata: { phase: "attract_touch" } });
+    setPhase("welcome");
+  };
 
   const handleContinue = (path: VisitorPath) => {
     const resolvedPath =
@@ -67,10 +83,7 @@ export function ExperienceEntry({
             tagline={tagline}
             brand={brand}
             vehicleModelName={vehicle.modelName}
-            onStart={() => {
-              trackEvent({ type: "session_start", metadata: { phase: "attract_touch" } });
-              setPhase("welcome");
-            }}
+            onStart={handleAttractStart}
           />
         ) : (
           <WelcomeScreen

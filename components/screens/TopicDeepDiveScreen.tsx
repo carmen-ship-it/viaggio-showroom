@@ -35,8 +35,8 @@ export function TopicDeepDiveScreen({
   }, [topicId, recordTopicVisit, recordTrustSignal]);
 
   return (
-    <div className="flex min-h-screen flex-col">
-      <div className="flex-1 px-6 py-16 md:px-[var(--spacing-kiosk)] md:py-20">
+    <div className="flex min-h-screen max-h-screen flex-col overflow-hidden">
+      <div className="min-h-0 flex-1 overflow-y-auto px-6 py-16 md:px-[var(--spacing-kiosk)] md:py-20">
         <p className="type-label text-[var(--color-accent-trust)]">
           {formatScreenLabel("S08 · Tema")}
         </p>
@@ -50,6 +50,7 @@ export function TopicDeepDiveScreen({
         backLabel={backLabel}
         nextHref={nextHref}
         nextLabel={nextLabel}
+        className="shrink-0 border-t border-white/10 bg-[var(--canvas-deep)]/95 backdrop-blur-xl"
       />
     </div>
   );

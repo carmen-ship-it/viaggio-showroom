@@ -6,6 +6,8 @@ import {
   shouldDisableExplorationBranches,
   shouldHideSettings,
 } from "@/lib/config/demo-mode";
+import { MuteButton } from "@/components/audio/MuteButton";
+import { HeadphoneModeBadge } from "@/components/audio/HeadphoneModeBadge";
 import { useA11y } from "@/lib/a11y/A11yProvider";
 
 interface GlobalHeaderProps {
@@ -38,18 +40,20 @@ export function GlobalHeader({
   );
 
   return (
-    <header className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-6 py-5">
+    <header className="absolute left-0 right-0 top-0 z-30 flex items-center justify-between px-6 py-5 md:px-[var(--spacing-kiosk)]">
       {lockNavigation ? (
-        <div className="flex flex-col gap-1">{brandBlock}</div>
+        <div className="flex min-w-0 flex-col gap-1">{brandBlock}</div>
       ) : (
-        <Link href="/" className="flex flex-col gap-1">
+        <Link href="/" className="flex min-w-0 flex-col gap-1">
           {brandBlock}
         </Link>
       )}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 md:gap-4">
+        <HeadphoneModeBadge className="hidden md:inline-flex" />
         {vehicleName ? (
           <span className="hidden text-sm text-white/50 md:block">{vehicleName}</span>
         ) : null}
+        <MuteButton />
         {showSettings && !hideSettings ? (
           <button
             type="button"

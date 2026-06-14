@@ -23,6 +23,7 @@ import { routes } from "@/lib/navigation/routes";
 import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
 import { useSession } from "@/lib/session/SessionProvider";
 import { trackEvent } from "@/lib/analytics/trackEvent";
+import { cn } from "@/lib/utils/cn";
 
 interface ConversionHubScreenProps {
   vehicle: Vehicle;
@@ -44,12 +45,8 @@ const TOPIC_LABELS: Record<string, string> = {
   "family-trips": "Viajes en familia",
 };
 
-export function ConversionHubScreen({
-  vehicle,
-  dealership,
-  formContent: _formContent,
-  backHref,
-}: ConversionHubScreenProps) {
+export function ConversionHubScreen(props: ConversionHubScreenProps) {
+  const { vehicle, dealership, backHref } = props;
   const {
     topicsVisited,
     compareTarget,
@@ -154,7 +151,12 @@ export function ConversionHubScreen({
       </div>
 
       <motion.div
-        className="grid flex-1 gap-5 px-6 py-10 md:grid-cols-2 md:px-12 md:py-12"
+        className={cn(
+          "grid flex-1 gap-5 px-6 py-10 md:px-[var(--spacing-kiosk)] md:py-12",
+          hideExploration
+            ? "mx-auto w-full max-w-3xl md:grid-cols-1"
+            : "md:grid-cols-2 md:px-12",
+        )}
         variants={staggerContainer}
         initial="initial"
         animate="animate"
@@ -202,7 +204,7 @@ export function ConversionHubScreen({
         ) : null}
       </motion.div>
 
-      <footer className="border-t border-white/10 px-6 py-8 md:px-12">
+      <footer className="border-t border-white/10 px-6 py-8 md:px-[var(--spacing-kiosk)]">
         <div className="mx-auto max-w-4xl text-base text-white/50">
           <p className="font-medium text-white/70">{dealership.name}</p>
           <p className="mt-2">{dealership.address}</p>

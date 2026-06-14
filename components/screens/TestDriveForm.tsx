@@ -305,7 +305,7 @@ export function TestDriveForm({
       </Link>
     </motion.div>
   ) : (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-5">
       <label className="block">
         <span
           className={cn(
@@ -515,9 +515,9 @@ export function TestDriveForm({
         disabled={submitting}
         whileTap={{ scale: 0.98 }}
         className={cn(
-          "min-h-[56px] w-full rounded-full text-base font-semibold disabled:opacity-60",
+          "sticky bottom-4 z-20 min-h-[56px] w-full rounded-full text-base font-semibold disabled:opacity-60 shadow-lg",
           light
-            ? "bg-[var(--canvas-deep)] text-white"
+            ? "bg-[var(--canvas-deep)] text-white shadow-black/15"
             : "bg-[var(--color-accent-trust)] text-white",
         )}
       >
@@ -559,7 +559,7 @@ export function TestDriveForm({
         animate={false}
       />
       <motion.div
-        className="relative z-10 mx-auto max-w-xl px-6 py-12 md:py-16"
+        className="relative z-10 mx-auto max-w-xl px-6 py-10 md:py-12"
         initial={fadeUp.initial}
         animate={fadeUp.animate}
         transition={transition.normal}
@@ -577,7 +577,8 @@ export function TestDriveForm({
         <TouchNav
           backHref={backHref}
           backLabel="Volver"
-          className="relative z-10 border-t border-black/10"
+          variant="light"
+          className="sticky bottom-0 z-10 border-t border-black/10 bg-white/95 backdrop-blur-xl"
         />
       ) : null}
     </div>

@@ -115,7 +115,7 @@ export function TrustStoryScreen({
         })}
       </div>
 
-      <div className="border-t border-white/10 bg-[var(--canvas-soft)]">
+      <div className="border-t border-white/10 bg-[var(--canvas-soft)] shrink-0">
         <TouchNav
           backHref={backHref}
           backLabel="Preguntas frecuentes"

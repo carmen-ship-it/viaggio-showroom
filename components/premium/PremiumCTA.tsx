@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import { cn } from "@/lib/utils/cn";
 
 type CTATier = "primary" | "secondary" | "tertiary" | "soft";
@@ -41,6 +42,13 @@ export function PremiumCTA({
   className,
   accent = "white",
 }: PremiumCTAProps) {
+  const { playCtaTap } = useInteractionSound();
+
+  const handleClick = () => {
+    playCtaTap();
+    onClick?.();
+  };
+
   const classes = cn(
     "inline-flex items-center justify-center transition-colors duration-300",
     tierStyles[tier],
@@ -50,7 +58,7 @@ export function PremiumCTA({
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={href} className={classes} onClick={playCtaTap}>
         {children}
       </Link>
     );
@@ -59,7 +67,7 @@ export function PremiumCTA({
   return (
     <motion.button
       type="button"
-      onClick={onClick}
+      onClick={handleClick}
       whileTap={{ scale: 0.98 }}
       className={classes}
     >

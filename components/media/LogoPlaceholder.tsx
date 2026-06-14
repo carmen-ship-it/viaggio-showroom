@@ -133,17 +133,29 @@ export function CoBrandLockup({
   variant?: "dark" | "light";
 }) {
   return (
-    <div className={cn("flex items-center gap-4", className)}>
-      <LogoPlaceholder logoId="logo-viaggio-full" height={24} variant={variant} />
+    <div className={cn("flex max-w-[min(100%,22rem)] items-center gap-3 sm:gap-4", className)}>
+      <LogoPlaceholder
+        logoId="logo-viaggio-full"
+        height={24}
+        variant={variant}
+        preferManifest={false}
+        className="max-w-[9rem] shrink-0"
+      />
       <span
         className={cn(
-          "text-[10px]",
+          "shrink-0 text-[10px]",
           variant === "light" ? "text-black/20" : "text-white/25",
         )}
       >
         ×
       </span>
-      <LogoPlaceholder logoId="logo-gac-full" height={24} variant={variant} />
+      <LogoPlaceholder
+        logoId="logo-gac-full"
+        height={24}
+        variant={variant}
+        preferManifest={false}
+        className="max-w-[8rem] shrink-0"
+      />
     </div>
   );
 }

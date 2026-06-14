@@ -101,11 +101,16 @@ export function VehicleHero({
         </div>
 
         <motion.div
-          className="border-t border-white/10 bg-[var(--canvas-deep)]/85 px-6 py-8 backdrop-blur-2xl md:px-[var(--spacing-kiosk)]"
+          className="border-t border-white/10 bg-[var(--canvas-deep)]/85 px-6 py-6 backdrop-blur-2xl md:px-[var(--spacing-kiosk)]"
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...transition.reveal, delay: 0.45 }}
         >
+          {hideExploration ? (
+            <p className="mb-3 text-sm text-white/45">
+              Seguí el recorrido guiado — el siguiente paso te espera abajo.
+            </p>
+          ) : null}
           <div className="flex flex-wrap items-center gap-3 md:gap-4">
             {!hideExploration ? (
               <>

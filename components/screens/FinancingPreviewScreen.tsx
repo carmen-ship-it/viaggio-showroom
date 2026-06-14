@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
+import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import type { FinancingData } from "@/lib/content/financing";
 import type { Vehicle } from "@/types/vehicle";
 import { TouchNav } from "@/components/cinematic/TouchNav";
@@ -42,6 +43,7 @@ export function FinancingPreviewScreen({
   backHref,
 }: FinancingPreviewScreenProps) {
   const router = useRouter();
+  const { playSuccess } = useInteractionSound();
   const {
     financingSelection,
     setFinancingSelection,
@@ -111,6 +113,7 @@ export function FinancingPreviewScreen({
   const handleConfirmInterest = () => {
     setFinancingInterestFlagged(true);
     recordTrustSignal("financing_interest");
+    playSuccess();
   };
 
   return (
@@ -175,7 +178,7 @@ export function FinancingPreviewScreen({
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.2 }}
-                  className="mt-3 font-mono text-5xl font-medium tracking-tight md:text-6xl"
+                  className="mt-3 font-mono text-4xl font-medium tracking-tight md:text-5xl lg:text-[3.25rem]"
                 >
                   {formatCurrency(cuotaRange.min, financing.currency)}
                   <span className="mx-2 text-2xl text-[var(--text-secondary-on-light)]">
@@ -407,6 +410,8 @@ export function FinancingPreviewScreen({
           router.push(routes.convert(vehicle.slug));
         }}
         nextLabel="Dar el siguiente paso"
+        variant="light"
+        className="sticky bottom-0 z-20"
       />
     </div>
   );

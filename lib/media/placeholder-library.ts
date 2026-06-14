@@ -129,7 +129,7 @@ const EXPLICIT: Record<string, Omit<FallbackSpec, "mediaId">> = {
   "gs4-max-int-dashboard": {
     treatment: "interior-cockpit",
     strategy: "static-silhouette",
-    caption: "Tablero digital con pantalla central 12,3″ y ADAS",
+    caption: "Tablero digital con pantalla central 10,1″ y ADAS",
     label: "DASHBOARD",
     gradient: GRADIENTS.interior,
     accent: "#4A9B8E",

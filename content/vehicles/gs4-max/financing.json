@@ -37,7 +37,7 @@
     {
       "id": "full-awd",
       "label": "GS4 MAX Full Equipo AWD",
-      "priceFromUsd": 46900,
+      "priceFromUsd": 48900,
       "cuotas": {
         "12": { "min": 4180, "max": 4480 },
         "24": { "min": 2380, "max": 2560 },

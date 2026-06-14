@@ -48,7 +48,7 @@ export function FAQScreen({
 
   return (
     <div className="flex min-h-screen flex-col bg-[var(--canvas-soft)]">
-      <div className="flex flex-1 flex-col gap-8 px-6 py-10 lg:flex-row lg:px-12 lg:py-14">
+      <div className="flex flex-1 flex-col gap-8 px-6 py-10 lg:flex-row lg:px-[var(--spacing-kiosk)] lg:py-14">
         <aside className="lg:w-[35%] lg:shrink-0">
           <PersonaPortrait persona={persona} size="lg" className="lg:sticky lg:top-24" />
         </aside>
@@ -78,7 +78,9 @@ export function FAQScreen({
                     )}
                     aria-expanded={isOpen}
                   >
-                    <span className="pr-4 text-xl font-medium">{item.question}</span>
+                    <span className="pr-4 text-xl font-medium leading-snug text-balance">
+                      {item.question}
+                    </span>
                     <span
                       className={cn(
                         "text-2xl transition-transform",

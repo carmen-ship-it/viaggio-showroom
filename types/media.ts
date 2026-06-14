@@ -1,4 +1,4 @@
-export type MediaType = "image" | "video";
+export type MediaType = "image" | "video" | "audio";
 
 export type MediaCategory =
   | "exterior"
@@ -6,7 +6,8 @@ export type MediaCategory =
   | "detail"
   | "lifestyle"
   | "persona"
-  | "brand";
+  | "brand"
+  | "audio";
 
 export interface MediaAsset {
   id: string;

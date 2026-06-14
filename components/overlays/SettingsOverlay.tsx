@@ -5,6 +5,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { trackEvent } from "@/lib/analytics/trackEvent";
 import { formatScreenId } from "@/lib/config/demo-mode";
 import { useA11y, type TextScale } from "@/lib/a11y/A11yProvider";
+import { useAudio } from "@/lib/audio/AudioProvider";
 import { routes } from "@/lib/navigation/routes";
 import { cn } from "@/lib/utils/cn";
 
@@ -22,6 +23,15 @@ export function SettingsOverlay() {
     reduceMotion,
     setReduceMotion,
   } = useA11y();
+  const {
+    preferences: audioPrefs,
+    setMasterMuted,
+    setAmbientVolume,
+    setNarrationVolume,
+    setNarrationAutoPlay,
+    setInteractionSoundsEnabled,
+    setHeadphoneMode,
+  } = useAudio();
 
   const handleRestart = () => {
     trackEvent({ type: "session_start", metadata: { action: "restart" } });
@@ -132,6 +142,63 @@ export function SettingsOverlay() {
                   });
                 }}
               />
+
+              <section className="space-y-4">
+                <div>
+                  <p className="text-sm font-medium">Audio</p>
+                  <p className="mt-1 text-sm text-[var(--text-secondary-on-light)]">
+                    Música ambiental, narración y sonidos de interacción
+                  </p>
+                </div>
+
+                <ToggleRow
+                  label="Silenciar todo"
+                  description="Desactiva música, voz y efectos"
+                  checked={audioPrefs.masterMuted}
+                  onChange={(checked) => {
+                    setMasterMuted(checked);
+                  }}
+                />
+
+                <ToggleRow
+                  label="Modo audífonos"
+                  description="Menos ambiente, voz más clara — ideal con auriculares"
+                  checked={audioPrefs.headphoneMode}
+                  onChange={(checked) => {
+                    setHeadphoneMode(checked);
+                  }}
+                />
+
+                <ToggleRow
+                  label="Narración automática"
+                  description="Reproduce la voz al cambiar de pantalla o paso"
+                  checked={audioPrefs.narrationAutoPlay}
+                  onChange={(checked) => {
+                    setNarrationAutoPlay(checked);
+                  }}
+                />
+
+                <ToggleRow
+                  label="Sonidos de interacción"
+                  description="Toques suaves en botones y transiciones"
+                  checked={audioPrefs.interactionSoundsEnabled}
+                  onChange={(checked) => {
+                    setInteractionSoundsEnabled(checked);
+                  }}
+                />
+
+                <VolumeSlider
+                  label="Volumen ambiental"
+                  value={audioPrefs.ambientVolume}
+                  onChange={setAmbientVolume}
+                />
+
+                <VolumeSlider
+                  label="Volumen de narración"
+                  value={audioPrefs.narrationVolume}
+                  onChange={setNarrationVolume}
+                />
+              </section>
             </div>
 
             <div className="border-t border-black/8 px-6 py-6">
@@ -147,6 +214,36 @@ export function SettingsOverlay() {
         </>
       ) : null}
     </AnimatePresence>
+  );
+}
+
+function VolumeSlider({
+  label,
+  value,
+  onChange,
+}: {
+  label: string;
+  value: number;
+  onChange: (value: number) => void;
+}) {
+  return (
+    <label className="block rounded-2xl border border-black/8 bg-white px-5 py-4">
+      <span className="flex items-center justify-between text-sm font-medium">
+        {label}
+        <span className="text-[var(--text-secondary-on-light)]">{Math.round(value * 100)}%</span>
+      </span>
+      <input
+        type="range"
+        min={0}
+        max={100}
+        value={Math.round(value * 100)}
+        onChange={(e) => onChange(Number(e.target.value) / 100)}
+        className="mt-3 h-2 w-full cursor-pointer accent-[var(--color-accent-trust)]"
+        aria-valuemin={0}
+        aria-valuemax={100}
+        aria-valuenow={Math.round(value * 100)}
+      />
+    </label>
   );
 }
 

@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "validate:content": "node scripts/validate-content.mjs"
+    "validate:content": "node scripts/validate-content.mjs",
+    "generate:audio": "bash scripts/generate-audio-assets.sh || python3 scripts/generate-audio-assets.py"
   },
   "dependencies": {
     "ajv": "^8.20.0",

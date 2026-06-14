@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { fadeUp, transition } from "@/lib/motion/variants";
+import { buildNarrationAssetId } from "@/lib/audio/resolve-audio";
+import { NarrationControls } from "@/components/audio/NarrationControls";
 import type { NarrationBlockData } from "@/types/blocks";
 import type { PersonaId } from "@/types/persona";
 import { cn } from "@/lib/utils/cn";
@@ -28,6 +30,9 @@ export function NarrationRenderer({
   className,
 }: NarrationRendererProps) {
   const accent = personaId ? PERSONA_COLORS[personaId] : "var(--color-accent)";
+  const narrationAssetId = personaId
+    ? buildNarrationAssetId(personaId, { audioAssetId: data.audioAssetId })
+    : data.audioAssetId ?? null;
 
   return (
     <motion.blockquote
@@ -66,6 +71,11 @@ export function NarrationRenderer({
         </p>
       ) : null}
       <p className="text-lg leading-relaxed text-white/85 md:text-xl">{data.text}</p>
+      {narrationAssetId ? (
+        <div className="mt-4">
+          <NarrationControls assetId={narrationAssetId} />
+        </div>
+      ) : null}
     </motion.blockquote>
   );
 }

@@ -1,9 +1,10 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { crossfade, fadeUp, transition } from "@/lib/motion/variants";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 
 interface PageTransitionProps {
   children: ReactNode;
@@ -19,6 +20,18 @@ export function PageTransition({
   variant = "crossfade",
 }: PageTransitionProps) {
   const reducedMotion = useReducedMotion();
+  const { playTransition } = useInteractionSound();
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+    if (!reducedMotion) {
+      playTransition();
+    }
+  }, [transitionKey, reducedMotion, playTransition]);
 
   if (reducedMotion) {
     return <div className={className}>{children}</div>;

@@ -10,7 +10,14 @@ export type ConversionEventType =
   | "compare_view"
   | "test_drive_intent"
   | "whatsapp_click"
-  | "consultant_handoff";
+  | "consultant_handoff"
+  | "audio_settings_changed"
+  | "ambient_start"
+  | "narration_start"
+  | "narration_pause"
+  | "narration_resume"
+  | "audio_muted"
+  | "audio_unlocked";
 
 export interface AnalyticsEventPayload {
   type: ConversionEventType;

@@ -9,13 +9,13 @@
     "vehicleSlug": { "type": "string" },
     "type": {
       "type": "string",
-      "enum": ["image", "video"]
+      "enum": ["image", "video", "audio"]
     },
     "src": { "type": "string" },
     "alt": { "type": "string" },
     "category": {
       "type": "string",
-      "enum": ["exterior", "interior", "detail", "lifestyle", "persona", "brand"]
+      "enum": ["exterior", "interior", "detail", "lifestyle", "persona", "brand", "audio"]
     },
     "tags": {
       "type": "array",

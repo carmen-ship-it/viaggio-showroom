@@ -8,6 +8,7 @@ import { FallbackArtwork } from "@/components/media/fallback-art/FallbackArtwork
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { getFallbackSpec } from "@/lib/media/placeholder-library";
 import { shouldHideComingSoonVehicles } from "@/lib/config/demo-mode";
+import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import { routes } from "@/lib/navigation/routes";
 import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
 import { cn } from "@/lib/utils/cn";
@@ -27,6 +28,8 @@ export function VehicleSelector({
   dealershipName,
   heroStats = [],
 }: VehicleSelectorProps) {
+  const { playCardSelect } = useInteractionSound();
+
   const sorted = [...vehicles].sort(
     (a, b) => (a.launchPriority ?? 99) - (b.launchPriority ?? 99),
   );
@@ -43,7 +46,7 @@ export function VehicleSelector({
       <GlobalHeader brand={brand} dealershipName={dealershipName} />
       <div
         className={cn(
-          "flex min-h-screen flex-col px-6 py-24 md:px-12",
+          "flex min-h-screen flex-col px-6 py-24 md:px-[var(--spacing-kiosk)] md:py-28",
           soloHero && "justify-center",
         )}
       >
@@ -65,7 +68,11 @@ export function VehicleSelector({
             soloHero ? "mx-auto w-full max-w-5xl" : "lg:grid-cols-[1.4fr_1fr]",
           )}
         >
-          <Link href={routes.vehicleHero(hero.slug)} className="group block">
+          <Link
+            href={routes.vehicleHero(hero.slug)}
+            className="group block"
+            onClick={playCardSelect}
+          >
             <motion.article
               className={cn(
                 "relative overflow-hidden rounded-3xl border border-[var(--color-accent-warm)]/25",
