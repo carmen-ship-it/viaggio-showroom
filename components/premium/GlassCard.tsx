@@ -8,7 +8,7 @@ import { fadeUp, transition } from "@/lib/motion/variants";
 interface GlassCardProps {
   children: ReactNode;
   className?: string;
-  variant?: "default" | "inset" | "elevated";
+  variant?: "default" | "inset" | "elevated" | "light";
   accent?: "warm" | "trust" | "sofia" | "carlos" | "none";
   animate?: boolean;
 }
@@ -30,7 +30,9 @@ export function GlassCard({
 }: GlassCardProps) {
   const base = cn(
     "rounded-2xl border backdrop-blur-xl",
-    variant === "inset"
+    variant === "light"
+      ? "border-black/10 bg-white text-[var(--text-on-light)] shadow-lg shadow-black/5"
+      : variant === "inset"
       ? "border-white/8 bg-[var(--surface-glass)]"
       : variant === "elevated"
         ? "border-white/12 bg-white/[0.1] shadow-2xl shadow-black/30"

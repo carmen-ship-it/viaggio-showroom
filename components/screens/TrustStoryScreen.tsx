@@ -44,7 +44,9 @@ export function TrustStoryScreen({
               key={chapter.id}
               className={cn(
                 "relative flex min-h-screen snap-start flex-col justify-center px-6 py-20 md:px-[var(--spacing-kiosk)]",
-                isDark ? "bg-[var(--canvas-deep)]" : "bg-[var(--canvas-light)] text-[var(--text-on-light)]",
+                isDark
+                  ? "bg-[var(--canvas-deep)] text-white"
+                  : "bg-[var(--canvas-light)] text-[var(--text-on-light)]",
               )}
             >
               {chapter.mediaId ? (
@@ -52,6 +54,7 @@ export function TrustStoryScreen({
                   mediaId={chapter.mediaId}
                   variant={isDark ? "dark" : "light"}
                   animate={!isDark}
+                  opacity={isDark ? 0.4 : 0.22}
                 />
               ) : null}
               <div className="relative z-10 mx-auto w-full max-w-4xl">
@@ -69,12 +72,19 @@ export function TrustStoryScreen({
                   >
                     Capítulo {index + 1}
                   </p>
-                  <h2 className="type-headline mt-4 text-balance">{chapter.title}</h2>
+                  <h2
+                    className={cn(
+                      "type-headline mt-4 text-balance",
+                      isDark ? "text-white" : "text-[var(--text-on-light)]",
+                    )}
+                  >
+                    {chapter.title}
+                  </h2>
                   {chapter.subtitle ? (
                     <p
                       className={cn(
                         "type-kiosk-lead mt-6 max-w-2xl",
-                        isDark ? "text-white/65" : "text-[var(--text-secondary-on-light)]",
+                        isDark ? "text-white/80" : "text-[var(--text-secondary-on-light)]",
                       )}
                     >
                       {chapter.subtitle}
@@ -90,6 +100,7 @@ export function TrustStoryScreen({
                           block={block}
                           vehicleSlug={story.vehicleSlug}
                           persona={persona}
+                          tone={isDark ? "dark" : "light"}
                         />
                       ))}
                   </div>
@@ -98,14 +109,35 @@ export function TrustStoryScreen({
                     <div
                       className={cn(
                         "mt-10 rounded-2xl border p-6",
-                        isDark ? "border-white/10 bg-black/30" : "border-black/10 bg-white/80",
+                        isDark
+                          ? "border-white/10 bg-black/30"
+                          : "border-black/10 bg-white shadow-md shadow-black/5",
                       )}
                     >
-                      <p className="text-sm font-medium uppercase tracking-wider opacity-60">
+                      <p
+                        className={cn(
+                          "text-sm font-medium uppercase tracking-wider",
+                          isDark ? "text-white/70" : "text-[var(--text-secondary-on-light)]",
+                        )}
+                      >
                         Showroom Santa Cruz
                       </p>
-                      <p className="mt-2 text-lg">{dealership.address}</p>
-                      <p className="mt-1 text-sm opacity-70">{dealership.hours.weekdays}</p>
+                      <p
+                        className={cn(
+                          "mt-2 text-lg",
+                          isDark ? "text-white" : "text-[var(--text-on-light)]",
+                        )}
+                      >
+                        {dealership.address}
+                      </p>
+                      <p
+                        className={cn(
+                          "mt-1 text-sm",
+                          isDark ? "text-white/75" : "text-[var(--text-secondary-on-light)]",
+                        )}
+                      >
+                        {dealership.hours.weekdays}
+                      </p>
                     </div>
                   ) : null}
                 </motion.div>

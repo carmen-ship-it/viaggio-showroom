@@ -23,8 +23,8 @@
   --color-persona-carlos: #4a6fa5;
   --color-persona-sofia: #b8a0a0;
   --color-persona-diego: #6b8e6b;
-  --text-on-light: #1d1d1f;
-  --text-secondary-on-light: #6e6e73;
+  --text-on-light: #1f2937;
+  --text-secondary-on-light: #4b5563;
   --spacing-kiosk: 7.5rem;
   --spacing-section: 3rem;
   --spacing-section-lg: 4rem;
@@ -133,7 +133,7 @@ html[data-text-scale="l"] {
 
 html[data-high-contrast="true"] {
   --text-secondary: rgba(255, 255, 255, 0.92);
-  --text-secondary-on-light: #3a3a3c;
+  --text-secondary-on-light: #374151;
 }
 
 html[data-reduce-motion="true"] *,

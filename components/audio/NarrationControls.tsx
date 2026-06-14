@@ -2,14 +2,21 @@
 
 import { cn } from "@/lib/utils/cn";
 import { useAudio } from "@/lib/audio/AudioProvider";
+import type { ContentTone } from "@/types/content-tone";
 
 interface NarrationControlsProps {
   assetId: string | null;
   className?: string;
   compact?: boolean;
+  tone?: ContentTone;
 }
 
-export function NarrationControls({ assetId, className, compact = false }: NarrationControlsProps) {
+export function NarrationControls({
+  assetId,
+  className,
+  compact = false,
+  tone = "dark",
+}: NarrationControlsProps) {
   const {
     preferences,
     playNarration,
@@ -37,13 +44,18 @@ export function NarrationControls({ assetId, className, compact = false }: Narra
     }
   };
 
+  const isLight = tone === "light";
+
   return (
     <button
       type="button"
       onClick={handleToggle}
       aria-label={isPlaying ? "Pausar narración" : "Reproducir narración"}
       className={cn(
-        "inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 text-sm font-medium text-white/80 backdrop-blur-sm transition-colors hover:bg-white/10",
+        "inline-flex min-h-[44px] items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors",
+        isLight
+          ? "border-black/15 bg-[var(--canvas-light)] text-[var(--text-on-light)] hover:border-black/25 hover:bg-white"
+          : "border-white/15 bg-white/5 text-white/80 backdrop-blur-sm hover:bg-white/10",
         compact && "min-h-[40px] px-3 text-xs",
         className,
       )}

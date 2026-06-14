@@ -196,7 +196,9 @@ export function CarlosTrustExperienceScreen({
               key={chapter.id}
               className={cn(
                 "relative min-h-[85vh] snap-start px-6 py-20 md:px-[var(--spacing-kiosk)] md:py-28",
-                isDark ? "bg-[var(--canvas-deep)]" : "bg-[var(--canvas-light)] text-[var(--text-on-light)]",
+                isDark
+                  ? "bg-[var(--canvas-deep)] text-white"
+                  : "bg-[var(--canvas-light)] text-[var(--text-on-light)]",
               )}
             >
               {chapter.mediaId ? (
@@ -204,7 +206,7 @@ export function CarlosTrustExperienceScreen({
                   <KenBurnsBackground
                     mediaId={chapter.mediaId}
                     overlay={false}
-                    className="opacity-30"
+                    className={isDark ? "opacity-30" : "opacity-20"}
                   />
                   <CinematicOverlay variant={isDark ? "chapter-dark" : "chapter-light"} />
                 </>
@@ -224,7 +226,14 @@ export function CarlosTrustExperienceScreen({
                   >
                     Capítulo {index + 1}
                   </p>
-                  <h2 className="type-headline mt-3">{chapter.title}</h2>
+                  <h2
+                    className={cn(
+                      "type-headline mt-3",
+                      isDark ? "text-white" : "text-[var(--text-on-light)]",
+                    )}
+                  >
+                    {chapter.title}
+                  </h2>
                   {chapter.subtitle ? (
                     <p
                       className={cn(
@@ -238,20 +247,31 @@ export function CarlosTrustExperienceScreen({
                   <div className="mt-10 space-y-6">
                     {chapter.blocks
                       .sort((a, b) => a.sortOrder - b.sortOrder)
-                      .map((block) => (
-                        <GlassCard
-                          key={block.id}
-                          variant="inset"
-                          accent={isDark ? "trust" : "none"}
-                          className={cn("p-6 md:p-8", !isDark && "bg-white/80")}
-                        >
+                      .map((block) =>
+                        isDark ? (
+                          <GlassCard
+                            key={block.id}
+                            variant="inset"
+                            accent="trust"
+                            className="p-6 md:p-8"
+                          >
+                            <ContentBlockRenderer
+                              block={block}
+                              vehicleSlug={vehicleSlug}
+                              persona={persona}
+                              tone="dark"
+                            />
+                          </GlassCard>
+                        ) : (
                           <ContentBlockRenderer
+                            key={block.id}
                             block={block}
                             vehicleSlug={vehicleSlug}
                             persona={persona}
+                            tone="light"
                           />
-                        </GlassCard>
-                      ))}
+                        ),
+                      )}
                   </div>
                 </motion.div>
               </div>
@@ -260,10 +280,10 @@ export function CarlosTrustExperienceScreen({
         })}
 
         <section className="snap-start border-t border-white/10 bg-[var(--canvas-soft)] px-6 py-16 text-center md:px-[var(--spacing-kiosk)]">
-          <GlassCard animate={false} className="mx-auto max-w-xl p-8">
-            <p className="text-lg text-white/70">{dealership.name}</p>
-            <p className="mt-2 text-base text-white/50">{dealership.address}</p>
-            <p className="mt-1 text-sm text-white/40">{dealership.city}</p>
+          <GlassCard animate={false} variant="elevated" className="mx-auto max-w-xl p-8">
+            <p className="text-lg font-medium text-white">{dealership.name}</p>
+            <p className="mt-2 text-base text-white/85">{dealership.address}</p>
+            <p className="mt-1 text-sm text-white/70">{dealership.city}</p>
             <PremiumCTA
               href={`https://maps.google.com/?q=${dealership.coordinates.lat},${dealership.coordinates.lng}`}
               tier="secondary"

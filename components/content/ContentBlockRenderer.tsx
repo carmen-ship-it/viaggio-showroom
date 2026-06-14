@@ -1,6 +1,7 @@
 "use client";
 
 import type { ContentBlock } from "@/types/content";
+import type { ContentTone } from "@/types/content-tone";
 import type { Persona } from "@/types/persona";
 import type {
   HeroBlockData,
@@ -21,6 +22,7 @@ interface ContentBlockRendererProps {
   themeId?: string;
   persona?: Persona;
   heroFullBleed?: boolean;
+  tone?: ContentTone;
 }
 
 export function ContentBlockRenderer({
@@ -29,6 +31,7 @@ export function ContentBlockRenderer({
   themeId,
   persona,
   heroFullBleed,
+  tone = "dark",
 }: ContentBlockRendererProps) {
   const blockPersonaId = block.personaId ?? persona?.id;
   const blockPersona =
@@ -51,15 +54,22 @@ export function ContentBlockRenderer({
           personaId={blockPersonaId}
           personaName={blockPersona?.name}
           personaRole={blockPersona?.role}
+          tone={tone}
         />
       );
     case "feature_grid":
       return (
-        <FeatureGridRenderer data={block.data as unknown as FeatureGridBlockData} />
+        <FeatureGridRenderer
+          data={block.data as unknown as FeatureGridBlockData}
+          tone={tone}
+        />
       );
     case "stat_callout":
       return (
-        <StatCalloutRenderer data={block.data as unknown as StatCalloutBlockData} />
+        <StatCalloutRenderer
+          data={block.data as unknown as StatCalloutBlockData}
+          tone={tone}
+        />
       );
     case "cta":
       return (
