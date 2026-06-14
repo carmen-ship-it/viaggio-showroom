@@ -170,7 +170,18 @@ for (const entry of report) {
   }
 }
 
-const ambientRemoved = !fileExists("/assets/audio/ambient/showroom-loop.mp3");
+const ambientReady = fileExists("/assets/audio/ambient/showroom-loop.mp3");
+if (!ambientReady) {
+  report.push({
+    screen: "Global Ambient",
+    route: "all screens",
+    trackKey: "audio-ambient-showroom",
+    narrationFile: "showroom-loop.mp3",
+    status: "MISSING",
+    missingAssets: ["/assets/audio/ambient/showroom-loop.mp3"],
+  });
+  failures += 1;
+}
 const sfxFiles = [
   "nav-tap.mp3",
   "card-select.mp3",
@@ -194,5 +205,5 @@ for (const sfx of sfxFiles) {
   }
 }
 
-console.log(JSON.stringify({ ambientRemoved, report, failures }, null, 2));
+console.log(JSON.stringify({ ambientReady, report, failures }, null, 2));
 process.exit(failures > 0 ? 1 : 0);

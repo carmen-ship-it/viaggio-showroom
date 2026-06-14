@@ -1,6 +1,6 @@
 import type { ScreenAudioConfig } from "@/types/audio";
 
-/** Per-screen optional audio tracks — ambient disabled; host narration is route-driven. */
+/** Per-screen optional audio flags — global ambient handled by useShowroomAmbient. */
 export const SCREEN_AUDIO: Record<string, ScreenAudioConfig> = {
   S01: {
     screenId: "S01",

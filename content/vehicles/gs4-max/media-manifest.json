@@ -405,15 +405,6 @@
       "tags": ["ambient", "loop", "showroom"]
     },
     {
-      "id": "audio-ambient-attract",
-      "vehicleSlug": "gs4-max",
-      "type": "audio",
-      "src": "/assets/audio/ambient/attract-loop.mp3",
-      "alt": "Ambiente sonoro — pantalla de bienvenida",
-      "category": "audio",
-      "tags": ["ambient", "loop", "attract"]
-    },
-    {
       "id": "audio-narration-carlos-trust-01",
       "vehicleSlug": "gs4-max",
       "type": "audio",

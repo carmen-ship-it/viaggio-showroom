@@ -1,11 +1,14 @@
 import type { AudioChannel, AudioPreferences } from "@/types/audio";
 
-/** Default channel volumes (0–1) — ambient targets 10–15% effective output. */
+/** Default channel volumes (0–1) — ambient at 10% effective output. */
 export const DEFAULT_CHANNEL_GAIN: Record<AudioChannel, number> = {
-  ambient: 0.12,
+  ambient: 0.1,
   narration: 0.88,
   interaction: 0.28,
 };
+
+/** Ambient level while host narration is playing (ducked). */
+export const AMBIENT_DUCKED_GAIN = 0.04;
 
 /** Headphone mode adjusts relative channel balance for private listening. */
 export const HEADPHONE_MODE_GAIN: Record<AudioChannel, number> = {

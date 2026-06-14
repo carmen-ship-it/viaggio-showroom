@@ -19,6 +19,7 @@ import {
   persistAudioUnlocked,
 } from "./audio-session";
 import { DEFAULT_AUDIO_PREFERENCES } from "./constants";
+import { SHOWROOM_AMBIENT_ASSET_ID } from "./host-narration";
 import { AudioEngine } from "./AudioEngine";
 
 interface AudioContextValue {
@@ -35,8 +36,10 @@ interface AudioContextValue {
   setInteractionSoundsEnabled: (enabled: boolean) => void;
   setHeadphoneMode: (enabled: boolean) => void;
   playAmbient: (assetId: string) => Promise<boolean>;
+  ensureShowroomAmbient: () => Promise<boolean>;
   pauseAmbient: () => void;
   stopAmbient: () => void;
+  fadeOutAmbient: () => Promise<void>;
   playNarration: (assetId: string) => Promise<boolean>;
   playHostNarration: (assetId: string) => Promise<boolean>;
   pauseNarration: () => void;
@@ -73,6 +76,7 @@ function updatePreferences(
 
 export function AudioProvider({ children }: { children: ReactNode }) {
   const engineRef = useRef<AudioEngine | null>(null);
+  const ambientStartedRef = useRef(false);
   const [preferences, setPreferences] = useState<AudioPreferences>(DEFAULT_AUDIO_PREFERENCES);
   const [audioUnlocked, setAudioUnlocked] = useState(false);
   const [needsUnlockPrompt, setNeedsUnlockPrompt] = useState(true);
@@ -126,6 +130,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   }, [engine]);
 
   const resetAudioSession = useCallback(() => {
+    ambientStartedRef.current = false;
     engine?.stopAll();
     clearAllHostSessionKeys();
     clearAudioUnlocked();
@@ -205,8 +210,9 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const playAmbient = useCallback(
     async (assetId: string) => {
       if (!engine || !audioUnlocked || preferences.masterMuted) return false;
-      const ok = await engine.playAsset(assetId, { channel: "ambient", fadeIn: true });
-      if (ok) {
+      const ok = await engine.ensureAmbientPlaying(assetId);
+      if (ok && !ambientStartedRef.current) {
+        ambientStartedRef.current = true;
         trackEvent({ type: "ambient_start", metadata: { assetId } });
       }
       return ok;
@@ -214,12 +220,23 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     [engine, audioUnlocked, preferences.masterMuted],
   );
 
+  const ensureShowroomAmbient = useCallback(async () => {
+    return playAmbient(SHOWROOM_AMBIENT_ASSET_ID);
+  }, [playAmbient]);
+
   const pauseAmbient = useCallback(() => {
     engine?.pauseChannel("ambient");
   }, [engine]);
 
   const stopAmbient = useCallback(() => {
     engine?.stopChannel("ambient");
+    ambientStartedRef.current = false;
+  }, [engine]);
+
+  const fadeOutAmbient = useCallback(async () => {
+    if (!engine) return;
+    await engine.fadeOutAmbient();
+    ambientStartedRef.current = false;
   }, [engine]);
 
   const playNarration = useCallback(
@@ -302,8 +319,10 @@ export function AudioProvider({ children }: { children: ReactNode }) {
       setInteractionSoundsEnabled,
       setHeadphoneMode,
       playAmbient,
+      ensureShowroomAmbient,
       pauseAmbient,
       stopAmbient,
+      fadeOutAmbient,
       playNarration,
       playHostNarration,
       pauseNarration,
@@ -331,8 +350,10 @@ export function AudioProvider({ children }: { children: ReactNode }) {
       setInteractionSoundsEnabled,
       setHeadphoneMode,
       playAmbient,
+      ensureShowroomAmbient,
       pauseAmbient,
       stopAmbient,
+      fadeOutAmbient,
       playNarration,
       playHostNarration,
       pauseNarration,

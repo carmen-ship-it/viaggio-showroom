@@ -29,15 +29,18 @@ export function IdleManager() {
 
   const resetToAttract = useCallback(() => {
     trackEvent({ type: "session_start", metadata: { action: "idle_reset" } });
-    audio?.stopAll();
-    clearAllHostSessionKeys();
-    if (typeof window !== "undefined") {
-      window.dispatchEvent(new CustomEvent("viaggio-audio-reset"));
-    }
-    setShowPrompt(false);
-    clearTimers();
-    router.push(routes.home());
-    router.refresh();
+    void (async () => {
+      await audio?.fadeOutAmbient();
+      audio?.stopAll();
+      clearAllHostSessionKeys();
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("viaggio-audio-reset"));
+      }
+      setShowPrompt(false);
+      clearTimers();
+      router.push(routes.home());
+      router.refresh();
+    })();
   }, [audio, clearTimers, router]);
 
   const scheduleIdle = useCallback(() => {

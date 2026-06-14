@@ -1,6 +1,7 @@
 import type { AudioChannel, AudioPlaybackState, AudioPreferences } from "@/types/audio";
 import type { MediaAsset } from "@/types/media";
 import {
+  AMBIENT_DUCKED_GAIN,
   AMBIENT_FADE_MS,
   DEFAULT_CHANNEL_GAIN,
   HEADPHONE_MODE_GAIN,
@@ -70,6 +71,27 @@ export class AudioEngine {
     return this.getChannelState("narration") === "playing";
   }
 
+  private isNarrationActive(): boolean {
+    const narration = this.tracks.get("narration");
+    return narration?.state === "playing";
+  }
+
+  private getAmbientBaseGain(): number {
+    return this.isNarrationActive() ? AMBIENT_DUCKED_GAIN : DEFAULT_CHANNEL_GAIN.ambient;
+  }
+
+  private syncAmbientVolume(fade = false): void {
+    const ambient = this.tracks.get("ambient");
+    if (!ambient || ambient.state !== "playing") return;
+
+    const target = this.computeGain("ambient");
+    if (fade) {
+      this.fadeVolume(ambient.element, ambient.element.volume, target, AMBIENT_FADE_MS);
+      return;
+    }
+    ambient.element.volume = target;
+  }
+
   private bindVisibility(): void {
     if (this.visibilityBound || typeof document === "undefined") return;
     this.visibilityBound = true;
@@ -127,6 +149,15 @@ export class AudioEngine {
   private computeGain(channel: AudioChannel): number {
     if (this.preferences.masterMuted) return 0;
 
+    if (channel === "ambient") {
+      let gain = this.getAmbientBaseGain();
+      if (this.preferences.headphoneMode) {
+        gain *= HEADPHONE_MODE_GAIN.ambient;
+      }
+      gain *= this.preferences.ambientVolume;
+      return Math.min(1, Math.max(0, gain));
+    }
+
     let gain = DEFAULT_CHANNEL_GAIN[channel];
 
     if (this.preferences.headphoneMode) {
@@ -134,9 +165,6 @@ export class AudioEngine {
     }
 
     switch (channel) {
-      case "ambient":
-        gain *= this.preferences.ambientVolume;
-        break;
       case "narration":
         gain *= this.preferences.narrationVolume;
         break;
@@ -188,6 +216,13 @@ export class AudioEngine {
     const channel = options.channel ?? resolved.channel ?? channelForAssetId(assetId);
     const policy = CHANNEL_POLICIES[channel];
 
+    if (channel === "ambient") {
+      const existing = this.tracks.get("ambient");
+      if (existing?.assetId === assetId && existing.state === "playing") {
+        return true;
+      }
+    }
+
     if (channel === "interaction") {
       const now = Date.now();
       if (now - this.lastInteractionAt < INTERACTION_DEBOUNCE_MS) return false;
@@ -221,6 +256,9 @@ export class AudioEngine {
     element.onended = () => {
       if (!resolved.loop) {
         track.state = "idle";
+        if (channel === "narration") {
+          this.syncAmbientVolume(true);
+        }
         this.notify();
       }
     };
@@ -253,7 +291,48 @@ export class AudioEngine {
     }
 
     this.notify();
+    if (channel === "narration" && track.state === "playing") {
+      this.syncAmbientVolume(true);
+    }
     return track.state === "playing";
+  }
+
+  /** Start or resume the global showroom ambient loop without restarting playback. */
+  async ensureAmbientPlaying(assetId: string): Promise<boolean> {
+    const existing = this.tracks.get("ambient");
+    if (existing?.assetId === assetId) {
+      if (existing.state === "playing") {
+        this.syncAmbientVolume(false);
+        return true;
+      }
+      if (existing.state === "paused" && !this.preferences.masterMuted) {
+        try {
+          await existing.element.play();
+          existing.state = "playing";
+          this.applyVolume(existing);
+          this.notify();
+          return true;
+        } catch {
+          existing.state = "unavailable";
+          this.notify();
+          return false;
+        }
+      }
+    }
+
+    return this.playAsset(assetId, { channel: "ambient", fadeIn: true });
+  }
+
+  async fadeOutAmbient(durationMs = AMBIENT_FADE_MS): Promise<void> {
+    const track = this.tracks.get("ambient");
+    if (!track) return;
+
+    const from = track.element.volume;
+    await new Promise<void>((resolve) => {
+      this.fadeVolume(track.element, from, 0, durationMs);
+      window.setTimeout(resolve, durationMs);
+    });
+    this.stopChannel("ambient");
   }
 
   private fadeVolume(
@@ -285,6 +364,9 @@ export class AudioEngine {
     if (!track || track.state !== "paused") return;
     void track.element.play().then(() => {
       track.state = "playing";
+      if (channel === "narration") {
+        this.syncAmbientVolume(true);
+      }
       this.notify();
     });
   }
@@ -308,6 +390,9 @@ export class AudioEngine {
       track.element.onerror = null;
     }
     this.tracks.delete(channel);
+    if (channel === "narration") {
+      this.syncAmbientVolume(true);
+    }
     this.notify();
   }
 

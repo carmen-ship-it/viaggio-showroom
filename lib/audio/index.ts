@@ -4,6 +4,7 @@ export { CHANNEL_POLICIES } from "./channels";
 export {
   DEFAULT_AUDIO_PREFERENCES,
   DEFAULT_CHANNEL_GAIN,
+  AMBIENT_DUCKED_GAIN,
   HEADPHONE_MODE_GAIN,
   AMBIENT_FADE_MS,
 } from "./constants";
@@ -16,6 +17,7 @@ export {
 } from "./resolve-audio";
 export {
   HOST_NARRATION_TRACKS,
+  SHOWROOM_AMBIENT_ASSET_ID,
   resolveHostTrackKey,
   getHostTrack,
 } from "./host-narration";

@@ -23,6 +23,8 @@ export interface HostNarrationTrack {
   cooldownMs?: number;
 }
 
+export const SHOWROOM_AMBIENT_ASSET_ID = "audio-ambient-showroom";
+
 export const HOST_NARRATION_TRACKS: Record<string, HostNarrationTrack> = {
   "host-s01": {
     assetId: "audio-narration-host-s01-attract",
