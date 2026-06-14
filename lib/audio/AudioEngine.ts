@@ -1,8 +1,10 @@
 import type { AudioChannel, AudioPlaybackState, AudioPreferences } from "@/types/audio";
 import type { MediaAsset } from "@/types/media";
 import {
-  AMBIENT_DUCKED_GAIN,
+  AMBIENT_DUCK_FADE_MS,
+  AMBIENT_DUCK_RATIO,
   AMBIENT_FADE_MS,
+  AMBIENT_RESTORE_FADE_MS,
   DEFAULT_CHANNEL_GAIN,
   HEADPHONE_MODE_GAIN,
   INTERACTION_DEBOUNCE_MS,
@@ -80,16 +82,21 @@ export class AudioEngine {
   }
 
   private getAmbientBaseGain(): number {
-    return this.isNarrationActive() ? AMBIENT_DUCKED_GAIN : DEFAULT_CHANNEL_GAIN.ambient;
+    if (this.isNarrationActive()) {
+      return DEFAULT_CHANNEL_GAIN.ambient * AMBIENT_DUCK_RATIO;
+    }
+    return DEFAULT_CHANNEL_GAIN.ambient;
   }
 
-  private syncAmbientVolume(fade = false): void {
+  private syncAmbientVolume(options: { fade?: boolean; restoring?: boolean } = {}): void {
+    const { fade = false, restoring = false } = options;
     const ambient = this.tracks.get("ambient");
     if (!ambient || ambient.state !== "playing") return;
 
     const target = this.computeGain("ambient");
     if (fade) {
-      this.fadeVolume(ambient.element, ambient.element.volume, target, AMBIENT_FADE_MS);
+      const durationMs = restoring ? AMBIENT_RESTORE_FADE_MS : AMBIENT_DUCK_FADE_MS;
+      this.fadeVolume(ambient.element, ambient.element.volume, target, durationMs);
       return;
     }
     ambient.element.volume = target;
@@ -188,7 +195,7 @@ export class AudioEngine {
     const existing = this.tracks.get("ambient");
     if (existing?.assetId === assetId) {
       if (existing.state === "playing") {
-        this.syncAmbientVolume(false);
+        this.syncAmbientVolume();
         return true;
       }
       if (existing.state === "paused" && !this.preferences.masterMuted) {
@@ -321,7 +328,7 @@ export class AudioEngine {
       if (!resolved.loop) {
         track.state = "idle";
         if (channel === "narration") {
-          this.syncAmbientVolume(true);
+          this.syncAmbientVolume({ fade: true, restoring: true });
         }
         this.notify();
       }
@@ -358,7 +365,7 @@ export class AudioEngine {
 
     this.notify();
     if (channel === "narration" && track.state === "playing") {
-      this.syncAmbientVolume(true);
+      this.syncAmbientVolume({ fade: true, restoring: false });
     }
     return track.state === "playing";
   }
@@ -403,7 +410,7 @@ export class AudioEngine {
     const existing = this.tracks.get("ambient");
     if (existing?.assetId === assetId) {
       if (existing.state === "playing") {
-        this.syncAmbientVolume(false);
+        this.syncAmbientVolume();
         return true;
       }
       if (existing.state === "paused" && !this.preferences.masterMuted) {
@@ -471,7 +478,7 @@ export class AudioEngine {
     void track.element.play().then(() => {
       track.state = "playing";
       if (channel === "narration") {
-        this.syncAmbientVolume(true);
+        this.syncAmbientVolume({ fade: true, restoring: false });
       }
       this.notify();
     });
@@ -497,7 +504,7 @@ export class AudioEngine {
     }
     this.tracks.delete(channel);
     if (channel === "narration") {
-      this.syncAmbientVolume(true);
+      this.syncAmbientVolume({ fade: true, restoring: true });
     }
     this.notify();
   }
