@@ -1,0 +1,61 @@
+{
+  "id": "ownership-experience",
+  "themeId": "family",
+  "vehicleSlug": "gs4-max",
+  "title": "Año 1 de propiedad",
+  "personaId": "diego",
+  "tags": ["familia", "propiedad", "servicio"],
+  "relatedTopicIds": ["family-safety", "comfort"],
+  "blocks": [
+    {
+      "id": "oe-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-diego-ano1",
+        "headline": "Año 1 de propiedad",
+        "subheadline": "Mes 3 servicio · mes 6 \"buena decisión\" · co-decisión"
+      }
+    },
+    {
+      "id": "oe-narration",
+      "type": "narration",
+      "personaId": "diego",
+      "sortOrder": 1,
+      "data": {
+        "emphasis": "Llevo más de un año con el GS4 MAX",
+        "text": "Llevo más de un año con el GS4 MAX. No soy mecánico — soy el que firma la cuota y mira la cara de su esposa el domingo cuando todo funcionó.\n\nSemana 1: me acostumbré al tamaño. Semana 2: ya no quise volver al auto anterior. Mes 3: primer servicio en Viaggio — agenda por WhatsApp, en la mañana, sin perder el día.\n\nMes 6: primer viaje largo post-compra — maletas, chicos, lluvia de vuelta. Llegamos y mi esposa dijo: \"Buena decisión\". Tres palabras que valen más que cualquier folleto.\n\nMes 12: el GS4 MAX ya es rutina. Ella lo lleva al super; yo al colegio. Propiedad no es el día que sacás fotos en la agencia — es el martes lluvioso, el sábado de compras, el domingo en Buena Vista."
+      }
+    },
+    {
+      "id": "oe-stats",
+      "type": "stat_callout",
+      "sortOrder": 2,
+      "data": {
+        "stats": [
+          { "value": "5 años", "label": "Garantía GAC" },
+          { "value": "150.000 km", "label": "Cobertura" },
+          { "value": "Viaggio", "label": "Servicio en Santa Cruz" }
+        ]
+      }
+    },
+    {
+      "id": "oe-cta-family",
+      "type": "cta",
+      "sortOrder": 3,
+      "data": {
+        "action": "test_drive_info",
+        "label": "Agendá con tu familia"
+      }
+    },
+    {
+      "id": "oe-cta-share",
+      "type": "cta",
+      "sortOrder": 4,
+      "data": {
+        "action": "share",
+        "label": "Mandáselo a tu pareja"
+      }
+    }
+  ]
+}

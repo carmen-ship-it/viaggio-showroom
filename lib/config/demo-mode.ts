@@ -1,0 +1,81 @@
+/**
+ * Stakeholder kiosk demo configuration.
+ * Enable with NEXT_PUBLIC_DEMO_MODE=true
+ */
+export const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === "true";
+
+export const demoModeConfig = {
+  enabled: isDemoMode,
+  /** Hide S## badges, ShowroomNav, and inline screen IDs */
+  hideDeveloperTools: true,
+  /** Redirect unfinished / operator routes via middleware */
+  hideUnfinishedRoutes: true,
+  /** Omit coming-soon vehicle cards on S03 and compare targets on S11 */
+  hideComingSoonVehicles: true,
+  /** Strip "Próximamente" copy and resume/share stubs */
+  hidePlaceholderWarnings: true,
+  /** Lock S02 to Primera vez con GAC */
+  forceVisitorPath: "first_time" as const,
+  /** Pulse ring on scripted next actions (TouchNav + primary cards) */
+  highlightPrimaryCta: true,
+  /** Hide hero hotspots, secondary CTAs, and pre-researched path */
+  disableExplorationBranches: true,
+  /** Hide the Ajustes control — kiosk operators use staff reset instead */
+  hideSettings: true,
+  defaultVehicleSlug: "gs4-max",
+} as const;
+
+/** Canonical demo path routes (see docs/demo-walkthrough.md) */
+export const demoPathRoutes = [
+  "/",
+  "/vehicles",
+  "/vehicles/gs4-max/hero",
+  "/vehicles/gs4-max/trust/faq",
+  "/vehicles/gs4-max/trust/story",
+  "/vehicles/gs4-max/tour/trust",
+  "/vehicles/gs4-max/themes/safety/adas",
+  "/vehicles/gs4-max/compare",
+  "/vehicles/gs4-max/compare/corolla-cross",
+  "/vehicles/gs4-max/economics/financing",
+  "/vehicles/gs4-max/convert",
+  "/vehicles/gs4-max/test-drive",
+  "/vehicles/gs4-max/whatsapp",
+] as const;
+
+export function shouldHideDeveloperTools(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.hideDeveloperTools;
+}
+
+export function shouldHideComingSoonVehicles(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.hideComingSoonVehicles;
+}
+
+export function shouldHidePlaceholderWarnings(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.hidePlaceholderWarnings;
+}
+
+export function shouldDisableExplorationBranches(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.disableExplorationBranches;
+}
+
+export function shouldHighlightPrimaryCta(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.highlightPrimaryCta;
+}
+
+export function shouldHideSettings(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.hideSettings;
+}
+
+/** Strip leading "S## · " from eyebrow labels in demo mode */
+export function formatScreenLabel(label: string): string {
+  if (!shouldHideDeveloperTools()) return label;
+  return label.replace(/^S\d+\s*·\s*/, "").trim();
+}
+
+/** Hide bare screen IDs like "S19" */
+export function formatScreenId(screenId: string): string | null {
+  if (!shouldHideDeveloperTools()) return screenId;
+  return null;
+}
+
+export const demoPrimaryCtaClass = "demo-primary-cta-highlight";

@@ -1,0 +1,54 @@
+{
+  "id": "viaggio-service",
+  "themeId": "warranty-service",
+  "vehicleSlug": "gs4-max",
+  "title": "Servicio en Viaggio",
+  "personaId": "carlos",
+  "tags": ["servicio", "viaggio"],
+  "blocks": [
+    {
+      "id": "service-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-service-cover",
+        "headline": "Servicio en Viaggio",
+        "subheadline": "Taller, repuestos y asesores en el mismo lugar donde conociste el vehículo"
+      }
+    },
+    {
+      "id": "service-narration",
+      "type": "narration",
+      "personaId": "carlos",
+      "sortOrder": 1,
+      "data": {
+        "text": "Taller, asesores y repuestos en el mismo lugar donde conociste el vehículo. Sin sorpresas post-venta. Técnicos certificados GAC y stock de repuestos en Santa Cruz.",
+        "emphasis": "Respaldo local en Santa Cruz"
+      }
+    },
+    {
+      "id": "service-features",
+      "type": "feature_grid",
+      "sortOrder": 2,
+      "data": {
+        "features": [
+          {
+            "icon": "service",
+            "title": "Taller certificado",
+            "description": "Técnicos capacitados por GAC para diagnóstico y reparación."
+          },
+          {
+            "icon": "warranty",
+            "title": "Repuestos originales",
+            "description": "Stock local para mantenimiento sin esperas largas."
+          },
+          {
+            "icon": "shield",
+            "title": "Post-venta real",
+            "description": "Viaggio responde — no desaparecemos después de la entrega."
+          }
+        ]
+      }
+    }
+  ]
+}

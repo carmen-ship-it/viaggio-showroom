@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/compare-target.schema.json",
+  "title": "CompareTarget",
+  "type": "object",
+  "required": ["id", "vehicleSlug", "targetType", "displayName", "dimensions"],
+  "properties": {
+    "id": { "type": "string" },
+    "vehicleSlug": { "type": "string" },
+    "targetType": {
+      "type": "string",
+      "enum": ["competitor", "gac_model"]
+    },
+    "targetSlug": { "type": "string" },
+    "displayName": { "type": "string" },
+    "thumbnailMediaId": { "type": "string" },
+    "contentVersion": { "type": "string" },
+    "lastVerified": { "type": "string" },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["category", "rows"],
+        "properties": {
+          "category": { "type": "string" },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["label", "anchorValue", "targetValue", "verdict"],
+              "properties": {
+                "label": { "type": "string" },
+                "anchorValue": { "type": "string" },
+                "targetValue": { "type": "string" },
+                "verdict": {
+                  "type": "string",
+                  "enum": ["anchor_wins", "target_wins", "tie"]
+                },
+                "personaId": {
+                  "type": "string",
+                  "enum": ["carlos", "sofia", "diego"]
+                },
+                "explanation": { "type": "string" }
+              },
+              "additionalProperties": false
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

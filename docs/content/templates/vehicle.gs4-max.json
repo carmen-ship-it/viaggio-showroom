@@ -1,0 +1,40 @@
+{
+  "slug": "gs4-max",
+  "modelName": "GAC GS4 MAX",
+  "modelYear": 2025,
+  "status": "active",
+  "tagline": "El SUV que tu familia merece — confiable, tecnológico y listo para Santa Cruz",
+  "heroMediaId": "gs4-max-hero-01",
+  "priceFrom": 0,
+  "priceDisclaimer": "Precio orientativo en Bolivianos (BOB). Consultá con un asesor de Viaggio Motors para cotización exacta, financiamiento y disponibilidad de color.",
+  "launchPriority": 1,
+  "keyStats": [
+    {
+      "label": "Garantía",
+      "value": "5 años / 150.000 km",
+      "icon": "shield"
+    },
+    {
+      "label": "Consumo ciudad",
+      "value": "~9-10 km/l",
+      "icon": "fuel"
+    },
+    {
+      "label": "Pantalla central",
+      "value": "12.3\"",
+      "icon": "display"
+    },
+    {
+      "label": "Asistencias ADAS",
+      "value": "Serie completa",
+      "icon": "radar"
+    }
+  ],
+  "metadata": {
+    "segment": "compact-suv",
+    "fuelType": "gasoline",
+    "engine": "1.5L Turbo",
+    "transmission": "6AT / 7DCT",
+    "drivetrain": "FWD"
+  }
+}

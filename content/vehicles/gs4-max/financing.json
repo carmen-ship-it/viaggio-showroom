@@ -1,0 +1,84 @@
+{
+  "vehicleSlug": "gs4-max",
+  "disclaimer": "Cuota referencial. Tu consultor Viaggio confirma tasa exacta con bancos aliados.",
+  "currency": "BOB",
+  "explanation": {
+    "headline": "Cómo leer tu cuota orientativa",
+    "intro": "Los rangos en pantalla son referenciales — no son una oferta bancaria. Tu consultor Viaggio simula con bancos aliados usando tu entrada, plazo y perfil crediticio.",
+    "bullets": [
+      "El precio de lista y la versión (4x2 o AWD) definen el monto a financiar.",
+      "Una entrada del 20–30% reduce la cuota, pero no siempre es obligatoria.",
+      "Plazos más largos bajan la cuota mensual, pero aumentan el costo total del crédito.",
+      "La cuota es solo una parte del costo mensual — combustible, seguro y mantenimiento también cuentan."
+    ]
+  },
+  "tcoPreview": {
+    "defaultKmPerMonth": 1200,
+    "fuelLabel": "Combustible",
+    "maintenanceLabel": "Mantenimiento",
+    "insuranceLabel": "Seguro orientativo",
+    "fuelMonthlyBob": { "min": 480, "max": 620 },
+    "maintenanceMonthlyBob": { "min": 180, "max": 220 },
+    "insuranceMonthlyBob": { "min": 350, "max": 450 },
+    "note": "Estimado para ~1.200 km/mes en Santa Cruz. Garantía 5 años y mantenimiento sin costo los primeros años ayudan al presupuesto familiar."
+  },
+  "trims": [
+    {
+      "id": "full-4x2",
+      "label": "GS4 MAX Full Equipo (4x2)",
+      "priceFromUsd": 42900,
+      "cuotas": {
+        "12": { "min": 3850, "max": 4120 },
+        "24": { "min": 2180, "max": 2350 },
+        "36": { "min": 1680, "max": 1820 },
+        "48": { "min": 1420, "max": 1540 }
+      }
+    },
+    {
+      "id": "full-awd",
+      "label": "GS4 MAX Full Equipo AWD",
+      "priceFromUsd": 46900,
+      "cuotas": {
+        "12": { "min": 4180, "max": 4480 },
+        "24": { "min": 2380, "max": 2560 },
+        "36": { "min": 1840, "max": 1990 },
+        "48": { "min": 1560, "max": 1690 }
+      }
+    }
+  ],
+  "plazos": [12, 24, 36, 48],
+  "affordabilityTips": [
+    {
+      "id": "entrada",
+      "title": "Entrada inicial",
+      "description": "Una entrada del 20–30% reduce la cuota mensual. No es obligatoria — tu consultor te muestra opciones."
+    },
+    {
+      "id": "plazo",
+      "title": "Plazo más largo = cuota menor",
+      "description": "48 meses baja la cuota mensual, pero pagás más intereses. 36 meses suele ser el equilibrio en Santa Cruz."
+    },
+    {
+      "id": "tco",
+      "title": "Cuota vs costo total",
+      "description": "La cuota es una parte del costo mensual. Garantía 5 años y mantenimiento sin costo los primeros años ayudan al presupuesto familiar."
+    }
+  ],
+  "readinessLevels": [
+    {
+      "id": "curiosity",
+      "label": "Curiosidad",
+      "description": "Exploraste opciones orientativas — sin compromiso."
+    },
+    {
+      "id": "affordability",
+      "label": "Asequibilidad",
+      "description": "Comparaste plazos y entendés el rango mensual."
+    },
+    {
+      "id": "intent",
+      "label": "Listo para confirmar",
+      "description": "Un consultor Viaggio puede simular con banco aliado."
+    }
+  ]
+}

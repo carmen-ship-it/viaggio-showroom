@@ -1,0 +1,87 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import type { Persona } from "@/types/persona";
+import type { Vehicle } from "@/types/vehicle";
+import { CinematicShell } from "@/components/cinematic/CinematicShell";
+import { PageTransition } from "@/components/cinematic/PageTransition";
+import { GlobalHeader } from "@/components/layout/GlobalHeader";
+import { useSession, type VisitorPath } from "@/lib/session/SessionProvider";
+import { trackEvent } from "@/lib/analytics/trackEvent";
+import { demoModeConfig } from "@/lib/config/demo-mode";
+import { AttractLoop } from "./AttractLoop";
+import { WelcomeScreen } from "./WelcomeScreen";
+import { routes } from "@/lib/navigation/routes";
+
+type EntryPhase = "attract" | "welcome";
+
+interface ExperienceEntryProps {
+  attractMediaId: string;
+  tagline: string;
+  brand: string;
+  dealershipName: string;
+  vehicle: Vehicle;
+  personas: Persona[];
+  defaultVehicleSlug: string;
+}
+
+export function ExperienceEntry({
+  attractMediaId,
+  tagline,
+  brand,
+  dealershipName,
+  vehicle,
+  personas,
+  defaultVehicleSlug,
+}: ExperienceEntryProps) {
+  const router = useRouter();
+  const { setVisitorPath } = useSession();
+  const [phase, setPhase] = useState<EntryPhase>("attract");
+
+  const handleContinue = (path: VisitorPath) => {
+    const resolvedPath =
+      demoModeConfig.enabled && demoModeConfig.forceVisitorPath
+        ? demoModeConfig.forceVisitorPath
+        : path;
+    setVisitorPath(resolvedPath);
+    trackEvent({ type: "session_start", metadata: { visitorPath: resolvedPath } });
+    if (resolvedPath === "pre_researched") {
+      router.push(routes.personaExperience(defaultVehicleSlug, "sofia"));
+      return;
+    }
+    router.push(routes.vehicles());
+  };
+
+  return (
+    <CinematicShell screenId={phase === "attract" ? "S01" : "S02"} hideChrome>
+      <GlobalHeader
+        brand={brand}
+        dealershipName={dealershipName}
+        showLogos={phase !== "attract"}
+      />
+      <PageTransition transitionKey={phase}>
+        {phase === "attract" ? (
+          <AttractLoop
+            mediaId={attractMediaId}
+            tagline={tagline}
+            brand={brand}
+            vehicleModelName={vehicle.modelName}
+            onStart={() => {
+              trackEvent({ type: "session_start", metadata: { phase: "attract_touch" } });
+              setPhase("welcome");
+            }}
+          />
+        ) : (
+          <WelcomeScreen
+            dealershipName={dealershipName}
+            vehicleName={vehicle.modelName}
+            vehicleTagline={vehicle.tagline}
+            personas={personas}
+            onContinue={handleContinue}
+          />
+        )}
+      </PageTransition>
+    </CinematicShell>
+  );
+}

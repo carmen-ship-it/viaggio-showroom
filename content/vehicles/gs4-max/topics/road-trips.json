@@ -1,0 +1,53 @@
+{
+  "id": "road-trips",
+  "themeId": "family",
+  "vehicleSlug": "gs4-max",
+  "title": "Viaje largo",
+  "personaId": "diego",
+  "tags": ["familia", "carretera", "viajes"],
+  "relatedTopicIds": ["comfort", "ownership-experience"],
+  "blocks": [
+    {
+      "id": "rt-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-diego-carretera",
+        "headline": "Viaje largo",
+        "subheadline": "Maleta, paradas, llegada en familia"
+      }
+    },
+    {
+      "id": "rt-narration",
+      "type": "narration",
+      "personaId": "diego",
+      "sortOrder": 1,
+      "data": {
+        "emphasis": "Cuando el viaje pasa de un día a dos",
+        "text": "Cuando el viaje pasa de Buena Vista a \"nos vamos hasta mañana\", la conversación en casa cambia. Mi esposa pregunta: ¿entran las maletas y los chicos cómodos? ¿quién maneja la vuelta si estamos cansados?\n\nCargamos dos maletas medianas, bolso de toilette, almohadas de los niños — sí, las de verdad — y la lonchera por si no hay donde parar. La cajuela cierra sin jugar al Tetris.\n\nEn carretera el GS4 MAX va estable. Adelantar un camión ya no es una angustia de diez segundos. Paramos cada dos horas — regla de los chicos y de la espalda de mi esposa. De noche, chicos dormidos atrás. Llegás cansado del viaje, no del susto."
+      }
+    },
+    {
+      "id": "rt-stats",
+      "type": "stat_callout",
+      "sortOrder": 2,
+      "data": {
+        "stats": [
+          { "value": "177 HP", "label": "Empuje para adelantar seguro" },
+          { "value": "ADAS", "label": "Crucero adaptativo en tramo largo" },
+          { "value": "Estable", "label": "En ripio y carretera" }
+        ]
+      }
+    },
+    {
+      "id": "rt-cta",
+      "type": "cta",
+      "sortOrder": 3,
+      "data": {
+        "action": "topic",
+        "label": "Confort en Santa Cruz →",
+        "targetId": "comfort"
+      }
+    }
+  ]
+}

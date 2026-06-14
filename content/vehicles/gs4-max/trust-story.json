@@ -1,0 +1,82 @@
+{
+  "vehicleSlug": "gs4-max",
+  "title": "Viaggio & GAC — Tu respaldo",
+  "chapters": [
+    {
+      "id": "gac-global",
+      "title": "GAC en el mundo",
+      "subtitle": "Tercera generación del GS4 — uno de los SUVs más reconocidos de la marca a nivel global.",
+      "variant": "dark",
+      "mediaId": "video-trust-heritage",
+      "personaId": "carlos",
+      "blocks": [
+        {
+          "id": "gac-narration",
+          "type": "narration",
+          "personaId": "carlos",
+          "sortOrder": 0,
+          "data": {
+            "text": "GAC Motor produce millones de vehículos y exporta a decenas de mercados. Bolivia fue escenario de uno de los primeros lanzamientos regionales del GS4 MAX — eso refleja confianza en el mercado boliviano, no en un experimento.",
+            "emphasis": "Marca global, presencia verificable"
+          }
+        },
+        {
+          "id": "gac-stats",
+          "type": "stat_callout",
+          "sortOrder": 1,
+          "data": {
+            "stats": [
+              { "value": "3ª gen", "label": "Generación GS4" },
+              { "value": "5★", "label": "C-NCAP GS4 MAX" },
+              { "value": "8", "label": "Airbags de serie" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "viaggio-local",
+      "title": "Viaggio en Bolivia",
+      "subtitle": "Empresa 100% boliviana del Grupo Roda — distribuidor exclusivo GAC Motor.",
+      "variant": "light",
+      "mediaId": "video-viaggio-taller",
+      "personaId": "carlos",
+      "blocks": [
+        {
+          "id": "viaggio-narration",
+          "type": "narration",
+          "personaId": "carlos",
+          "sortOrder": 0,
+          "data": {
+            "text": "Viaggio Motor S.A. no es un importador de paso. Showrooms en Santa Cruz, La Paz, El Alto y Cochabamba. Taller, repuestos originales y el mismo equipo que te atiende hoy sigue disponible después de la compra.",
+            "emphasis": "Respaldo local en Santa Cruz"
+          }
+        },
+        {
+          "id": "viaggio-features",
+          "type": "feature_grid",
+          "sortOrder": 1,
+          "data": {
+            "features": [
+              {
+                "icon": "building",
+                "title": "4 ciudades",
+                "description": "Santa Cruz, La Paz, El Alto y Cochabamba con red GAC oficial."
+              },
+              {
+                "icon": "wrench",
+                "title": "Taller autorizado",
+                "description": "Técnicos capacitados en estándares GAC Motor."
+              },
+              {
+                "icon": "shield",
+                "title": "Garantía oficial",
+                "description": "5 años / 150.000 km con canal Viaggio para activación y servicio."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

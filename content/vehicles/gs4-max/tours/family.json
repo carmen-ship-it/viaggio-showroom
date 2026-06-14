@@ -1,0 +1,52 @@
+{
+  "id": "family",
+  "vehicleSlug": "gs4-max",
+  "title": "Tour Familiar",
+  "description": "Imaginá el GS4 MAX en tu rutina diaria con Diego",
+  "durationMinutes": 12,
+  "leadPersonaId": "diego",
+  "steps": [
+    {
+      "id": "diego-01",
+      "title": "Colegio 7:15",
+      "topicId": "daily-driving",
+      "personaId": "diego"
+    },
+    {
+      "id": "diego-02",
+      "title": "Calor 12:30",
+      "topicId": "children",
+      "personaId": "diego"
+    },
+    {
+      "id": "diego-03",
+      "title": "Supermercado",
+      "topicId": "shopping",
+      "personaId": "diego"
+    },
+    {
+      "id": "diego-04",
+      "title": "Buena Vista",
+      "topicId": "family-trips",
+      "personaId": "diego"
+    },
+    {
+      "id": "diego-05",
+      "title": "Viaje largo",
+      "topicId": "road-trips",
+      "personaId": "diego"
+    },
+    {
+      "id": "diego-06",
+      "title": "Confort en Santa Cruz",
+      "topicId": "comfort",
+      "personaId": "diego"
+    },
+    {
+      "id": "diego-07",
+      "title": "Año 1 de propiedad",
+      "topicId": "ownership-experience",
+      "personaId": "diego"
+    }
+  ]
+}

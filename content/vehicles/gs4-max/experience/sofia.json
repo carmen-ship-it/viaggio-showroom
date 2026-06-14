@@ -1,0 +1,103 @@
+{
+  "vehicleSlug": "gs4-max",
+  "personaId": "sofia",
+  "title": "Descubrí el GS4 MAX",
+  "subtitle": "Imaginá tu rutina en Santa Cruz con un SUV full equipo — diseño, tecnología y confort premium.",
+  "mediaId": "gs4-max-hero-ambient",
+  "tourId": "desire",
+  "themeId": "technology",
+  "blocks": [
+    {
+      "id": "sofia-welcome-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-ext-silver",
+        "headline": "Maneja el Cambio",
+        "subheadline": "La tercera generación del GS4 — full equipo desde el primer día"
+      }
+    },
+    {
+      "id": "sofia-welcome",
+      "type": "narration",
+      "personaId": "sofia",
+      "sortOrder": 1,
+      "data": {
+        "text": "Hola, soy Sofía. En los próximos minutos no vas a leer una ficha técnica. Vas a imaginar cómo sería tu vida con el GAC GS4 MAX: llegar con seguridad a esa reunión en Equipetrol, salir de viaje con tu familia con todo el espacio que necesitás, manejar un SUV que se siente actual. El vehículo que tenés al lado es el mismo que podés manejar en la calle de Santa Cruz mañana.",
+        "emphasis": "Imaginá ser dueño — vos marcás el ritmo"
+      }
+    },
+    {
+      "id": "sofia-design",
+      "type": "narration",
+      "personaId": "sofia",
+      "sortOrder": 2,
+      "data": {
+        "text": "Empecemos por lo primero que el mundo ve cuando vos llegás: el diseño. Líneas modernas, presencia en la calle y detalles que no pasan desapercibidos en el semáforo de Equipetrol o en el estacionamiento del supermercado. No es solo estética — es la sensación de manejar algo actual, cuidado y con identidad propia.",
+        "emphasis": "Diseño con presencia"
+      }
+    },
+    {
+      "id": "sofia-tech-hero",
+      "type": "hero",
+      "sortOrder": 3,
+      "data": {
+        "mediaId": "gs4-max-int-dashboard",
+        "headline": "Tecnología que usás todos los días",
+        "subheadline": "Pantalla táctil, Apple CarPlay y ADiGO Pilot de serie"
+      }
+    },
+    {
+      "id": "sofia-features",
+      "type": "feature_grid",
+      "sortOrder": 4,
+      "data": {
+        "features": [
+          {
+            "icon": "display",
+            "title": "Pantalla 10,1\"",
+            "description": "Infoentretenimiento táctil con Apple CarPlay de serie."
+          },
+          {
+            "icon": "sun",
+            "title": "Techo panorámico",
+            "description": "Luminosidad y amplitud para todos los ocupantes."
+          },
+          {
+            "icon": "leather",
+            "title": "Asientos de cuero",
+            "description": "Confort premium incluido — no es opcional."
+          },
+          {
+            "icon": "radar",
+            "title": "ADiGO Pilot",
+            "description": "ACC, AEB y asistencias al conductor de serie."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sofia-premium",
+      "type": "narration",
+      "personaId": "sofia",
+      "sortOrder": 5,
+      "data": {
+        "text": "Cuatro modos de conducción, transmisión automática de siete velocidades y cámara panorámica de 360° para estacionar en calles angostas del centro. Todo viene en la versión full equipo — sin subir de versión ni pagar extras por tecnología que ya debería estar incluida.",
+        "emphasis": "Full equipo real en Bolivia"
+      }
+    },
+    {
+      "id": "sofia-stats",
+      "type": "stat_callout",
+      "sortOrder": 6,
+      "data": {
+        "stats": [
+          { "value": "177 HP", "label": "Potencia 4x2" },
+          { "value": "7DCT", "label": "Transmisión" },
+          { "value": "360°", "label": "Cámara panorámica" },
+          { "value": "Full", "label": "Equipo de serie" }
+        ]
+      }
+    }
+  ]
+}

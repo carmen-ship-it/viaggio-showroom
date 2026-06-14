@@ -1,0 +1,19 @@
+{
+  "vehicleSlug": "gs4-max",
+  "personaId": "carlos",
+  "title": "Confianza técnica",
+  "subtitle": "Datos, no promesas vacías — cómo está hecho el GS4 MAX y quién te respalda en Bolivia.",
+  "mediaId": "persona-carlos-avatar",
+  "blocks": [
+    {
+      "id": "carlos-welcome",
+      "type": "narration",
+      "personaId": "carlos",
+      "sortOrder": 0,
+      "data": {
+        "text": "Hola. Soy Carlos. Llevo más de veinte años trabajando bajo el capó — en talleres, en servicio postventa y con certificación GAC. Mi trabajo acá no es venderte nada. Es contarte cómo está hecho el GS4 MAX, qué revisar en cada servicio y qué podés esperar a largo plazo. Si tenés dudas sobre confiabilidad, seguridad o garantía, estás en el lugar correcto.",
+        "emphasis": "Cómo está hecho este auto — sin vueltas"
+      }
+    }
+  ]
+}

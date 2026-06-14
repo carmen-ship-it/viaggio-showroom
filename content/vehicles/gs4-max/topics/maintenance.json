@@ -1,0 +1,20 @@
+{
+  "id": "maintenance",
+  "themeId": "reliability",
+  "vehicleSlug": "gs4-max",
+  "title": "Mantenimiento programado",
+  "personaId": "carlos",
+  "tags": ["mantenimiento", "servicio"],
+  "blocks": [
+    {
+      "id": "maintenance-narration",
+      "type": "narration",
+      "personaId": "carlos",
+      "sortOrder": 0,
+      "data": {
+        "text": "Intervalos de servicio definidos por GAC. En Viaggio Motors tenés taller y repuestos para no improvisar.",
+        "emphasis": "Mantenimiento predecible"
+      }
+    }
+  ]
+}

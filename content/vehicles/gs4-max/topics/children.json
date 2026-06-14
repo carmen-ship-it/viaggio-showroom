@@ -1,0 +1,66 @@
+{
+  "id": "children",
+  "themeId": "family",
+  "vehicleSlug": "gs4-max",
+  "title": "Calor 12:30",
+  "personaId": "diego",
+  "tags": ["familia", "niños", "isofix", "calor"],
+  "relatedTopicIds": ["family-safety", "family-trips"],
+  "blocks": [
+    {
+      "id": "ch-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-diego-mediodia",
+        "headline": "Calor 12:30",
+        "subheadline": "Recogida al sol — supervivencia, no lujo"
+      }
+    },
+    {
+      "id": "ch-narration",
+      "type": "narration",
+      "personaId": "diego",
+      "sortOrder": 1,
+      "data": {
+        "emphasis": "La pregunta de mi esposa no fue el motor",
+        "text": "Dos chicos — 7 y 10. Cuando empezamos a buscar SUV, mi esposa no preguntó por el motor. Preguntó: ¿entran las sillas sin forcejear? ¿ven afuera sin pelear? ¿y el calor del mediodía no los achicharra?\n\nAntes de decidir, ella se sentó atrás con las sillas puestas. Diez minutos. Eso valió más que mi opinión. ISOFIX bien enganchado — sin cintas improvisadas.\n\nRecogida al mediodía: auto al sol desde las 8, Santa Cruz a 35 grados. Abrís la puerta y el aire ya está enfriando — en pocos minutos los chicos dejan de quejarse. Eso cambia el tono del almuerzo en casa."
+      }
+    },
+    {
+      "id": "ch-features",
+      "type": "feature_grid",
+      "sortOrder": 2,
+      "data": {
+        "features": [
+          {
+            "icon": "shield",
+            "title": "ISOFIX trasero",
+            "description": "Anclajes de serie para sillas infantiles — sin improvisar."
+          },
+          {
+            "icon": "ac",
+            "title": "A/C que enfría rápido",
+            "description": "Ideal para recogida al mediodía con el auto al sol."
+          },
+          {
+            "icon": "space",
+            "title": "Espacio para dos sillas",
+            "description": "Los chicos suben sin forcejear — y queda lugar para mochilas."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ch-cta",
+      "type": "cta",
+      "sortOrder": 3,
+      "data": {
+        "action": "topic",
+        "label": "Ver seguridad para tu familia →",
+        "targetId": "family-safety",
+        "targetThemeId": "safety"
+      }
+    }
+  ]
+}

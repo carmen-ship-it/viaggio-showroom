@@ -1,0 +1,86 @@
+{
+  "id": "adas",
+  "themeId": "safety",
+  "vehicleSlug": "gs4-max",
+  "title": "Asistencias al conductor",
+  "personaId": "carlos",
+  "tags": ["seguridad", "adas", "tecnología", "familia"],
+  "relatedTopicIds": ["structure", "family-safety"],
+  "blocks": [
+    {
+      "id": "adas-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-adas-hero",
+        "headline": "Asistencias al conductor",
+        "subheadline": "Tecnología que te da margen en el tráfico de Santa Cruz"
+      }
+    },
+    {
+      "id": "adas-narration-1",
+      "type": "narration",
+      "personaId": "carlos",
+      "sortOrder": 1,
+      "data": {
+        "text": "Las asistencias al conductor no reemplazan tu atención, pero sí te dan margen. Frenado automático de emergencia, alerta de cambio de carril, cámara 360° para estacionar en calles angostas del centro. Son sistemas probados en serie, no gadgets de feria.",
+        "emphasis": "ADAS de serie en el GS4 MAX"
+      }
+    },
+    {
+      "id": "adas-features",
+      "type": "feature_grid",
+      "sortOrder": 2,
+      "data": {
+        "features": [
+          {
+            "icon": "brake",
+            "title": "Frenado automático de emergencia",
+            "description": "Detecta colisión frontal y aplica frenado si no reaccionás a tiempo."
+          },
+          {
+            "icon": "lane",
+            "title": "Alerta de cambio de carril",
+            "description": "Aviso visual y sonoro si salís del carril sin señalizar."
+          },
+          {
+            "icon": "camera-360",
+            "title": "Cámara panorámica 360°",
+            "description": "Vista completa al estacionar — ideal para espacios reducidos."
+          },
+          {
+            "icon": "cruise",
+            "title": "Control crucero adaptativo",
+            "description": "Mantiene distancia con el vehículo adelante en ruta."
+          }
+        ]
+      }
+    },
+    {
+      "id": "adas-stats",
+      "type": "stat_callout",
+      "sortOrder": 3,
+      "data": {
+        "stats": [
+          {
+            "value": "6+",
+            "label": "Sistemas ADAS de serie"
+          },
+          {
+            "value": "360°",
+            "label": "Visión panorámica"
+          }
+        ]
+      }
+    },
+    {
+      "id": "adas-cta",
+      "type": "cta",
+      "sortOrder": 4,
+      "data": {
+        "action": "test_drive",
+        "label": "Comprobá las asistencias en tu prueba de manejo"
+      }
+    }
+  ]
+}

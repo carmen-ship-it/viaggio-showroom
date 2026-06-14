@@ -1,0 +1,79 @@
+{
+  "id": "tech-overview",
+  "themeId": "technology",
+  "vehicleSlug": "gs4-max",
+  "title": "Tecnología a bordo",
+  "personaId": "sofia",
+  "tags": ["tecnología", "pantalla", "conectividad"],
+  "blocks": [
+    {
+      "id": "tech-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-technology-cover",
+        "headline": "Tecnología a bordo",
+        "subheadline": "Pantalla, conectividad y asistencias pensadas para el conductor boliviano"
+      }
+    },
+    {
+      "id": "tech-narration",
+      "type": "narration",
+      "personaId": "sofia",
+      "sortOrder": 1,
+      "data": {
+        "text": "Pantalla central de 12.3 pulgadas, conectividad smartphone y asistencias que hacen cada viaje más cómodo y seguro. Es la cabina más completa de su segmento en Santa Cruz.",
+        "emphasis": "Tecnología pensada para el conductor boliviano"
+      }
+    },
+    {
+      "id": "tech-features",
+      "type": "feature_grid",
+      "sortOrder": 2,
+      "data": {
+        "features": [
+          {
+            "icon": "display",
+            "title": "Pantalla 12.3\"",
+            "description": "Interfaz clara y rápida para navegación, música y controles del vehículo."
+          },
+          {
+            "icon": "connect",
+            "title": "Conectividad smartphone",
+            "description": "Integración con tu teléfono para llamadas, mapas y apps compatibles."
+          },
+          {
+            "icon": "chip",
+            "title": "Asistencias inteligentes",
+            "description": "ADAS de serie que complementan tu atención al volante."
+          },
+          {
+            "icon": "ac",
+            "title": "Climatización eficiente",
+            "description": "A/C potente para los días de 35°C en Santa Cruz."
+          }
+        ]
+      }
+    },
+    {
+      "id": "tech-stats",
+      "type": "stat_callout",
+      "sortOrder": 3,
+      "data": {
+        "stats": [
+          { "value": "12.3\"", "label": "Pantalla central" },
+          { "value": "360°", "label": "Cámara panorámica" }
+        ]
+      }
+    },
+    {
+      "id": "tech-cta",
+      "type": "cta",
+      "sortOrder": 4,
+      "data": {
+        "action": "test_drive",
+        "label": "Probá la tecnología en tu prueba de manejo"
+      }
+    }
+  ]
+}

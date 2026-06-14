@@ -1,0 +1,45 @@
+{
+  "demoMode": true,
+  "title": "Agendá tu prueba de manejo",
+  "subtitle": "Manejalo vos mismo. Un consultor de Viaggio te confirma por WhatsApp.",
+  "fields": {
+    "name": { "label": "Nombre", "placeholder": "Tu nombre" },
+    "phone": { "label": "Teléfono / WhatsApp", "placeholder": "+591 712 345 678" },
+    "email": {
+      "label": "Correo electrónico",
+      "placeholder": "nombre.apellido@correo.com",
+      "helper": "Opcional — para enviarte la confirmación"
+    },
+    "preferredDay": { "label": "Día preferido" },
+    "timeSlot": { "label": "Horario" },
+    "attendees": { "label": "¿Quién asiste?" },
+    "spouse": { "label": "Cónyuge / pareja" },
+    "children": { "label": "Hijos — pueden subir atrás" },
+    "childSeat": {
+      "label": "¿Trae silla infantil?",
+      "options": {
+        "yes": "Sí",
+        "no": "No",
+        "unknown": "No sé"
+      }
+    },
+    "route": { "label": "Ruta de interés" }
+  },
+  "timeSlots": {
+    "morning": "Mañana",
+    "afternoon": "Tarde",
+    "weekend": "Fin de semana"
+  },
+  "routes": {
+    "city": "Ciudad",
+    "doble_via": "Doble Vía",
+    "both": "Ambos"
+  },
+  "submit": "Confirmar prueba de manejo",
+  "confirmation": {
+    "headline": "¡Listo, {name}! Te escribimos al {phone} para confirmar tu prueba del {vehicle}.",
+    "helper": "Manejalo vos mismo. Un consultor de Viaggio te confirma por WhatsApp.",
+    "sharePrompt": "Mandáselo a tu pareja",
+    "whatsappConfirm": "Confirmar por WhatsApp"
+  }
+}

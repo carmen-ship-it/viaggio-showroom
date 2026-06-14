@@ -1,0 +1,11 @@
+{
+  "id": "warranty-service",
+  "vehicleSlug": "gs4-max",
+  "title": "Garantía y servicio",
+  "description": "Respaldo GAC y atención Viaggio en Santa Cruz",
+  "icon": "service",
+  "primaryPersonaId": "carlos",
+  "sortOrder": 5,
+  "coverMediaId": "gs4-max-warranty-cover",
+  "topicIds": ["warranty-terms", "viaggio-service"]
+}

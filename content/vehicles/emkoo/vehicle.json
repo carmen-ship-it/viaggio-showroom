@@ -1,0 +1,12 @@
+{
+  "slug": "emkoo",
+  "modelName": "GAC EMKOO",
+  "modelYear": 2025,
+  "status": "coming_soon",
+  "tagline": "Crossover urbano con diseño audaz",
+  "heroMediaId": "emkoo-hero-01",
+  "launchPriority": 4,
+  "metadata": {
+    "segment": "crossover"
+  }
+}

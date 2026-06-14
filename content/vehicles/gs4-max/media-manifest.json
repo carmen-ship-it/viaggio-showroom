@@ -1,0 +1,399 @@
+{
+  "vehicleSlug": "gs4-max",
+  "assets": [
+    {
+      "id": "video-attract-loop",
+      "vehicleSlug": "gs4-max",
+      "type": "video",
+      "src": "/assets/vehicles/gs4-max/video/attract-loop.mp4",
+      "posterSrc": "/assets/vehicles/gs4-max/exterior/hero-01.webp",
+      "alt": "GAC GS4 MAX en movimiento — bucle de bienvenida",
+      "category": "exterior",
+      "tags": ["attract", "hero", "loop"],
+      "fallbackId": "gs4-max-hero-01"
+    },
+    {
+      "id": "gs4-max-hero-01",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/exterior/hero-01.webp",
+      "alt": "GAC GS4 MAX en color plateado, vista frontal tres cuartos",
+      "category": "exterior",
+      "tags": ["hero", "front"]
+    },
+    {
+      "id": "gs4-max-hero-ambient",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/exterior/hero-ambient.webp",
+      "alt": "GAC GS4 MAX en escena cinematográfica amplia",
+      "category": "exterior",
+      "tags": ["hero", "ambient"],
+      "fallbackId": "gs4-max-hero-01"
+    },
+    {
+      "id": "video-hero-ambient",
+      "vehicleSlug": "gs4-max",
+      "type": "video",
+      "src": "/assets/vehicles/gs4-max/video/hero-ambient.mp4",
+      "posterSrc": "/assets/vehicles/gs4-max/exterior/hero-ambient.webp",
+      "alt": "GAC GS4 MAX — ambiente en movimiento suave",
+      "category": "exterior",
+      "tags": ["hero", "ambient"],
+      "fallbackId": "gs4-max-hero-ambient"
+    },
+    {
+      "id": "gs4-max-ext-front-34",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/exterior/front-34.webp",
+      "alt": "GAC GS4 MAX vista frontal tres cuartos",
+      "category": "exterior",
+      "tags": ["motor", "exterior"]
+    },
+    {
+      "id": "gs4-max-ext-silver",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/exterior/silver-34.webp",
+      "alt": "GAC GS4 MAX color plateado, vista tres cuartos",
+      "category": "exterior",
+      "tags": ["color", "silver"]
+    },
+    {
+      "id": "compare-corolla-cross",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/compare/corolla-cross.webp",
+      "alt": "Toyota Corolla Cross, vista tres cuartos para comparación",
+      "category": "exterior",
+      "tags": ["compare"]
+    },
+    {
+      "id": "gs4-max-int-dashboard",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/interior/dashboard.webp",
+      "alt": "Tablero del GAC GS4 MAX con pantalla central de 12.3 pulgadas",
+      "category": "interior",
+      "tags": ["adas", "technology", "dashboard"]
+    },
+    {
+      "id": "gs4-max-adas-hero",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/interior/dashboard.webp",
+      "alt": "Tablero del GAC GS4 MAX mostrando pantalla central y asistencias",
+      "category": "interior",
+      "tags": ["adas", "technology"],
+      "fallbackId": "gs4-max-int-dashboard"
+    },
+    {
+      "id": "gs4-max-int-rear-seats",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/interior/rear-seats.webp",
+      "alt": "Asientos traseros del GAC GS4 MAX con espacio para la familia",
+      "category": "interior",
+      "tags": ["family", "space"]
+    },
+    {
+      "id": "gs4-max-int-360-display",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/interior/360-display.webp",
+      "alt": "Pantalla central del GAC GS4 MAX mostrando cámara 360°",
+      "category": "interior",
+      "tags": ["adas", "360"],
+      "fallbackId": "gs4-max-int-dashboard"
+    },
+    {
+      "id": "gs4-max-family-cover",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/family-road-trip.webp",
+      "alt": "Familia boliviana junto al GAC GS4 MAX en ruta",
+      "category": "lifestyle",
+      "tags": ["family", "santa-cruz"],
+      "fallbackId": "gs4-max-int-rear-seats"
+    },
+    {
+      "id": "gs4-max-family-safety-hero",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/family-safety.webp",
+      "alt": "Familia segura dentro del GAC GS4 MAX",
+      "category": "lifestyle",
+      "tags": ["family", "safety"],
+      "fallbackId": "gs4-max-int-rear-seats"
+    },
+    {
+      "id": "gs4-max-technology-cover",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/interior/dashboard.webp",
+      "alt": "Tecnología a bordo del GAC GS4 MAX",
+      "category": "interior",
+      "tags": ["technology"],
+      "fallbackId": "gs4-max-int-dashboard"
+    },
+    {
+      "id": "gs4-max-service-cover",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/showroom-family.webp",
+      "alt": "Servicio postventa GAC en Viaggio Motors",
+      "category": "lifestyle",
+      "tags": ["service", "viaggio"],
+      "fallbackId": "gs4-max-hero-01"
+    },
+    {
+      "id": "warranty-timeline-5yr-150k",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/warranty/timeline-5yr-150k.webp",
+      "alt": "Línea de tiempo de garantía GAC: 5 años o 150.000 km",
+      "category": "detail",
+      "tags": ["warranty"]
+    },
+    {
+      "id": "video-trust-adas",
+      "vehicleSlug": "gs4-max",
+      "type": "video",
+      "src": "/assets/vehicles/gs4-max/video/trust-adas.mp4",
+      "posterSrc": "/assets/vehicles/gs4-max/interior/dashboard.webp",
+      "alt": "Demostración de asistencias al conductor ADAS del GAC GS4 MAX",
+      "category": "interior",
+      "tags": ["adas", "trust", "video"],
+      "fallbackId": "gs4-max-int-dashboard"
+    },
+    {
+      "id": "video-trust-heritage",
+      "vehicleSlug": "gs4-max",
+      "type": "video",
+      "src": "/assets/vehicles/gs4-max/video/trust-heritage.mp4",
+      "posterSrc": "/assets/vehicles/gs4-max/exterior/hero-01.webp",
+      "alt": "Historia global de GAC Motor",
+      "category": "brand",
+      "tags": ["trust", "heritage"],
+      "fallbackId": "gs4-max-hero-01"
+    },
+    {
+      "id": "video-viaggio-taller",
+      "vehicleSlug": "gs4-max",
+      "type": "video",
+      "src": "/assets/vehicles/gs4-max/video/viaggio-taller.mp4",
+      "posterSrc": "/assets/vehicles/gs4-max/lifestyle/showroom-family.webp",
+      "alt": "Taller y servicio postventa Viaggio Motors en Santa Cruz",
+      "category": "lifestyle",
+      "tags": ["trust", "service", "viaggio"],
+      "fallbackId": "gs4-max-service-cover"
+    },
+    {
+      "id": "video-trust-engine",
+      "vehicleSlug": "gs4-max",
+      "type": "video",
+      "src": "/assets/vehicles/gs4-max/video/trust-engine.mp4",
+      "posterSrc": "/assets/vehicles/gs4-max/exterior/front-34.webp",
+      "alt": "Motor turbo 1.5L del GAC GS4 MAX",
+      "category": "exterior",
+      "tags": ["trust", "engine"],
+      "fallbackId": "gs4-max-ext-front-34"
+    },
+    {
+      "id": "video-trust-chassis",
+      "vehicleSlug": "gs4-max",
+      "type": "video",
+      "src": "/assets/vehicles/gs4-max/video/trust-chassis.mp4",
+      "posterSrc": "/assets/vehicles/gs4-max/exterior/front-34.webp",
+      "alt": "Chasis y durabilidad del GAC GS4 MAX",
+      "category": "exterior",
+      "tags": ["trust", "chassis"],
+      "fallbackId": "gs4-max-ext-front-34"
+    },
+    {
+      "id": "logo-viaggio-full",
+      "type": "image",
+      "src": "/assets/brand/logo-viaggio-full.svg",
+      "alt": "Viaggio Motors Santa Cruz",
+      "category": "brand",
+      "tags": ["logo", "viaggio"]
+    },
+    {
+      "id": "logo-gac-full",
+      "type": "image",
+      "src": "/assets/brand/logo-gac-full.svg",
+      "alt": "GAC Motor",
+      "category": "brand",
+      "tags": ["logo", "gac"]
+    },
+    {
+      "id": "persona-carlos-avatar",
+      "type": "image",
+      "src": "/assets/personas/carlos-avatar.webp",
+      "alt": "Carlos, mecánico maestro de Viaggio Digital Showroom",
+      "category": "persona",
+      "tags": ["carlos"]
+    },
+    {
+      "id": "persona-sofia-avatar",
+      "type": "image",
+      "src": "/assets/personas/sofia-avatar.webp",
+      "alt": "Sofía, consultora de ventas de Viaggio Digital Showroom",
+      "category": "persona",
+      "tags": ["sofia"]
+    },
+    {
+      "id": "persona-diego-avatar",
+      "type": "image",
+      "src": "/assets/personas/diego-avatar.webp",
+      "alt": "Diego, conductor familiar de Viaggio Digital Showroom",
+      "category": "persona",
+      "tags": ["diego"]
+    },
+    {
+      "id": "gs4-max-diego-colegio",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/daily-dropoff.webp",
+      "alt": "GAC GS4 MAX en el día a día — llevar a los niños al colegio",
+      "category": "lifestyle",
+      "tags": ["diego", "daily"],
+      "fallbackId": "gs4-max-family-cover"
+    },
+    {
+      "id": "gs4-max-diego-super",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/shopping.webp",
+      "alt": "GAC GS4 MAX en compras del supermercado",
+      "category": "lifestyle",
+      "tags": ["diego", "daily"],
+      "fallbackId": "gs4-max-family-cover"
+    },
+    {
+      "id": "gs4-max-diego-buenavista",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/family-road-trip.webp",
+      "alt": "Familia en viaje con el GAC GS4 MAX hacia Buena Vista",
+      "category": "lifestyle",
+      "tags": ["diego", "road-trip"],
+      "fallbackId": "gs4-max-family-cover"
+    },
+    {
+      "id": "gs4-max-diego-carretera",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/doble-via.webp",
+      "alt": "GAC GS4 MAX en carretera de Santa Cruz",
+      "category": "lifestyle",
+      "tags": ["diego", "road"],
+      "fallbackId": "gs4-max-family-cover"
+    },
+    {
+      "id": "gs4-max-diego-confort",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/interior/rear-seats.webp",
+      "alt": "Confort interior del GAC GS4 MAX para la familia",
+      "category": "interior",
+      "tags": ["diego", "comfort"],
+      "fallbackId": "gs4-max-int-rear-seats"
+    },
+    {
+      "id": "gs4-max-diego-ano1",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/ownership-year1.webp",
+      "alt": "Primer año de propiedad del GAC GS4 MAX",
+      "category": "lifestyle",
+      "tags": ["diego", "ownership"],
+      "fallbackId": "gs4-max-family-cover"
+    },
+    {
+      "id": "gs4-max-diego-mediodia",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/daily-dropoff.webp",
+      "alt": "GAC GS4 MAX en el mediodía con la familia",
+      "category": "lifestyle",
+      "tags": ["diego", "children"],
+      "fallbackId": "gs4-max-family-cover"
+    },
+    {
+      "id": "gs4-max-safety-cover",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/family-safety.webp",
+      "alt": "Seguridad para tu familia en el GAC GS4 MAX",
+      "category": "lifestyle",
+      "tags": ["safety", "family"],
+      "fallbackId": "gs4-max-int-rear-seats"
+    },
+    {
+      "id": "gs4-max-reliability-cover",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/exterior/front-34.webp",
+      "alt": "Confiabilidad e ingeniería del GAC GS4 MAX",
+      "category": "exterior",
+      "tags": ["reliability"],
+      "fallbackId": "gs4-max-ext-front-34"
+    },
+    {
+      "id": "gs4-max-warranty-cover",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/warranty/timeline-5yr-150k.webp",
+      "alt": "Garantía GAC 5 años / 150.000 km",
+      "category": "detail",
+      "tags": ["warranty"],
+      "fallbackId": "warranty-timeline-5yr-150k"
+    },
+    {
+      "id": "logo-bank-partner-1",
+      "type": "image",
+      "src": "/assets/brand/logo-bank-partner-1.svg",
+      "alt": "Socio financiero autorizado Viaggio",
+      "category": "brand",
+      "tags": ["financing", "bank"]
+    },
+    {
+      "id": "emkoo-hero-01",
+      "vehicleSlug": "emkoo",
+      "type": "image",
+      "src": "/assets/vehicles/emkoo/hero.webp",
+      "alt": "GAC EMKOO — próximamente",
+      "category": "exterior",
+      "tags": ["coming-soon"]
+    },
+    {
+      "id": "emzoom-hero-01",
+      "vehicleSlug": "emzoom",
+      "type": "image",
+      "src": "/assets/vehicles/emzoom/hero.webp",
+      "alt": "GAC EMZOOM — próximamente",
+      "category": "exterior",
+      "tags": ["coming-soon"]
+    },
+    {
+      "id": "gs8-hero-01",
+      "vehicleSlug": "gs8",
+      "type": "image",
+      "src": "/assets/vehicles/gs8/hero.webp",
+      "alt": "GAC GS8 — próximamente",
+      "category": "exterior",
+      "tags": ["coming-soon"]
+    },
+    {
+      "id": "viaggio-test-drive-route",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/test-drive-route.webp",
+      "alt": "Ruta de prueba de manejo Viaggio Motors Santa Cruz",
+      "category": "lifestyle",
+      "tags": ["test-drive", "viaggio"],
+      "fallbackId": "gs4-max-hero-01"
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "id": "structure",
+  "themeId": "safety",
+  "vehicleSlug": "gs4-max",
+  "title": "Estructura y airbags",
+  "personaId": "carlos",
+  "tags": ["seguridad", "estructura"],
+  "relatedTopicIds": ["family-safety", "adas"],
+  "blocks": [
+    {
+      "id": "structure-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-ext-front-34",
+        "headline": "Estructura y airbags",
+        "subheadline": "Protección pasiva verificable — sin exagerar"
+      }
+    },
+    {
+      "id": "structure-narration",
+      "type": "narration",
+      "personaId": "carlos",
+      "sortOrder": 1,
+      "data": {
+        "text": "Estructura de alta resistencia y 8 airbags de serie. La seguridad pasiva complementa las asistencias al conductor — no las reemplaza. En un impacto, la carrocería absorbe energía y los airbags protegen a ocupantes en múltiples puntos.",
+        "emphasis": "Protección estructural verificable"
+      }
+    },
+    {
+      "id": "structure-stats",
+      "type": "stat_callout",
+      "sortOrder": 2,
+      "data": {
+        "stats": [
+          { "value": "8", "label": "Airbags de serie" },
+          { "value": "C-NCAP", "label": "Validación independiente" },
+          { "value": "ISOFIX", "label": "Anclajes traseros" }
+        ]
+      }
+    },
+    {
+      "id": "structure-features",
+      "type": "feature_grid",
+      "sortOrder": 3,
+      "data": {
+        "features": [
+          {
+            "icon": "shield",
+            "title": "Carrocería reforzada",
+            "description": "Diseño estructural para absorber impactos frontales y laterales."
+          },
+          {
+            "icon": "airbag",
+            "title": "8 airbags",
+            "description": "Frontales, laterales y de cortina — de serie en el GS4 MAX."
+          },
+          {
+            "icon": "anchor",
+            "title": "ISOFIX",
+            "description": "Puntos de anclaje para sillas infantiles — confirmá con Viaggio tu versión."
+          }
+        ]
+      }
+    },
+    {
+      "id": "structure-cta",
+      "type": "cta",
+      "sortOrder": 4,
+      "data": {
+        "action": "topic",
+        "label": "Seguridad familiar con Diego →",
+        "targetId": "family-safety",
+        "targetThemeId": "safety"
+      }
+    }
+  ]
+}

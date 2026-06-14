@@ -1,0 +1,20 @@
+{
+  "id": "brand-heritage",
+  "themeId": "reliability",
+  "vehicleSlug": "gs4-max",
+  "title": "GAC en el mundo",
+  "personaId": "carlos",
+  "tags": ["marca", "gac"],
+  "blocks": [
+    {
+      "id": "brand-narration",
+      "type": "narration",
+      "personaId": "carlos",
+      "sortOrder": 0,
+      "data": {
+        "text": "GAC Motor produce millones de vehículos y exporta a decenas de mercados. Bolivia fue escenario de uno de los primeros lanzamientos regionales del GS4 MAX. En Viaggio Motors tenés el canal oficial: showroom, taller y repuestos en el mismo grupo — Grupo Roda, empresa 100% boliviana.",
+        "emphasis": "Marca global, respaldo local"
+      }
+    }
+  ]
+}

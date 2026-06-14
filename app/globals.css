@@ -1,0 +1,188 @@
+@import "tailwindcss";
+
+:root {
+  --canvas-deep: #0a0c10;
+  --canvas-soft: #141820;
+  --canvas-light: #f5f5f7;
+  --surface-glass: rgba(255, 255, 255, 0.08);
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.72);
+  --color-background: var(--canvas-deep);
+  --color-foreground: #f4f4f5;
+  --color-foreground-muted: #a1a1aa;
+  --color-surface: #14171c;
+  --color-surface-muted: #1c2028;
+  --color-border: #2a3038;
+  --color-accent: #c8a96e;
+  --color-accent-warm: #c8a96e;
+  --color-accent-trust: #4a9b8e;
+  --color-accent-neutral: #8e8e93;
+  --color-accent-muted: #8f7344;
+  --color-viaggio: #1e3a5f;
+  --color-gac: #c8102e;
+  --color-persona-carlos: #4a6fa5;
+  --color-persona-sofia: #b8a0a0;
+  --color-persona-diego: #6b8e6b;
+  --text-on-light: #1d1d1f;
+  --text-secondary-on-light: #6e6e73;
+  --spacing-kiosk: 7.5rem;
+  --spacing-section: 3rem;
+  --spacing-section-lg: 4rem;
+  --spacing-card: 1.5rem;
+  --spacing-safe-top: 3rem;
+  --spacing-safe-bottom: 6rem;
+  --font-display: var(--font-geist-sans), system-ui, sans-serif;
+  --font-body: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+@theme inline {
+  --color-background: var(--color-background);
+  --color-foreground: var(--color-foreground);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-geist-mono);
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+}
+
+.type-display {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.type-headline {
+  font-size: clamp(2rem, 3.5vw, 2.75rem);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+}
+
+.type-body {
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  line-height: 1.5;
+}
+
+.type-label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.type-eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+.type-kiosk-lead {
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  line-height: 1.45;
+}
+
+.section-rhythm {
+  margin-top: var(--spacing-section);
+}
+
+.section-rhythm-lg {
+  margin-top: var(--spacing-section-lg);
+}
+
+.card-premium {
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--surface-glass);
+  backdrop-filter: blur(24px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+html[data-text-scale="s"] {
+  --preview-body-size: 1rem;
+  font-size: 15px;
+}
+
+html[data-text-scale="m"] {
+  --preview-body-size: 1.125rem;
+  font-size: 18px;
+}
+
+html[data-text-scale="l"] {
+  --preview-body-size: 1.35rem;
+  font-size: 22px;
+}
+
+html[data-high-contrast="true"] {
+  --text-secondary: rgba(255, 255, 255, 0.92);
+  --text-secondary-on-light: #3a3a3c;
+}
+
+html[data-reduce-motion="true"] *,
+html[data-reduce-motion="true"] *::before,
+html[data-reduce-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+.media-shimmer {
+  background: linear-gradient(
+    110deg,
+    var(--color-surface) 0%,
+    var(--color-surface-muted) 42%,
+    rgba(200, 169, 110, 0.1) 50%,
+    var(--color-surface-muted) 58%,
+    var(--color-surface) 100%
+  );
+  background-size: 220% 100%;
+  animation: media-shimmer 1.8s ease-in-out infinite;
+}
+
+@keyframes media-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.demo-primary-cta-highlight {
+  box-shadow:
+    0 0 0 2px rgba(200, 169, 110, 0.55),
+    0 0 24px rgba(200, 169, 110, 0.35);
+  animation: demo-cta-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes demo-cta-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 2px rgba(200, 169, 110, 0.45),
+      0 0 16px rgba(200, 169, 110, 0.25);
+  }
+  50% {
+    box-shadow:
+      0 0 0 3px rgba(200, 169, 110, 0.75),
+      0 0 32px rgba(200, 169, 110, 0.45);
+  }
+}

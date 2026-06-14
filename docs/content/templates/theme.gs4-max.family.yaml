@@ -1,0 +1,17 @@
+# themeId: family
+# vehicleSlug: gs4-max
+# Sample YAML content template for theme metadata
+
+id: family
+vehicleSlug: gs4-max
+title: Para tu familia
+description: Espacio, confort y practicidad para el día a día en Santa Cruz
+icon: family
+primaryPersonaId: diego
+sortOrder: 3
+coverMediaId: gs4-max-family-cover
+topicIds:
+  - space
+  - climate
+  - cargo
+  - daily-life

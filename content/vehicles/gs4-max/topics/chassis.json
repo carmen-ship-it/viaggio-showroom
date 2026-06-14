@@ -1,0 +1,32 @@
+{
+  "id": "chassis",
+  "themeId": "reliability",
+  "vehicleSlug": "gs4-max",
+  "title": "Chasis y durabilidad",
+  "personaId": "carlos",
+  "tags": ["chasis", "durabilidad"],
+  "blocks": [
+    {
+      "id": "chassis-narration",
+      "type": "narration",
+      "personaId": "carlos",
+      "sortOrder": 0,
+      "data": {
+        "text": "Plataforma diseñada para absorber irregularidades del pavimento y mantener estabilidad en ruta. En Santa Cruz, donde el asfalto no siempre es perfecto, eso se nota. La suspensión y el bastidor están pensados para el uso real — no solo para la foto del catálogo.",
+        "emphasis": "Pensado para calles reales"
+      }
+    },
+    {
+      "id": "chassis-stats",
+      "type": "stat_callout",
+      "sortOrder": 1,
+      "data": {
+        "stats": [
+          { "value": "2.750 mm", "label": "Distancia entre ejes" },
+          { "value": "5★", "label": "C-NCAP" },
+          { "value": "8", "label": "Airbags de serie" }
+        ]
+      }
+    }
+  ]
+}

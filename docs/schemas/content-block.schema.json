@@ -1,0 +1,148 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/content-block.schema.json",
+  "title": "ContentBlock",
+  "type": "object",
+  "required": ["id", "type", "sortOrder"],
+  "properties": {
+    "id": { "type": "string" },
+    "type": {
+      "type": "string",
+      "enum": [
+        "hero",
+        "narration",
+        "feature_grid",
+        "stat_callout",
+        "media_gallery",
+        "comparison_snippet",
+        "accordion",
+        "video",
+        "cta"
+      ]
+    },
+    "personaId": {
+      "type": "string",
+      "enum": ["carlos", "sofia", "diego"]
+    },
+    "sortOrder": { "type": "integer", "minimum": 0 },
+    "data": { "type": "object" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "type": { "const": "hero" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": ["mediaId", "headline"],
+            "properties": {
+              "mediaId": { "type": "string" },
+              "headline": { "type": "string" },
+              "subheadline": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "narration" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": ["text"],
+            "properties": {
+              "text": { "type": "string" },
+              "emphasis": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "feature_grid" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": ["features"],
+            "properties": {
+              "features": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["icon", "title", "description"],
+                  "properties": {
+                    "icon": { "type": "string" },
+                    "title": { "type": "string" },
+                    "description": { "type": "string" }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "stat_callout" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": ["stats"],
+            "properties": {
+              "stats": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["value", "label"],
+                  "properties": {
+                    "value": { "type": "string" },
+                    "label": { "type": "string" }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "type": { "const": "cta" } }, "required": ["type"] },
+      "then": {
+        "properties": {
+          "data": {
+            "type": "object",
+            "required": ["action", "label"],
+            "properties": {
+              "action": {
+                "type": "string",
+                "enum": [
+                  "test_drive",
+                  "test_drive_info",
+                  "whatsapp",
+                  "compare",
+                  "tour",
+                  "topic",
+                  "share"
+                ]
+              },
+              "label": { "type": "string" },
+              "targetId": { "type": "string" },
+              "targetThemeId": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    }
+  ],
+  "additionalProperties": false
+}

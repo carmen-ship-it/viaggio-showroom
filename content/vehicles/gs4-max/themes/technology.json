@@ -1,0 +1,11 @@
+{
+  "id": "technology",
+  "vehicleSlug": "gs4-max",
+  "title": "Tecnología",
+  "description": "Conectividad y asistencias pensadas para el conductor moderno",
+  "icon": "chip",
+  "primaryPersonaId": "sofia",
+  "sortOrder": 4,
+  "coverMediaId": "gs4-max-technology-cover",
+  "topicIds": ["tech-overview"]
+}

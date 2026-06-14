@@ -1,0 +1,29 @@
+{
+  "demoMode": true,
+  "name": "Viaggio Motors Santa Cruz",
+  "brand": "GAC Motor Bolivia",
+  "city": "Santa Cruz de la Sierra",
+  "address": "Av. Cristóbal de Mendoza 1234, Equipetrol Norte, Santa Cruz de la Sierra, Bolivia",
+  "whatsapp": "+591712345678",
+  "phone": "+59133456789",
+  "email": "contacto@viaggio.com.bo",
+  "hours": {
+    "weekdays": "Lun–Vie 8:30–18:30",
+    "saturday": "Sáb 9:00–13:00",
+    "sunday": "Domingo: Cerrado"
+  },
+  "coordinates": {
+    "lat": -17.7589,
+    "lng": -63.1699
+  },
+  "social": {
+    "facebook": "https://facebook.com/viaggiomotors",
+    "instagram": "https://instagram.com/viaggiomotors"
+  },
+  "consultants": [
+    "María Elena Vargas",
+    "Roberto Paz",
+    "Ana Lucía Ríos",
+    "Carlos Méndez"
+  ]
+}

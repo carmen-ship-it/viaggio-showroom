@@ -1,0 +1,11 @@
+{
+  "id": "safety",
+  "vehicleSlug": "gs4-max",
+  "title": "Seguridad",
+  "description": "Protección para tu familia en cada trayecto por Santa Cruz",
+  "icon": "shield",
+  "primaryPersonaId": "carlos",
+  "sortOrder": 2,
+  "coverMediaId": "gs4-max-safety-cover",
+  "topicIds": ["family-safety", "adas", "structure"]
+}

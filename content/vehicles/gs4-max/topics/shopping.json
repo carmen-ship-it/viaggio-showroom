@@ -1,0 +1,65 @@
+{
+  "id": "shopping",
+  "themeId": "family",
+  "vehicleSlug": "gs4-max",
+  "title": "Supermercado",
+  "personaId": "diego",
+  "tags": ["familia", "compras", "cajuela"],
+  "relatedTopicIds": ["family-trips", "comfort"],
+  "blocks": [
+    {
+      "id": "sh-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-diego-super",
+        "headline": "Supermercado",
+        "subheadline": "Lista WhatsApp, parking caliente y cajuela que cierra"
+      }
+    },
+    {
+      "id": "sh-narration",
+      "type": "narration",
+      "personaId": "diego",
+      "sortOrder": 1,
+      "data": {
+        "emphasis": "El super del sábado no es romántico",
+        "text": "El super del sábado no es romántico. Mi esposa me manda la lista por WhatsApp — agua en pack, detergente, fruta — y voy con los dos, que ya van pidiendo algo que no estaba en la lista.\n\nAntes: bolsas en el asiento del copiloto, chico con una bolsa en el regazo, y el portón que no cierra bien. Ahora empujo el carrito hasta la cajuela del GS4 MAX, subo todo, y todavía queda lugar para la mochila de gimnasio.\n\nVisualizá el parking a las 11: sol vertical, asfalto caliente. La cámara 360° te muestra el hueco real — no adivinás con el espejo y un niño preguntando si ya nos vamos."
+      }
+    },
+    {
+      "id": "sh-features",
+      "type": "feature_grid",
+      "sortOrder": 2,
+      "data": {
+        "features": [
+          {
+            "icon": "cargo",
+            "title": "Cajuela amplia",
+            "description": "Carrito de super, agua en pack y bolsas extra — cierra sin Tetris."
+          },
+          {
+            "icon": "camera-360",
+            "title": "Cámara 360°",
+            "description": "Estacionar en parking con columnas y sol de frente."
+          },
+          {
+            "icon": "seat",
+            "title": "Respaldo abatible",
+            "description": "Más espacio cuando la compra del mes lo pide."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sh-cta",
+      "type": "cta",
+      "sortOrder": 3,
+      "data": {
+        "action": "tour",
+        "label": "Continuar el tour familiar →",
+        "targetId": "family"
+      }
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/conversion-event.schema.json",
+  "title": "ConversionEvent",
+  "type": "object",
+  "required": ["eventType", "sessionId", "timestamp"],
+  "properties": {
+    "eventType": {
+      "type": "string",
+      "enum": [
+        "session_started",
+        "session_ended",
+        "session_abandoned",
+        "vehicle_selected",
+        "theme_viewed",
+        "topic_viewed",
+        "content_block_viewed",
+        "tour_started",
+        "tour_step_completed",
+        "tour_completed",
+        "media_played",
+        "comparison_viewed",
+        "comparison_row_expanded",
+        "test_drive_requested",
+        "whatsapp_initiated",
+        "consultant_handoff",
+        "lead_queued_offline",
+        "a11y_settings_changed"
+      ]
+    },
+    "sessionId": { "type": "string", "format": "uuid" },
+    "vehicleSlug": { "type": "string" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "payload": {
+      "type": "object",
+      "properties": {
+        "themeId": { "type": "string" },
+        "topicId": { "type": "string" },
+        "tourId": { "type": "string" },
+        "stepId": { "type": "string" },
+        "personaId": { "type": "string" },
+        "compareTargetId": { "type": "string" },
+        "entrySource": {
+          "type": "string",
+          "enum": ["kiosk", "qr", "consultant"]
+        },
+        "blockId": { "type": "string" },
+        "blockType": { "type": "string" },
+        "durationMs": { "type": "integer" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": false
+}

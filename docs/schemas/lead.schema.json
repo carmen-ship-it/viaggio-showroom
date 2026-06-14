@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/lead.schema.json",
+  "title": "Lead",
+  "type": "object",
+  "required": ["type", "vehicleSlug"],
+  "properties": {
+    "sessionId": { "type": "string", "format": "uuid" },
+    "type": {
+      "type": "string",
+      "enum": ["test_drive", "whatsapp", "consultant"]
+    },
+    "name": { "type": "string" },
+    "phone": { "type": "string" },
+    "preferredDate": { "type": "string", "format": "date" },
+    "vehicleSlug": { "type": "string" },
+    "notes": { "type": "string" },
+    "topicsExplored": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "leadScore": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "metadata": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": false
+}

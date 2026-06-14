@@ -1,0 +1,65 @@
+{
+  "id": "comfort",
+  "themeId": "family",
+  "vehicleSlug": "gs4-max",
+  "title": "Confort en Santa Cruz",
+  "personaId": "diego",
+  "tags": ["familia", "confort", "clima"],
+  "relatedTopicIds": ["ownership-experience", "children"],
+  "blocks": [
+    {
+      "id": "co-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-diego-confort",
+        "headline": "Confort en Santa Cruz",
+        "subheadline": "A/C, asientos y el suegro de 1,80 que va atrás los domingos"
+      }
+    },
+    {
+      "id": "co-narration",
+      "type": "narration",
+      "personaId": "diego",
+      "sortOrder": 1,
+      "data": {
+        "emphasis": "En Santa Cruz el confort empieza antes de arrancar",
+        "text": "En Santa Cruz el confort empieza antes de arrancar. Dejé el GS4 MAX al sol en el trabajo — 40 minutos, parabrisas como espejo. Abrís la puerta, encendés el aire y en pocos minutos podés sentarte sin pegarte al asiento.\n\nMi esposa y yo peleamos por el termostato — ella quiere frío de verdad, yo no quiero congelarme. Encontramos un punto medio porque atrás también enfría: los chicos no llegan sudados al colegio ni rojos al recogerlos.\n\nEn la versión GT, los asientos ventilados son el detalle que no sabías que necesitabas hasta el primer enero a las 3 de la tarde. Mi suegro, 1,80, va atrás los domingos — si él no se queja, el espacio es real."
+      }
+    },
+    {
+      "id": "co-features",
+      "type": "feature_grid",
+      "sortOrder": 2,
+      "data": {
+        "features": [
+          {
+            "icon": "ac",
+            "title": "Climatización eficiente",
+            "description": "Enfría antes de que sufran los chicos — clave en Santa Cruz."
+          },
+          {
+            "icon": "seat",
+            "title": "Asientos ventilados GT",
+            "description": "Alivio después del sol de estacionamiento."
+          },
+          {
+            "icon": "space",
+            "title": "Espacio trasero real",
+            "description": "Adultos de 1,80 cm cómodos en fila trasera."
+          }
+        ]
+      }
+    },
+    {
+      "id": "co-cta",
+      "type": "cta",
+      "sortOrder": 3,
+      "data": {
+        "action": "topic",
+        "label": "Año 1 de propiedad →",
+        "targetId": "ownership-experience"
+      }
+    }
+  ]
+}

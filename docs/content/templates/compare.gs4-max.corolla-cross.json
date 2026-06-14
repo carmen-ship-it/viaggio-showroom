@@ -1,0 +1,69 @@
+{
+  "id": "competitor-corolla-cross",
+  "vehicleSlug": "gs4-max",
+  "targetType": "competitor",
+  "displayName": "Toyota Corolla Cross",
+  "thumbnailMediaId": "compare-corolla-cross",
+  "dimensions": [
+    {
+      "category": "Seguridad",
+      "rows": [
+        {
+          "label": "Cámara 360°",
+          "anchorValue": "Sí, de serie",
+          "targetValue": "No en base",
+          "verdict": "anchor_wins",
+          "personaId": "carlos",
+          "explanation": "La cámara panorámica del GS4 MAX facilita el estacionamiento en espacios reducidos."
+        },
+        {
+          "label": "Airbags",
+          "anchorValue": "6 airbags",
+          "targetValue": "7 airbags",
+          "verdict": "target_wins",
+          "personaId": "carlos",
+          "explanation": "Toyota lleva un airbag adicional en algunas versiones — un punto a favor."
+        }
+      ]
+    },
+    {
+      "category": "Tecnología",
+      "rows": [
+        {
+          "label": "Pantalla central",
+          "anchorValue": "12.3 pulgadas",
+          "targetValue": "8-10 pulgadas",
+          "verdict": "anchor_wins",
+          "personaId": "sofia",
+          "explanation": "Pantalla más grande con mejor resolución para navegación y multimedia."
+        }
+      ]
+    },
+    {
+      "category": "Garantía",
+      "rows": [
+        {
+          "label": "Garantía motor/transmisión",
+          "anchorValue": "5 años / 150.000 km",
+          "targetValue": "3 años / 100.000 km",
+          "verdict": "anchor_wins",
+          "personaId": "carlos",
+          "explanation": "Mayor respaldo de fábrica en componentes críticos."
+        }
+      ]
+    },
+    {
+      "category": "Valor",
+      "rows": [
+        {
+          "label": "Equipamiento de serie",
+          "anchorValue": "ADAS completo, techo panorámico, cuero",
+          "targetValue": "Varía por versión",
+          "verdict": "anchor_wins",
+          "personaId": "sofia",
+          "explanation": "Más equipamiento incluido sin subir de versión."
+        }
+      ]
+    }
+  ]
+}

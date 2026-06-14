@@ -1,0 +1,53 @@
+{
+  "id": "family-trips",
+  "themeId": "family",
+  "vehicleSlug": "gs4-max",
+  "title": "Buena Vista",
+  "personaId": "diego",
+  "tags": ["familia", "viajes", "fin-de-semana"],
+  "relatedTopicIds": ["road-trips", "comfort"],
+  "blocks": [
+    {
+      "id": "ft-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-diego-buenavista",
+        "headline": "Buena Vista",
+        "subheadline": "Domingo, abuelos, polvo — y esta vez sí valió la pena"
+      }
+    },
+    {
+      "id": "ft-narration",
+      "type": "narration",
+      "personaId": "diego",
+      "sortOrder": 1,
+      "data": {
+        "emphasis": "Los domingos madrugamos",
+        "text": "Los domingos madrugamos. Mi esposa ya tiene la lista en el celular — loncheras, agua, cambio de ropa. Antes, cerrar la cajuela era un puzzle: carrito plegado, bolsa de la abuela, y alguien siempre con una rodilla en el asiento.\n\nAhora suben los cuatro, cinturones listos, sillas bien ancladas. En el GS4 MAX todavía queda espacio atrás para lo que van agarrando en el viaje. Visualizá esto: Doble Vía con sol de las 8, polvo en el parabrisas rumbo a Buena Vista. Los chicos atrás comen algo, se duermen antes de la plaza.\n\nLlegamos, bajan corriendo hacia los abuelos. Mi esposa me mira como diciendo \"esta vez sí valió la pena el espacio\". Ese momento — no el folleto — es por lo que compramos SUV."
+      }
+    },
+    {
+      "id": "ft-stats",
+      "type": "stat_callout",
+      "sortOrder": 2,
+      "data": {
+        "stats": [
+          { "value": "4", "label": "Pasajeros cómodos" },
+          { "value": "✓", "label": "Cajuela para carrito y pelota" },
+          { "value": "✓", "label": "Estable en ripio" }
+        ]
+      }
+    },
+    {
+      "id": "ft-cta",
+      "type": "cta",
+      "sortOrder": 3,
+      "data": {
+        "action": "topic",
+        "label": "Viajes más largos →",
+        "targetId": "road-trips"
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "slug": "gs8",
+  "modelName": "GAC GS8",
+  "modelYear": 2025,
+  "status": "coming_soon",
+  "tagline": "El SUV premium de 7 plazas de GAC",
+  "heroMediaId": "gs8-hero-01",
+  "launchPriority": 2,
+  "metadata": {
+    "segment": "mid-size-suv"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/theme.schema.json",
+  "title": "Theme",
+  "type": "object",
+  "required": ["id", "vehicleSlug", "title", "primaryPersonaId", "sortOrder"],
+  "properties": {
+    "id": { "type": "string" },
+    "vehicleSlug": { "type": "string" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "icon": { "type": "string" },
+    "primaryPersonaId": {
+      "type": "string",
+      "enum": ["carlos", "sofia", "diego"]
+    },
+    "sortOrder": { "type": "integer", "minimum": 0 },
+    "coverMediaId": { "type": "string" },
+    "topicIds": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  },
+  "additionalProperties": false
+}

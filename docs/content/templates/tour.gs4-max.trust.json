@@ -1,0 +1,58 @@
+{
+  "id": "trust",
+  "vehicleSlug": "gs4-max",
+  "title": "Tour de Confianza",
+  "description": "Conocé la ingeniería, seguridad y garantía del GS4 MAX con Carlos",
+  "durationMinutes": 12,
+  "leadPersonaId": "carlos",
+  "steps": [
+    {
+      "id": "trust-01",
+      "title": "Motor y rendimiento",
+      "topicId": "engine",
+      "personaId": "carlos"
+    },
+    {
+      "id": "trust-02",
+      "title": "Chasis y durabilidad",
+      "topicId": "chassis",
+      "personaId": "carlos"
+    },
+    {
+      "id": "trust-03",
+      "title": "GAC en el mundo",
+      "topicId": "brand-heritage",
+      "personaId": "carlos"
+    },
+    {
+      "id": "trust-04",
+      "title": "Asistencias al conductor",
+      "topicId": "adas",
+      "personaId": "carlos"
+    },
+    {
+      "id": "trust-05",
+      "title": "Estructura y airbags",
+      "topicId": "structure",
+      "personaId": "carlos"
+    },
+    {
+      "id": "trust-06",
+      "title": "Garantía GAC",
+      "topicId": "warranty-terms",
+      "personaId": "carlos"
+    },
+    {
+      "id": "trust-07",
+      "title": "Mantenimiento programado",
+      "topicId": "maintenance",
+      "personaId": "carlos"
+    },
+    {
+      "id": "trust-08",
+      "title": "Servicio en Viaggio",
+      "topicId": "viaggio-service",
+      "personaId": "carlos"
+    }
+  ]
+}

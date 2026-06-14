@@ -1,0 +1,42 @@
+{
+  "id": "warranty-terms",
+  "themeId": "warranty-service",
+  "vehicleSlug": "gs4-max",
+  "title": "Garantía GAC",
+  "personaId": "carlos",
+  "tags": ["garantía"],
+  "blocks": [
+    {
+      "id": "warranty-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "warranty-timeline-5yr-150k",
+        "headline": "Garantía GAC",
+        "subheadline": "5 años o 150.000 km"
+      }
+    },
+    {
+      "id": "warranty-narration",
+      "type": "narration",
+      "personaId": "carlos",
+      "sortOrder": 1,
+      "data": {
+        "text": "GAC cubre el GS4 MAX con cinco años o ciento cincuenta mil kilómetros en motor y transmisión — el corazón del auto. Eso está por encima de lo habitual en el segmento. El servicio oficial lo hacés en Viaggio Motors, con técnicos capacitados por GAC y repuestos originales. No te prometo que nunca vas a necesitar el taller — ningún auto es perfecto. Te prometo que hay respaldo real detrás de lo que te estoy contando.",
+        "emphasis": "5 años / 150.000 km"
+      }
+    },
+    {
+      "id": "warranty-stats",
+      "type": "stat_callout",
+      "sortOrder": 2,
+      "data": {
+        "stats": [
+          { "value": "5 años", "label": "Garantía general" },
+          { "value": "3 años", "label": "Mantenimiento sin costo" },
+          { "value": "4", "label": "Ciudades con red Viaggio" }
+        ]
+      }
+    }
+  ]
+}

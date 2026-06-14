@@ -1,0 +1,20 @@
+{
+  "id": "family",
+  "vehicleSlug": "gs4-max",
+  "title": "Para tu familia",
+  "description": "Espacio, confort y practicidad para el día a día en Santa Cruz",
+  "icon": "family",
+  "primaryPersonaId": "diego",
+  "sortOrder": 3,
+  "coverMediaId": "gs4-max-family-cover",
+  "topicIds": [
+    "daily-driving",
+    "children",
+    "shopping",
+    "family-trips",
+    "road-trips",
+    "comfort",
+    "ownership-experience",
+    "family-comfort"
+  ]
+}

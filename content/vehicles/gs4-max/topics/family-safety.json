@@ -1,0 +1,98 @@
+{
+  "id": "family-safety",
+  "themeId": "safety",
+  "vehicleSlug": "gs4-max",
+  "title": "Seguridad para tu familia",
+  "personaId": "diego",
+  "tags": ["seguridad", "familia", "isofix", "niños"],
+  "relatedTopicIds": ["structure", "adas", "children"],
+  "blocks": [
+    {
+      "id": "fs-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-family-safety-hero",
+        "headline": "Seguridad para tu familia",
+        "subheadline": "Cómo van los chicos atrás — y por qué dormimos tranquilos"
+      }
+    },
+    {
+      "id": "fs-diego-narration",
+      "type": "narration",
+      "personaId": "diego",
+      "sortOrder": 1,
+      "data": {
+        "emphasis": "La pregunta de mi esposa no fue el motor",
+        "text": "Dos chicos — 7 y 10. Cuando empezamos a buscar SUV, mi esposa no preguntó por el motor. Preguntó: ¿entran las sillas sin forcejear? ¿y el calor del mediodía no los achicharra?\n\nAntes de decidir, ella se sentó atrás con las sillas puestas. Diez minutos. Eso valió más que mi opinión. ISOFIX bien enganchado — sin cintas improvisadas. Recogida al mediodía: auto al sol, Santa Cruz a 35 grados. En pocos minutos el aire enfría y los chicos dejan de quejarse.\n\nLos dos adultos confiamos en cómo van sentados. Eso es lo que compramos primero."
+      }
+    },
+    {
+      "id": "fs-carlos-narration",
+      "type": "narration",
+      "personaId": "carlos",
+      "sortOrder": 2,
+      "data": {
+        "emphasis": "Lo que hay detrás de esa tranquilidad",
+        "text": "Detrás de esa paz mental hay ingeniería verificable: 8 airbags de serie, estructura de alta resistencia y validación C-NCAP. Las asistencias al conductor — frenado de emergencia, alerta de cambio de carril, cámara 360° — no reemplazan tu atención, pero te dan margen en el tráfico real de Santa Cruz.\n\nISOFIX: verificá los puntos de anclaje con tu consultor Viaggio según la versión que elijas. No prometemos lo que no corresponde a tu trim."
+      }
+    },
+    {
+      "id": "fs-stats",
+      "type": "stat_callout",
+      "sortOrder": 3,
+      "data": {
+        "stats": [
+          { "value": "8", "label": "Airbags de serie" },
+          { "value": "ISOFIX", "label": "Anclajes traseros" },
+          { "value": "C-NCAP", "label": "Validación independiente" },
+          { "value": "ADAS", "label": "Asistencias de serie" }
+        ]
+      }
+    },
+    {
+      "id": "fs-features",
+      "type": "feature_grid",
+      "sortOrder": 4,
+      "data": {
+        "features": [
+          {
+            "icon": "shield",
+            "title": "Estructura reforzada",
+            "description": "Protección pasiva que complementa las asistencias al conductor."
+          },
+          {
+            "icon": "lane",
+            "title": "Alerta de cambio de carril",
+            "description": "Aviso si salís del carril sin señalizar — útil en Doble Vía."
+          },
+          {
+            "icon": "brake",
+            "title": "Frenado de emergencia",
+            "description": "Detecta colisión frontal y aplica frenado si no reaccionás a tiempo."
+          }
+        ]
+      }
+    },
+    {
+      "id": "fs-cta-adas",
+      "type": "cta",
+      "sortOrder": 5,
+      "data": {
+        "action": "topic",
+        "label": "Ver asistencias al conductor →",
+        "targetId": "adas",
+        "targetThemeId": "safety"
+      }
+    },
+    {
+      "id": "fs-cta-drive",
+      "type": "cta",
+      "sortOrder": 6,
+      "data": {
+        "action": "test_drive_info",
+        "label": "Traé a los chicos a la prueba de manejo"
+      }
+    }
+  ]
+}

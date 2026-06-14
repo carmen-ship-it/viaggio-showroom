@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/media-manifest.schema.json",
+  "title": "MediaManifest",
+  "type": "object",
+  "required": ["vehicleSlug", "assets"],
+  "properties": {
+    "vehicleSlug": { "type": "string" },
+    "assets": {
+      "type": "array",
+      "items": { "$ref": "https://viaggio.bo/schemas/media-asset.schema.json" }
+    }
+  },
+  "additionalProperties": false
+}

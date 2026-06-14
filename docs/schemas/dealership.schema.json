@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/dealership.schema.json",
+  "title": "Dealership",
+  "type": "object",
+  "required": ["name", "city", "address", "whatsapp", "hours"],
+  "properties": {
+    "demoMode": {
+      "type": "boolean",
+      "description": "Internal flag: demo-safe fictional data for kiosk executive demos"
+    },
+    "name": { "type": "string" },
+    "brand": { "type": "string" },
+    "city": { "type": "string" },
+    "address": { "type": "string" },
+    "whatsapp": {
+      "type": "string",
+      "description": "E.164 format, e.g. +591XXXXXXXX"
+    },
+    "phone": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "hours": {
+      "type": "object",
+      "properties": {
+        "weekdays": { "type": "string" },
+        "saturday": { "type": "string" },
+        "sunday": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "coordinates": {
+      "type": "object",
+      "properties": {
+        "lat": { "type": "number" },
+        "lng": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "social": {
+      "type": "object",
+      "properties": {
+        "facebook": { "type": "string" },
+        "instagram": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "consultants": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Demo-safe sales consultant names for handoff copy rotation"
+    }
+  },
+  "additionalProperties": false
+}

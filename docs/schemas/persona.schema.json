@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/persona.schema.json",
+  "title": "Persona",
+  "type": "object",
+  "required": ["id", "name", "role", "purpose", "avatarMediaId"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": ["carlos", "sofia", "diego"]
+    },
+    "name": { "type": "string" },
+    "role": { "type": "string" },
+    "purpose": {
+      "type": "string",
+      "enum": ["trust", "desire", "ownership"]
+    },
+    "avatarMediaId": { "type": "string" },
+    "voiceTraits": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "colorAccent": {
+      "type": "string",
+      "pattern": "^#[0-9A-Fa-f]{6}$"
+    },
+    "introLine": { "type": "string" }
+  },
+  "additionalProperties": false
+}

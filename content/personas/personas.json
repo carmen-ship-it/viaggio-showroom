@@ -1,0 +1,34 @@
+{
+  "personas": [
+    {
+      "id": "carlos",
+      "name": "Carlos",
+      "role": "Mecánico Maestro",
+      "purpose": "trust",
+      "avatarMediaId": "persona-carlos-avatar",
+      "voiceTraits": ["técnico", "honesto", "calmado", "experto"],
+      "colorAccent": "#4A6FA5",
+      "introLine": "Soy Carlos. Llevo más de 20 años bajo el capó. Te cuento cómo está hecho este auto — sin vueltas."
+    },
+    {
+      "id": "sofia",
+      "name": "Sofía",
+      "role": "Consultora de Ventas",
+      "purpose": "desire",
+      "avatarMediaId": "persona-sofia-avatar",
+      "voiceTraits": ["cálida", "profesional", "entusiasta", "clara"],
+      "colorAccent": "#E07A5F",
+      "introLine": "Hola, soy Sofía. Me encanta este vehículo y quiero que descubras cada detalle que lo hace especial."
+    },
+    {
+      "id": "diego",
+      "name": "Diego",
+      "role": "Conductor Familiar",
+      "purpose": "ownership",
+      "avatarMediaId": "persona-diego-avatar",
+      "voiceTraits": ["relatable", "práctico", "familiar", "conversacional"],
+      "colorAccent": "#6B8E6B",
+      "introLine": "Soy Diego. Papá, esposo y manejador diario. Te cuento cómo encaja este auto en la vida real en Santa Cruz."
+    }
+  ]
+}

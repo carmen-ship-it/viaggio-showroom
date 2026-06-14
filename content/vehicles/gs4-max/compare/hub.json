@@ -1,0 +1,40 @@
+{
+  "vehicleSlug": "gs4-max",
+  "title": "Comparar con honestidad",
+  "subtitle": "Elegí un competidor y mirá dónde gana cada uno — sin ocultar nada.",
+  "introLine": "No es la única opción en el segmento. Compará equipamiento, garantía y costo real de propiedad con datos verificables.",
+  "anchorMediaId": "gs4-max-ext-front-34",
+  "defaultTargetSlug": "corolla-cross",
+  "categories": [
+    "Seguridad",
+    "Tecnología",
+    "Espacio",
+    "Garantía",
+    "Mantenimiento",
+    "Precio",
+    "Consumo",
+    "Reventa"
+  ],
+  "targets": [
+    {
+      "slug": "corolla-cross",
+      "displayName": "Toyota Corolla Cross",
+      "thumbnailMediaId": "compare-corolla-cross",
+      "available": true
+    },
+    {
+      "slug": "hyundai-tucson",
+      "displayName": "Hyundai Tucson",
+      "thumbnailMediaId": "compare-corolla-cross",
+      "available": false,
+      "comingSoonLabel": "Próximamente"
+    },
+    {
+      "slug": "chery-tiggo-7",
+      "displayName": "Chery Tiggo 7 Pro",
+      "thumbnailMediaId": "compare-corolla-cross",
+      "available": false,
+      "comingSoonLabel": "Próximamente"
+    }
+  ]
+}

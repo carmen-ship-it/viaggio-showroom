@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/tour.schema.json",
+  "title": "Tour",
+  "type": "object",
+  "required": ["id", "vehicleSlug", "title", "durationMinutes", "leadPersonaId", "steps"],
+  "properties": {
+    "id": { "type": "string" },
+    "vehicleSlug": { "type": "string" },
+    "title": { "type": "string" },
+    "description": { "type": "string" },
+    "durationMinutes": { "type": "integer", "minimum": 1 },
+    "leadPersonaId": {
+      "type": "string",
+      "enum": ["carlos", "sofia", "diego"]
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "personaId"],
+        "properties": {
+          "id": { "type": "string" },
+          "title": { "type": "string" },
+          "topicId": { "type": "string" },
+          "personaId": {
+            "type": "string",
+            "enum": ["carlos", "sofia", "diego"]
+          },
+          "blocks": {
+            "type": "array",
+            "items": { "$ref": "content-block.schema.json" }
+          }
+        },
+        "additionalProperties": false
+      },
+      "minItems": 1
+    }
+  },
+  "additionalProperties": false
+}

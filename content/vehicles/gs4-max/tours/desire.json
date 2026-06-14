@@ -1,0 +1,22 @@
+{
+  "id": "desire",
+  "vehicleSlug": "gs4-max",
+  "title": "Tour de Descubrimiento",
+  "description": "Descubrí diseño, tecnología y equipamiento con Sofía",
+  "durationMinutes": 10,
+  "leadPersonaId": "sofia",
+  "steps": [
+    {
+      "id": "desire-01",
+      "title": "Diseño exterior",
+      "topicId": "tech-overview",
+      "personaId": "sofia"
+    },
+    {
+      "id": "desire-02",
+      "title": "Tecnología a bordo",
+      "topicId": "tech-overview",
+      "personaId": "sofia"
+    }
+  ]
+}

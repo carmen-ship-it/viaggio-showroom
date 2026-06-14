@@ -1,0 +1,55 @@
+{
+  "assets": [
+    {
+      "id": "gs4-max-hero-01",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/hero.webp",
+      "alt": "GAC GS4 MAX en color plateado, vista frontal tres cuartos",
+      "category": "exterior",
+      "tags": ["hero", "front"]
+    },
+    {
+      "id": "gs4-max-adas-hero",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/interior/dashboard.webp",
+      "alt": "Tablero del GAC GS4 MAX mostrando pantalla central y asistencias",
+      "category": "interior",
+      "tags": ["adas", "technology"]
+    },
+    {
+      "id": "gs4-max-family-cover",
+      "vehicleSlug": "gs4-max",
+      "type": "image",
+      "src": "/assets/vehicles/gs4-max/lifestyle/family-road-trip.webp",
+      "alt": "Familia boliviana junto al GAC GS4 MAX en ruta",
+      "category": "lifestyle",
+      "tags": ["family", "santa-cruz"]
+    },
+    {
+      "id": "persona-carlos-avatar",
+      "type": "image",
+      "src": "/assets/personas/carlos-avatar.webp",
+      "alt": "Carlos, mecánico maestro de Viaggio Digital Showroom",
+      "category": "persona",
+      "tags": ["carlos"]
+    },
+    {
+      "id": "persona-sofia-avatar",
+      "type": "image",
+      "src": "/assets/personas/sofia-avatar.webp",
+      "alt": "Sofía, consultora de ventas de Viaggio Digital Showroom",
+      "category": "persona",
+      "tags": ["sofia"]
+    },
+    {
+      "id": "persona-diego-avatar",
+      "type": "image",
+      "src": "/assets/personas/diego-avatar.webp",
+      "alt": "Diego, conductor familiar de Viaggio Digital Showroom",
+      "category": "persona",
+      "tags": ["diego"]
+    }
+  ]
+}

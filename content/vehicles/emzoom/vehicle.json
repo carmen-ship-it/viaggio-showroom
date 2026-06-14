@@ -1,0 +1,13 @@
+{
+  "slug": "emzoom",
+  "modelName": "GAC EMZOOM",
+  "modelYear": 2025,
+  "status": "coming_soon",
+  "tagline": "SUV eléctrico con tecnología de última generación",
+  "heroMediaId": "emzoom-hero-01",
+  "launchPriority": 3,
+  "metadata": {
+    "segment": "electric-suv",
+    "fuelType": "electric"
+  }
+}

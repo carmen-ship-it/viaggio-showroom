@@ -1,0 +1,11 @@
+{
+  "id": "reliability",
+  "vehicleSlug": "gs4-max",
+  "title": "Confiabilidad",
+  "description": "Ingeniería y durabilidad explicadas sin tecnicismos innecesarios",
+  "icon": "wrench",
+  "primaryPersonaId": "carlos",
+  "sortOrder": 1,
+  "coverMediaId": "gs4-max-reliability-cover",
+  "topicIds": ["engine", "maintenance"]
+}

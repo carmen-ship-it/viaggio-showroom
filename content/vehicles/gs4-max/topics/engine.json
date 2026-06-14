@@ -1,0 +1,42 @@
+{
+  "id": "engine",
+  "themeId": "reliability",
+  "vehicleSlug": "gs4-max",
+  "title": "Motor y rendimiento",
+  "personaId": "carlos",
+  "tags": ["motor", "rendimiento"],
+  "blocks": [
+    {
+      "id": "engine-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-ext-front-34",
+        "headline": "Motor 1.5 Turbo",
+        "subheadline": "Ingeniería de producción en serie — no prototipo"
+      }
+    },
+    {
+      "id": "engine-narration",
+      "type": "narration",
+      "personaId": "carlos",
+      "sortOrder": 1,
+      "data": {
+        "text": "El GS4 MAX lleva un 1.5 litros turbo que GAC produce en serie hace años y monta en varios modelos en Asia y Latinoamérica. Lo que miro primero es el mantenimiento: aceite cada diez mil kilómetros, cadena de distribución — no correa que se rompe a los ochenta mil — y un turbo dimensionado para uso diario en ciudad y ruta. Rendimiento adecuado para incorporarte en la doble vía sin forzar el motor.",
+        "emphasis": "Ingeniería probada en uso real"
+      }
+    },
+    {
+      "id": "engine-stats",
+      "type": "stat_callout",
+      "sortOrder": 2,
+      "data": {
+        "stats": [
+          { "value": "177 HP", "label": "Potencia 4x2" },
+          { "value": "270 Nm", "label": "Torque" },
+          { "value": "10.000 km", "label": "Intervalo de aceite" }
+        ]
+      }
+    }
+  ]
+}

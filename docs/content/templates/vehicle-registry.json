@@ -1,0 +1,43 @@
+{
+  "vehicles": [
+    {
+      "slug": "gs4-max",
+      "modelName": "GAC GS4 MAX",
+      "modelYear": 2025,
+      "status": "active",
+      "tagline": "El SUV que tu familia merece — confiable, tecnológico y listo para Santa Cruz",
+      "heroMediaId": "gs4-max-hero-01",
+      "priceFrom": 0,
+      "priceDisclaimer": "Precio orientativo. Consultá con Viaggio Motors.",
+      "launchPriority": 1
+    },
+    {
+      "slug": "gs8",
+      "modelName": "GAC GS8",
+      "modelYear": 2025,
+      "status": "coming_soon",
+      "tagline": "El SUV premium de 7 plazas de GAC",
+      "heroMediaId": "gs8-hero-01",
+      "launchPriority": 2
+    },
+    {
+      "slug": "emzoom",
+      "modelName": "GAC EMZOOM",
+      "modelYear": 2025,
+      "status": "coming_soon",
+      "tagline": "SUV eléctrico con tecnología de última generación",
+      "heroMediaId": "emzoom-hero-01",
+      "launchPriority": 3
+    },
+    {
+      "slug": "emkoo",
+      "modelName": "GAC EMKOO",
+      "modelYear": 2025,
+      "status": "coming_soon",
+      "tagline": "Crossover urbano con diseño audaz",
+      "heroMediaId": "emkoo-hero-01",
+      "launchPriority": 4
+    }
+  ],
+  "defaultVehicleSlug": "gs4-max"
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/vehicle.schema.json",
+  "title": "Vehicle",
+  "type": "object",
+  "required": ["slug", "modelName", "modelYear", "status", "tagline"],
+  "properties": {
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "URL-safe identifier, e.g. gs4-max"
+    },
+    "modelName": { "type": "string" },
+    "modelYear": { "type": "integer", "minimum": 2020 },
+    "status": {
+      "type": "string",
+      "enum": ["active", "preview", "coming_soon"]
+    },
+    "tagline": { "type": "string" },
+    "heroMediaId": { "type": "string" },
+    "priceFrom": { "type": "number", "minimum": 0 },
+    "priceDisclaimer": { "type": "string" },
+    "launchPriority": { "type": "integer", "default": 99 },
+    "keyStats": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["label", "value"],
+        "properties": {
+          "label": { "type": "string" },
+          "value": { "type": "string" },
+          "icon": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "metadata": { "type": "object", "additionalProperties": true }
+  },
+  "additionalProperties": false
+}

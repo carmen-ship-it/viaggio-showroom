@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/media-asset.schema.json",
+  "title": "MediaAsset",
+  "type": "object",
+  "required": ["id", "type", "src", "alt"],
+  "properties": {
+    "id": { "type": "string" },
+    "vehicleSlug": { "type": "string" },
+    "type": {
+      "type": "string",
+      "enum": ["image", "video"]
+    },
+    "src": { "type": "string" },
+    "alt": { "type": "string" },
+    "category": {
+      "type": "string",
+      "enum": ["exterior", "interior", "detail", "lifestyle", "persona", "brand"]
+    },
+    "tags": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "posterSrc": {
+      "type": "string",
+      "description": "Poster image for video assets"
+    },
+    "fallbackId": {
+      "type": "string",
+      "description": "Static image asset ID when primary media is unavailable"
+    }
+  },
+  "additionalProperties": false
+}

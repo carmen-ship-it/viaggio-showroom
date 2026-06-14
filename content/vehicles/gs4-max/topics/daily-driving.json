@@ -1,0 +1,53 @@
+{
+  "id": "daily-driving",
+  "themeId": "family",
+  "vehicleSlug": "gs4-max",
+  "title": "Colegio 7:15",
+  "personaId": "diego",
+  "tags": ["familia", "colegio", "manejo-diario"],
+  "relatedTopicIds": ["children", "family-safety"],
+  "blocks": [
+    {
+      "id": "dd-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-diego-colegio",
+        "headline": "Colegio 7:15",
+        "subheadline": "Mochilas, Doble Vía y el martes que se repite toda la semana"
+      }
+    },
+    {
+      "id": "dd-narration",
+      "type": "narration",
+      "personaId": "diego",
+      "sortOrder": 1,
+      "data": {
+        "emphasis": "Las 7:15 de la mañana",
+        "text": "Las 7:15 de la mañana. Mochilas en el piso atrás, lonchera que no puede quedar boca abajo, y el de 7 que olvidó la cartulina — otra vuelta al garaje. Conocés la escena.\n\nDejamos a los chicos en el colegio. Mi esposa unos días, yo otros. Lo que importa es que no sea una misión: suben, se abrochan, y el espacio atrás no es un campo de batalla. Después, Doble Vía — motos por los costados, cambio de carril apurado, el sol ya pegando de frente.\n\nEl GS4 MAX va alto; ves el tráfico antes de que te cierre el carril. En el centro, la cámara 360° me evitó rozar una columna en una cochera donde ni entraba un carrito de super. De vuelta a casa, el tanque me dura la semana laboral sin ansiedad."
+      }
+    },
+    {
+      "id": "dd-stats",
+      "type": "stat_callout",
+      "sortOrder": 2,
+      "data": {
+        "stats": [
+          { "value": "9–10", "label": "km/l en ciudad real" },
+          { "value": "360°", "label": "Cámara para cocheras angostas" },
+          { "value": "177 HP", "label": "Empuje cuando hace falta" }
+        ]
+      }
+    },
+    {
+      "id": "dd-cta",
+      "type": "cta",
+      "sortOrder": 3,
+      "data": {
+        "action": "topic",
+        "label": "Seguir con los chicos →",
+        "targetId": "children"
+      }
+    }
+  ]
+}

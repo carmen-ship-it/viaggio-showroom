@@ -1,0 +1,70 @@
+{
+  "slug": "gs4-max",
+  "modelName": "GAC GS4 MAX",
+  "modelYear": 2025,
+  "status": "active",
+  "tagline": "El SUV que tu familia merece — confiable, tecnológico y listo para Santa Cruz",
+  "heroMediaId": "gs4-max-hero-01",
+  "priceFrom": 0,
+  "priceDisclaimer": "Precio orientativo en Bolivianos (BOB). Consultá con un asesor de Viaggio Motors para cotización exacta, financiamiento y disponibilidad de color.",
+  "launchPriority": 1,
+  "keyStats": [
+    {
+      "label": "Potencia",
+      "value": "177 HP",
+      "icon": "engine"
+    },
+    {
+      "label": "Airbags",
+      "value": "8 de serie",
+      "icon": "shield"
+    },
+    {
+      "label": "Precio desde",
+      "value": "$us 42.900",
+      "icon": "price"
+    },
+    {
+      "label": "Garantía",
+      "value": "5 años / 150.000 km",
+      "icon": "warranty"
+    }
+  ],
+  "metadata": {
+    "segment": "compact-suv",
+    "fuelType": "gasoline",
+    "engine": "1.5L Turbo",
+    "transmission": "6AT / 7DCT",
+    "drivetrain": "FWD",
+    "heroHotspots": [
+      {
+        "id": "engine",
+        "label": "Motor turbo",
+        "topicId": "engine",
+        "themeId": "reliability",
+        "position": { "x": 0.28, "y": 0.55 }
+      },
+      {
+        "id": "adas",
+        "label": "Seguridad ADAS",
+        "topicId": "adas",
+        "themeId": "safety",
+        "position": { "x": 0.52, "y": 0.42 }
+      },
+      {
+        "id": "interior",
+        "label": "Tecnología",
+        "topicId": "tech-overview",
+        "themeId": "technology",
+        "position": { "x": 0.68, "y": 0.38 }
+      },
+      {
+        "id": "cargo",
+        "label": "Espacio familiar",
+        "topicId": "family-trips",
+        "themeId": "family",
+        "position": { "x": 0.75, "y": 0.58 }
+      }
+    ]
+  }
+}

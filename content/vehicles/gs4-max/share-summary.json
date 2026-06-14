@@ -1,0 +1,24 @@
+{
+  "vehicleSlug": "gs4-max",
+  "headline": "Resumen para tu familia",
+  "subheadline": "Lo esencial del GAC GS4 MAX — para decidir juntos",
+  "bullets": [
+    {
+      "id": "space",
+      "title": "Espacio familiar",
+      "description": "Asientos traseros amplios, cajuela para super y viajes a Buena Vista."
+    },
+    {
+      "id": "safety",
+      "title": "Seguridad",
+      "description": "8 airbags, ISOFIX, ADAS de serie — tranquilidad para los chicos atrás."
+    },
+    {
+      "id": "warranty",
+      "title": "Garantía 5 años",
+      "description": "150.000 km con respaldo Viaggio en Santa Cruz."
+    }
+  ],
+  "whatsappTemplate": "Mirá lo que vimos del GAC GS4 MAX en Viaggio — espacio para los chicos, ISOFIX, garantía 5 años. ¿Lo vemos juntos?",
+  "testDriveInvite": "Agendá con los chicos — la prueba dura 20–30 minutos y pueden subir todos."
+}

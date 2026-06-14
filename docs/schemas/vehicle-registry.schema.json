@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/vehicle-registry.schema.json",
+  "title": "VehicleRegistry",
+  "type": "object",
+  "required": ["vehicles"],
+  "properties": {
+    "vehicles": {
+      "type": "array",
+      "items": {
+        "allOf": [
+          { "$ref": "vehicle.schema.json" },
+          {
+            "type": "object",
+            "required": ["launchPriority"]
+          }
+        ]
+      }
+    },
+    "defaultVehicleSlug": {
+      "type": "string",
+      "description": "Default selection on vehicle selector"
+    }
+  },
+  "additionalProperties": false
+}

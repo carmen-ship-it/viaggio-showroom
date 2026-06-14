@@ -1,0 +1,43 @@
+{
+  "vehicleSlug": "gs4-max",
+  "title": "Preguntas frecuentes",
+  "subtitle": "Respuestas honestas sobre GAC y Viaggio Motors — sin vueltas de vendedor.",
+  "introPersonaId": "carlos",
+  "items": [
+    {
+      "id": "china-brand",
+      "question": "¿Por qué confiar en una marca china?",
+      "answer": "GAC Motor es un fabricante global con millones de vehículos en circulación. En Bolivia, Viaggio Motor S.A. — empresa 100% boliviana del Grupo Roda — es el representante exclusivo con showrooms, taller y repuestos. El GS4 MAX trae calificación de cinco estrellas C-NCAP y ocho airbags: la seguridad está certificada por organismos independientes.",
+      "proofSuggestion": "Mostrar calificación C-NCAP y contar los ocho airbags de serie.",
+      "personaId": "carlos"
+    },
+    {
+      "id": "parts-service",
+      "question": "¿Hay repuestos y servicio en Santa Cruz?",
+      "answer": "Sí. Viaggio es el distribuidor exclusivo con red en Santa Cruz (cuatro ubicaciones), La Paz, El Alto y Cochabamba. Repuestos originales GAC y técnicos capacitados — no dependés de importadores informales.",
+      "proofSuggestion": "Mostrar ubicaciones de taller; visitar el área de servicio si el showroom lo permite.",
+      "personaId": "carlos"
+    },
+    {
+      "id": "resale",
+      "question": "¿Cuánto vale en reventa?",
+      "answer": "El mercado de usados depende de conservación, kilometraje e historial de servicio. Con el GS4 MAX, la garantía extendida y el mantenimiento sin costo facilitan mantener el vehículo en óptimas condiciones. Ser honesto: no prometemos una cifra de depreciación — enfatizamos el costo total de propiedad.",
+      "proofSuggestion": "Comparar costo de propiedad a 3 años, no solo precio de lista.",
+      "personaId": "carlos"
+    },
+    {
+      "id": "warranty",
+      "question": "¿Qué pasa si necesito garantía?",
+      "answer": "Cinco años o 150.000 km de garantía general, según términos oficiales GAC Motor Bolivia. Tres años o 100.000 km de mantenimiento programado sin costo. Viaggio Motors es el canal oficial para activar garantía y realizar servicios certificados.",
+      "proofSuggestion": "Revisar la documentación de garantía con el asesor al cotizar.",
+      "personaId": "carlos"
+    },
+    {
+      "id": "post-sale",
+      "question": "¿Viaggio responde después de la compra?",
+      "answer": "Viaggio no desaparece cuando firmás. Mismo distribuidor para venta, taller y repuestos. En Santa Cruz tenés showrooms en Banzer, Grigotá y más — y el respaldo del Grupo Roda detrás.",
+      "proofSuggestion": "Coordinar una visita al taller o conocer al equipo de postventa.",
+      "personaId": "diego"
+    }
+  ]
+}

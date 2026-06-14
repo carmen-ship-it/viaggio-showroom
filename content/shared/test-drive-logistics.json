@@ -1,0 +1,51 @@
+{
+  "demoMode": true,
+  "title": "Tu prueba de manejo en familia",
+  "subtitle": "Sin presión — diseñada para que todos suban",
+  "heroMediaId": "gs4-max-family-cover",
+  "duration": {
+    "headline": "20–30 minutos",
+    "description": "Sin presión de venta. Tiempo para manejar, sentarte atrás y hacer preguntas."
+  },
+  "familyWelcome": {
+    "headline": "Los niños pueden subir",
+    "description": "No es solo para el conductor. Los chicos pueden ir atrás, probar espacio y sentir el aire antes de decidir.",
+    "childrenNote": "Si usan silla infantil, traé las medidas o la silla misma — verificamos ISOFIX juntos."
+  },
+  "spouse": {
+    "headline": "Mejor juntos",
+    "description": "Si decidís en pareja, ideal que vengan los dos. Si no puede hoy, mandale el resumen por WhatsApp desde el kiosk."
+  },
+  "route": {
+    "headline": "Ruta de prueba",
+    "description": "Viaggio Motors Santa Cruz → Doble Vía → regreso. Probamos A/C si hace calor — como en Santa Cruz de verdad.",
+    "mediaId": "viaggio-test-drive-route"
+  },
+  "bring": {
+    "headline": "Qué traer",
+    "items": [
+      "Carnet de conducir vigente",
+      "Silla infantil (opcional — para verificar ISOFIX)",
+      "Tu pareja o quien decide con vos (recomendado)"
+    ]
+  },
+  "scheduling": {
+    "headline": "Horarios",
+    "weekday": "Lun–Vie 8:30–18:30 — mañana o tarde",
+    "weekend": "Sáb 9:00–13:00 con cita previa",
+    "note": "Un consultor Viaggio te confirma por WhatsApp."
+  },
+  "vehiclePrep": {
+    "headline": "Preparamos tu unidad",
+    "description": "Si hay GS4 MAX disponible en tu color preferido, lo preparamos para la prueba."
+  },
+  "whatToExpect": {
+    "headline": "Qué esperar",
+    "steps": [
+      "Te recibe un consultor Viaggio — sin presión de venta inmediata.",
+      "Manejás vos mismo por la ruta acordada (ciudad o Doble Vía).",
+      "Si trajiste familia, pueden subir atrás y probar espacio y A/C.",
+      "Al volver, resolvemos dudas y — si querés — vemos cuota orientativa."
+    ]
+  }
+}

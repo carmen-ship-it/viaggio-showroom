@@ -1,0 +1,63 @@
+{
+  "id": "family-comfort",
+  "themeId": "family",
+  "vehicleSlug": "gs4-max",
+  "title": "Confort familiar",
+  "personaId": "diego",
+  "tags": ["familia", "espacio", "confort"],
+  "blocks": [
+    {
+      "id": "family-hero",
+      "type": "hero",
+      "sortOrder": 0,
+      "data": {
+        "mediaId": "gs4-max-family-cover",
+        "headline": "Confort familiar",
+        "subheadline": "Espacio, climatización y practicidad para el día a día en Santa Cruz"
+      }
+    },
+    {
+      "id": "family-narration",
+      "type": "narration",
+      "personaId": "diego",
+      "sortOrder": 1,
+      "data": {
+        "text": "Asientos cómodos, buen espacio trasero y maletero práctico para el súper, el colegio y los viajes en familia. Los sábados a Warnes, así viajamos nosotros.",
+        "emphasis": "Diseñado para el día a día en Santa Cruz"
+      }
+    },
+    {
+      "id": "family-features",
+      "type": "feature_grid",
+      "sortOrder": 2,
+      "data": {
+        "features": [
+          {
+            "icon": "space",
+            "title": "Espacio trasero amplio",
+            "description": "Comodidad para adultos y sillas infantiles en fila trasera."
+          },
+          {
+            "icon": "ac",
+            "title": "Clima para el calor",
+            "description": "A/C eficiente para días de 35°C en Equipetrol y la doble vía."
+          },
+          {
+            "icon": "cargo",
+            "title": "Maletero versátil",
+            "description": "Espacio para compras, equipaje y viajes de fin de semana."
+          }
+        ]
+      }
+    },
+    {
+      "id": "family-cta",
+      "type": "cta",
+      "sortOrder": 3,
+      "data": {
+        "action": "test_drive",
+        "label": "Traé a tu familia a la prueba de manejo"
+      }
+    }
+  ]
+}

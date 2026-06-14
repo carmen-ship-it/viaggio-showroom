@@ -1,0 +1,160 @@
+{
+  "capturedAt": "2026-06-14T19:40:48.452Z",
+  "results": [
+    {
+      "id": "S01",
+      "name": "attract-loop",
+      "path": "/",
+      "filename": "S01-attract-loop.png",
+      "mediaCheck": {
+        "assetImages": 2,
+        "assetSrcs": [
+          "/assets/vehicles/gs4-max/exterior/hero-ambient.webp",
+          "/assets/vehicles/gs4-max/exterior/hero-01.webp"
+        ],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S03",
+      "name": "vehicle-selector",
+      "path": "/vehicles",
+      "filename": "S03-vehicle-selector.png",
+      "mediaCheck": {
+        "assetImages": 1,
+        "assetSrcs": [
+          "/assets/vehicles/gs4-max/exterior/hero-01.webp"
+        ],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S06",
+      "name": "trust-tour",
+      "path": "/vehicles/gs4-max/tour/trust",
+      "filename": "S06-trust-tour.png",
+      "mediaCheck": {
+        "assetImages": 3,
+        "assetSrcs": [
+          "/assets/personas/carlos-avatar.webp",
+          "/assets/vehicles/gs4-max/exterior/front-34.webp",
+          "/assets/vehicles/gs4-max/exterior/front-34.webp"
+        ],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S08",
+      "name": "adas-topic",
+      "path": "/vehicles/gs4-max/themes/safety/adas",
+      "filename": "S08-adas-topic.png",
+      "mediaCheck": {
+        "assetImages": 1,
+        "assetSrcs": [
+          "/assets/vehicles/gs4-max/interior/dashboard.webp"
+        ],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S11",
+      "name": "compare-hub",
+      "path": "/vehicles/gs4-max/compare",
+      "filename": "S11-compare-hub.png",
+      "mediaCheck": {
+        "assetImages": 0,
+        "assetSrcs": [],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S12",
+      "name": "compare-detail",
+      "path": "/vehicles/gs4-max/compare/corolla-cross",
+      "filename": "S12-compare-detail.png",
+      "mediaCheck": {
+        "assetImages": 1,
+        "assetSrcs": [
+          "/assets/vehicles/gs4-max/exterior/hero-01.webp"
+        ],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S13",
+      "name": "conversion-hub",
+      "path": "/vehicles/gs4-max/convert",
+      "filename": "S13-conversion-hub.png",
+      "mediaCheck": {
+        "assetImages": 2,
+        "assetSrcs": [
+          "/assets/vehicles/gs4-max/exterior/hero-01.webp",
+          "/assets/vehicles/gs4-max/exterior/hero-01.webp"
+        ],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S22",
+      "name": "immersive-hero",
+      "path": "/vehicles/gs4-max/hero",
+      "filename": "S22-immersive-hero.png",
+      "mediaCheck": {
+        "assetImages": 1,
+        "assetSrcs": [
+          "/assets/vehicles/gs4-max/exterior/hero-01.webp"
+        ],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S24",
+      "name": "trust-story",
+      "path": "/vehicles/gs4-max/trust/story",
+      "filename": "S24-trust-story.png",
+      "mediaCheck": {
+        "assetImages": 2,
+        "assetSrcs": [
+          "/assets/vehicles/gs4-max/exterior/hero-01.webp",
+          "/assets/vehicles/gs4-max/exterior/hero-01.webp"
+        ],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S25",
+      "name": "faq",
+      "path": "/vehicles/gs4-max/trust/faq",
+      "filename": "S25-faq.png",
+      "mediaCheck": {
+        "assetImages": 1,
+        "assetSrcs": [
+          "/assets/personas/carlos-avatar.webp"
+        ],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S26",
+      "name": "financing-preview",
+      "path": "/vehicles/gs4-max/economics/financing",
+      "filename": "S26-financing-preview.png",
+      "mediaCheck": {
+        "assetImages": 0,
+        "assetSrcs": [],
+        "placeholderSurfaces": 0
+      }
+    },
+    {
+      "id": "S15",
+      "name": "whatsapp-handoff",
+      "path": "/vehicles/gs4-max/whatsapp?intent=test_drive",
+      "filename": "S15-whatsapp-handoff.png",
+      "mediaCheck": {
+        "assetImages": 0,
+        "assetSrcs": [],
+        "placeholderSurfaces": 0
+      }
+    }
+  ]
+}
