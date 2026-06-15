@@ -10,7 +10,7 @@ import type { Dealership } from "@/types/dealership";
 import type { Vehicle } from "@/types/vehicle";
 import { MediaSurface } from "@/components/media/MediaSurface";
 import { TouchNav } from "@/components/cinematic/TouchNav";
-import { formatScreenLabel } from "@/lib/config/demo-mode";
+import { formatScreenLabel, shouldUseKioskShortForm, demoModeConfig, kioskViewportShellClass } from "@/lib/config/demo-mode";
 import { routes } from "@/lib/navigation/routes";
 import { fadeUp, transition } from "@/lib/motion/variants";
 import { cn } from "@/lib/utils/cn";
@@ -125,8 +125,12 @@ export function TestDriveForm({
     financingSelection,
   } = useSession();
 
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  const [name, setName] = useState(
+    shouldUseKioskShortForm() ? demoModeConfig.demoPrefillCustomerName : "",
+  );
+  const [phone, setPhone] = useState(
+    shouldUseKioskShortForm() ? demoModeConfig.demoPrefillCustomerPhone : "",
+  );
   const [email, setEmail] = useState(testDriveDraft.email ?? "");
   const [preferredDay, setPreferredDay] = useState("");
   const [timeSlot, setTimeSlot] = useState<TimeSlot | "">(
@@ -148,6 +152,7 @@ export function TestDriveForm({
   const [submitting, setSubmitting] = useState(false);
 
   const dayOptions = useMemo(() => buildDayOptions(), []);
+  const kioskShortForm = shouldUseKioskShortForm() && variant === "page";
 
   const timeSlots = useMemo(
     () =>
@@ -305,7 +310,7 @@ export function TestDriveForm({
       </Link>
     </motion.div>
   ) : (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className={cn("space-y-5", kioskShortForm && "flex flex-col")}>
       <label className="block">
         <span
           className={cn(
@@ -357,6 +362,37 @@ export function TestDriveForm({
         />
       </label>
 
+      <div>
+        <span
+          className={cn(
+            "mb-2 block text-sm",
+            light ? "text-[var(--text-secondary-on-light)]" : "text-white/50",
+          )}
+        >
+          {formContent.fields.preferredDay.label}
+        </span>
+        <select
+          required={kioskShortForm}
+          value={preferredDay}
+          onChange={(e) => setPreferredDay(e.target.value)}
+          className={cn(
+            "min-h-[56px] w-full rounded-xl border px-4 text-base outline-none",
+            light
+              ? "border-black/15 bg-white focus:border-[var(--canvas-deep)]"
+              : "border-white/15 bg-black/30 focus:border-[var(--color-accent-trust)]",
+          )}
+        >
+          <option value="">{kioskShortForm ? "Elegí un día" : "Elegí un día (opcional)"}</option>
+          {dayOptions.map((day) => (
+            <option key={day.value} value={day.value}>
+              {day.label}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {!kioskShortForm ? (
+        <>
       <label className="block">
         <span
           className={cn(
@@ -388,34 +424,6 @@ export function TestDriveForm({
           {formContent.fields.email.helper}
         </span>
       </label>
-
-      <div>
-        <span
-          className={cn(
-            "mb-2 block text-sm",
-            light ? "text-[var(--text-secondary-on-light)]" : "text-white/50",
-          )}
-        >
-          {formContent.fields.preferredDay.label}
-        </span>
-        <select
-          value={preferredDay}
-          onChange={(e) => setPreferredDay(e.target.value)}
-          className={cn(
-            "min-h-[56px] w-full rounded-xl border px-4 text-base outline-none",
-            light
-              ? "border-black/15 bg-white focus:border-[var(--canvas-deep)]"
-              : "border-white/15 bg-black/30 focus:border-[var(--color-accent-trust)]",
-          )}
-        >
-          <option value="">Elegí un día (opcional)</option>
-          {dayOptions.map((day) => (
-            <option key={day.value} value={day.value}>
-              {day.label}
-            </option>
-          ))}
-        </select>
-      </div>
 
       <div>
         <span
@@ -509,6 +517,12 @@ export function TestDriveForm({
       >
         {formContent.subtitle}
       </p>
+        </>
+      ) : (
+        <p className="text-sm text-[var(--text-secondary-on-light)]">
+          El resto lo confirmamos por WhatsApp — sin formulario largo en piso.
+        </p>
+      )}
 
       <motion.button
         type="submit"
@@ -552,14 +566,17 @@ export function TestDriveForm({
   }
 
   return (
-    <div className="relative min-h-screen bg-[var(--canvas-light)] text-[var(--text-on-light)]">
+    <div className={cn("relative bg-[var(--canvas-light)] text-[var(--text-on-light)]", kioskViewportShellClass())}>
       <MediaSurface
         mediaId={vehicle.heroMediaId ?? `${vehicle.slug}-hero`}
         className="absolute inset-0 opacity-[0.12]"
         animate={false}
       />
       <motion.div
-        className="relative z-10 mx-auto max-w-xl px-6 py-10 md:py-12"
+        className={cn(
+          "relative z-10 mx-auto flex max-w-xl flex-col px-6",
+          kioskShortForm ? "h-full justify-center py-8" : "py-10 md:py-12",
+        )}
         initial={fadeUp.initial}
         animate={fadeUp.animate}
         transition={transition.normal}
@@ -567,7 +584,9 @@ export function TestDriveForm({
         <p className="type-label text-[var(--color-accent-trust)]">
           {formatScreenLabel("S14 · Prueba de manejo")}
         </p>
-        <h1 className="type-headline mt-5 text-[var(--text-on-light)]">{formContent.title}</h1>
+        <h1 className={cn("type-headline text-[var(--text-on-light)]", kioskShortForm ? "mt-3" : "mt-5")}>
+          {kioskShortForm ? "Agendá en 30 segundos" : formContent.title}
+        </h1>
         <p className="mt-4 text-lg text-[var(--text-secondary-on-light)]">
           {vehicle.modelName} · {dealership.city}
         </p>

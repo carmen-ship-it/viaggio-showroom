@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/path-instance.schema.json",
+  "title": "PathInstance",
+  "description": "Canonical SCDG session-closure artifact — C-08. All channels emit compatible PathInstance records.",
+  "type": "object",
+  "required": [
+    "pathInstanceId",
+    "sessionId",
+    "canonicalSessionId",
+    "channel",
+    "edges",
+    "cpo_version",
+    "state",
+    "createdAt",
+    "updatedAt"
+  ],
+  "properties": {
+    "pathInstanceId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Stable graph trace ID for this channel path."
+    },
+    "sessionId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Per-channel session identifier."
+    },
+    "canonicalSessionId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Cross-channel purchase-thread join key (C-09, CPI-G-COIE-10)."
+    },
+    "channel": {
+      "$ref": "#/$defs/PathChannel"
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PathEdge"
+      }
+    },
+    "cpo_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+(-[\\w.]+)?(\\+[\\w.]+)?$",
+      "description": "Semver CPO version active when path started."
+    },
+    "state": {
+      "$ref": "#/$defs/PathInstanceState"
+    },
+    "leadId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "householdId": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "customerDnaId": {
+      "type": "string"
+    },
+    "campaignFirstTouch": {
+      "type": "string"
+    },
+    "assistedChannels": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PathChannel"
+      },
+      "uniqueItems": true
+    },
+    "frozenAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Set when session closes and state becomes pending_outcome."
+    },
+    "outcomeNodeId": {
+      "type": "string",
+      "description": "SCDG outcome node attached after CRM close."
+    },
+    "createdAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "PathChannel": {
+      "type": "string",
+      "enum": ["kiosk", "voice", "whatsapp", "consultant_tablet", "copilot"]
+    },
+    "PathInstanceState": {
+      "type": "string",
+      "enum": ["active", "pending_outcome", "outcome_attached", "frozen"]
+    },
+    "PathTransitionType": {
+      "type": "string",
+      "enum": [
+        "fear_to_proof",
+        "proof_to_resolution",
+        "proof_to_action",
+        "action_to_outcome",
+        "action_to_failure",
+        "override",
+        "spouse_injection",
+        "screen_transition",
+        "conversation_turn"
+      ]
+    },
+    "PathEdge": {
+      "type": "object",
+      "required": [
+        "edgeId",
+        "from",
+        "to",
+        "transitionType",
+        "observedAt",
+        "channel"
+      ],
+      "properties": {
+        "edgeId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "from": {
+          "type": "string",
+          "minLength": 1
+        },
+        "to": {
+          "type": "string",
+          "minLength": 1
+        },
+        "transitionType": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/PathTransitionType"
+            },
+            {
+              "type": "string",
+              "minLength": 1
+            }
+          ]
+        },
+        "observedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "channel": {
+          "$ref": "#/$defs/PathChannel"
+        },
+        "turnIndex": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "PathEdgeInput": {
+      "type": "object",
+      "required": ["from", "to", "transitionType", "channel"],
+      "properties": {
+        "from": { "type": "string", "minLength": 1 },
+        "to": { "type": "string", "minLength": 1 },
+        "transitionType": {
+          "oneOf": [
+            { "$ref": "#/$defs/PathTransitionType" },
+            { "type": "string", "minLength": 1 }
+          ]
+        },
+        "channel": { "$ref": "#/$defs/PathChannel" },
+        "turnIndex": { "type": "integer", "minimum": 0 },
+        "metadata": {
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "CloseJoinRef": {
+      "type": "object",
+      "required": ["canonicalSessionId", "pathInstanceIds"],
+      "properties": {
+        "canonicalSessionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "pathInstanceIds": {
+          "type": "array",
+          "items": { "type": "string", "format": "uuid" },
+          "minItems": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

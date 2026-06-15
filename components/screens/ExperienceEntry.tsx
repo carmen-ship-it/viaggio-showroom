@@ -83,6 +83,10 @@ export function ExperienceEntry({
             tagline={tagline}
             brand={brand}
             vehicleModelName={vehicle.modelName}
+            priceFromLabel={
+              vehicle.keyStats?.find((s) => s.icon === "price")?.value ??
+              (vehicle.priceFrom ? `$us ${vehicle.priceFrom.toLocaleString("es-BO")}` : undefined)
+            }
             onStart={handleAttractStart}
           />
         ) : (

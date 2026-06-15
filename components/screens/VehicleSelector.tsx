@@ -4,10 +4,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { VehicleKeyStat, VehicleRegistryEntry } from "@/types/vehicle";
 import { MediaSurface } from "@/components/media/MediaSurface";
-import { FallbackArtwork } from "@/components/media/fallback-art/FallbackArtwork";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
-import { getFallbackSpec } from "@/lib/media/placeholder-library";
-import { shouldHideComingSoonVehicles } from "@/lib/config/demo-mode";
+import { shouldHideComingSoonVehicles, shouldUseKioskViewportStrict } from "@/lib/config/demo-mode";
 import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import { routes } from "@/lib/navigation/routes";
 import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
@@ -39,15 +37,18 @@ export function VehicleSelector({
     : sorted.filter((v) => v.slug !== hero.slug);
   const soloHero = others.length === 0;
   const heroMediaId = hero.heroMediaId ?? `${hero.slug}-hero`;
-  const heroSpec = getFallbackSpec(heroMediaId);
 
   return (
-    <div className="min-h-screen">
+    <div className={shouldUseKioskViewportStrict() ? "h-[100dvh] max-h-[1080px] overflow-hidden" : "min-h-screen"}>
       <GlobalHeader brand={brand} dealershipName={dealershipName} />
       <div
         className={cn(
-          "flex min-h-screen flex-col px-6 py-24 md:px-[var(--spacing-kiosk)] md:py-28",
-          soloHero && "justify-center",
+          "flex flex-col px-6 md:px-[var(--spacing-kiosk)]",
+          soloHero
+            ? shouldUseKioskViewportStrict()
+              ? "h-[calc(100dvh-4rem)] justify-center py-8"
+              : "min-h-screen justify-center py-24 md:py-28"
+            : "min-h-screen py-24 md:py-28",
         )}
       >
         <motion.div
@@ -76,7 +77,11 @@ export function VehicleSelector({
             <motion.article
               className={cn(
                 "relative overflow-hidden rounded-3xl border border-[var(--color-accent-warm)]/25",
-                soloHero ? "min-h-[68vh]" : "min-h-[55vh]",
+                soloHero
+                  ? shouldUseKioskViewportStrict()
+                    ? "min-h-[58vh]"
+                    : "min-h-[68vh]"
+                  : "min-h-[55vh]",
               )}
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -89,15 +94,13 @@ export function VehicleSelector({
                 overlay={false}
               />
               <div
-                className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-35"
-                aria-hidden
-              >
-                <FallbackArtwork spec={heroSpec} className="h-auto w-full max-w-3xl" />
-              </div>
-              <div
                 className={cn(
                   "relative z-10 flex flex-col justify-end p-8 md:p-12",
-                  soloHero ? "min-h-[68vh]" : "min-h-[55vh]",
+                  soloHero
+                  ? shouldUseKioskViewportStrict()
+                    ? "min-h-[58vh]"
+                    : "min-h-[68vh]"
+                  : "min-h-[55vh]",
                 )}
               >
                 <span className="mb-3 inline-flex w-fit rounded-full bg-[var(--color-accent-warm)] px-3 py-1 text-xs font-semibold uppercase tracking-wider text-[var(--canvas-deep)]">

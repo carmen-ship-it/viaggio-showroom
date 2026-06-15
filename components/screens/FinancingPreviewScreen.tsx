@@ -7,7 +7,7 @@ import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import type { FinancingData } from "@/lib/content/financing";
 import type { Vehicle } from "@/types/vehicle";
 import { TouchNav } from "@/components/cinematic/TouchNav";
-import { formatScreenLabel } from "@/lib/config/demo-mode";
+import { formatScreenLabel, shouldUseFinancingCompact, kioskViewportShellClass } from "@/lib/config/demo-mode";
 import { routes } from "@/lib/navigation/routes";
 import { trackEvent } from "@/lib/analytics/trackEvent";
 import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
@@ -116,8 +116,10 @@ export function FinancingPreviewScreen({
     playSuccess();
   };
 
+  const compact = shouldUseFinancingCompact();
+
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--canvas-light)] text-[var(--text-on-light)]">
+    <div className={cn("flex flex-col bg-[var(--canvas-light)] text-[var(--text-on-light)]", kioskViewportShellClass())}>
       <div className="border-b border-[var(--color-accent-warm)]/20 bg-white">
         <div className="mx-auto max-w-5xl px-6 py-6 md:px-12">
           <div className="flex items-center gap-3">
@@ -134,7 +136,10 @@ export function FinancingPreviewScreen({
       </div>
 
       <motion.div
-        className="mx-auto w-full max-w-5xl flex-1 px-6 py-10 md:px-12 md:py-12"
+        className={cn(
+          "mx-auto w-full max-w-5xl flex-1 px-6 md:px-12",
+          compact ? "flex flex-col justify-center py-8" : "py-10 md:py-12",
+        )}
         initial={fadeUp.initial}
         animate={fadeUp.animate}
         transition={transition.normal}
@@ -214,6 +219,8 @@ export function FinancingPreviewScreen({
           <FinancingVisualCard className="hidden lg:block" />
         </div>
 
+        {!compact ? (
+        <>
         <section className="mt-10">
           <h2 className="text-xl font-medium">Ejemplos por plazo</h2>
           <p className="mt-2 text-sm text-[var(--text-secondary-on-light)]">
@@ -400,6 +407,8 @@ export function FinancingPreviewScreen({
             <LogoPlaceholder logoId="logo-bank-partner-1" height={36} variant="light" />
           </div>
         </section>
+        </>
+        ) : null}
       </motion.div>
 
       <TouchNav

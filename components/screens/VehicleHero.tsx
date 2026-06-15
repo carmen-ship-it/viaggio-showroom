@@ -11,10 +11,11 @@ import {
   PremiumCTA,
 } from "@/components/premium";
 import { TouchNav } from "@/components/cinematic/TouchNav";
-import { shouldDisableExplorationBranches } from "@/lib/config/demo-mode";
+import { shouldDisableExplorationBranches, shouldEnableHeroHotspotsInDemo, kioskViewportShellClass } from "@/lib/config/demo-mode";
 import { routes } from "@/lib/navigation/routes";
 import { useSession } from "@/lib/session/SessionProvider";
 import { fadeUp, transition } from "@/lib/motion/variants";
+import { cn } from "@/lib/utils/cn";
 
 export type { HeroHotspot } from "@/types/vehicle";
 
@@ -33,11 +34,14 @@ export function VehicleHero({
 }: VehicleHeroProps) {
   const { canShowCompareCta, canShowConvertCta, trustSignals } = useSession();
   const hideExploration = shouldDisableExplorationBranches();
+  const showHotspots =
+    hotspots.length > 0 &&
+    (!hideExploration || shouldEnableHeroHotspotsInDemo());
   const mediaId = vehicle.heroMediaId ?? `${vehicle.slug}-hero`;
   const stats = vehicle.keyStats ?? [];
 
   return (
-    <div className="relative min-h-screen bg-[var(--canvas-deep)]">
+    <div className={cn("relative bg-[var(--canvas-deep)]", kioskViewportShellClass())}>
       <KenBurnsBackground mediaId={mediaId} overlay={false} />
       <CinematicOverlay variant="hero" />
 
@@ -76,8 +80,8 @@ export function VehicleHero({
             </motion.p>
           </div>
 
-          {hotspots.length > 0 && !hideExploration ? (
-            <div className="pointer-events-none absolute inset-0 hidden lg:block">
+          {showHotspots ? (
+            <div className="pointer-events-none absolute inset-0">
               {hotspots.map((spot, index) => (
                 <div
                   key={spot.id}
@@ -91,6 +95,7 @@ export function VehicleHero({
                     href={routes.topic(vehicle.slug, spot.themeId, spot.topicId)}
                     label={spot.label}
                     index={index}
+                    kioskMode={shouldEnableHeroHotspotsInDemo()}
                   />
                 </div>
               ))}

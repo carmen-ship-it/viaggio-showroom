@@ -12,7 +12,7 @@ import { MediaSurface } from "@/components/media/MediaSurface";
 import { PersonaAvatar } from "@/components/media/PersonaAvatar";
 import { CompareVerdictBadge } from "@/components/compare/CompareVerdictBadge";
 import { TouchNav } from "@/components/cinematic/TouchNav";
-import { formatScreenLabel } from "@/lib/config/demo-mode";
+import { formatScreenLabel, shouldUseCompareCompactLayout, kioskViewportShellClass } from "@/lib/config/demo-mode";
 import { routes } from "@/lib/navigation/routes";
 import { trackEvent } from "@/lib/analytics/trackEvent";
 import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
@@ -37,6 +37,10 @@ export function CompareDetailScreen({
   const { setCompareTarget, recordTrustSignal } = useSession();
   const [expandedKey, setExpandedKey] = useState<string | null>(null);
   const footerRef = useRef<HTMLDivElement>(null);
+  const compactLayout = shouldUseCompareCompactLayout();
+
+  const verdictParagraph =
+    "Corolla Cross es una excelente opción si priorizás solo la marca. El GS4 MAX gana cuando comparás equipamiento de serie, airbags, tecnología y garantía — y reconocemos con honestidad dónde Toyota sigue fuerte hoy, especialmente en reventa.";
 
   const anchorMediaId = vehicle.heroMediaId ?? "gs4-max-ext-front-34";
 
@@ -77,10 +81,23 @@ export function CompareDetailScreen({
     { label: "Empate", value: summary.ties, tone: "glass" as const },
   ];
 
+  const highlightedRows = compactLayout
+    ? target.dimensions.flatMap((dimension) =>
+        dimension.rows.slice(0, 1).map((row) => ({
+          ...row,
+          category: dimension.category,
+          rowKey: `${dimension.category}-${row.label}`,
+        })),
+      ).slice(0, 3)
+    : [];
+
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--canvas-soft)]">
+    <div className={cn("flex flex-col bg-[var(--canvas-soft)]", kioskViewportShellClass())}>
       <motion.header
-        className="border-b border-white/8 bg-[var(--canvas-soft)]/95 px-6 py-6 backdrop-blur-xl md:px-12"
+        className={cn(
+          "border-b border-white/8 bg-[var(--canvas-soft)]/95 backdrop-blur-xl",
+          compactLayout ? "shrink-0 px-6 py-5 md:px-12" : "px-6 py-6 md:px-12",
+        )}
         initial={fadeUp.initial}
         animate={fadeUp.animate}
         transition={transition.reveal}
@@ -92,41 +109,43 @@ export function CompareDetailScreen({
               {formatScreenLabel("S12 · Comparación honesta")}
             </p>
           </div>
-          <h1 className="type-headline mt-4 text-white">
+          <h1 className={cn("type-headline text-white", compactLayout ? "mt-3" : "mt-4")}>
             {vehicle.modelName} vs {target.displayName}
           </h1>
 
-          <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
-            <div className="flex items-center gap-4">
-              <div className="relative h-16 w-24 overflow-hidden rounded-xl border border-white/10 md:h-20 md:w-32">
-                <MediaSurface mediaId={anchorMediaId} className="absolute inset-0" animate={false} />
+          {!compactLayout ? (
+            <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
+              <div className="flex items-center gap-4">
+                <div className="relative h-16 w-24 overflow-hidden rounded-xl border border-white/10 md:h-20 md:w-32">
+                  <MediaSurface mediaId={anchorMediaId} className="absolute inset-0" animate={false} />
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wider text-white/45">GS4 MAX</p>
+                  <p className="font-medium">Full Equipo</p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs uppercase tracking-wider text-white/45">GS4 MAX</p>
-                <p className="font-medium">Full Equipo</p>
+
+              <p className="hidden text-center text-sm uppercase tracking-[0.3em] text-white/35 md:block">
+                vs
+              </p>
+
+              <div className="flex items-center gap-4 md:justify-end">
+                <div className="text-right md:order-2">
+                  <p className="text-xs uppercase tracking-wider text-white/45">Competidor</p>
+                  <p className="font-medium">{target.displayName}</p>
+                </div>
+                <div className="relative h-16 w-24 overflow-hidden rounded-xl border border-white/10 md:order-1 md:h-20 md:w-32">
+                  <MediaSurface
+                    mediaId={target.thumbnailMediaId ?? "compare-corolla-cross"}
+                    className="absolute inset-0"
+                    animate={false}
+                  />
+                </div>
               </div>
             </div>
+          ) : null}
 
-            <p className="hidden text-center text-sm uppercase tracking-[0.3em] text-white/35 md:block">
-              vs
-            </p>
-
-            <div className="flex items-center gap-4 md:justify-end">
-              <div className="text-right md:order-2">
-                <p className="text-xs uppercase tracking-wider text-white/45">Competidor</p>
-                <p className="font-medium">{target.displayName}</p>
-              </div>
-              <div className="relative h-16 w-24 overflow-hidden rounded-xl border border-white/10 md:order-1 md:h-20 md:w-32">
-                <MediaSurface
-                  mediaId={target.thumbnailMediaId ?? "compare-corolla-cross"}
-                  className="absolute inset-0"
-                  animate={false}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className={cn("flex flex-wrap gap-3", compactLayout ? "mt-4" : "mt-6")}>
             {statItems.map((stat) => (
               <div
                 key={stat.label}
@@ -144,9 +163,46 @@ export function CompareDetailScreen({
               </div>
             ))}
           </div>
+
+          {compactLayout ? (
+            <div className="mt-4 rounded-2xl border border-[var(--color-accent-trust)]/25 bg-[var(--color-accent-trust)]/8 p-4 md:p-5">
+              <p className="text-base leading-relaxed text-white/80 md:text-lg">{verdictParagraph}</p>
+            </div>
+          ) : null}
         </div>
       </motion.header>
 
+      {compactLayout ? (
+        <div className="flex min-h-0 flex-1 flex-col px-6 py-4 md:px-12">
+          <p className="text-xs uppercase tracking-[0.2em] text-white/45">
+            Tres diferencias clave
+          </p>
+          <div className="mt-3 space-y-2 overflow-hidden">
+            {highlightedRows.map((row) => (
+              <div
+                key={row.rowKey}
+                className="flex items-center justify-between gap-4 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3"
+              >
+                <div className="min-w-0">
+                  <p className="text-xs uppercase tracking-wider text-[var(--color-accent-warm)]">
+                    {row.category}
+                  </p>
+                  <p className="mt-0.5 truncate font-medium">{row.label}</p>
+                </div>
+                <CompareVerdictBadge verdict={row.verdict} size="sm" />
+              </div>
+            ))}
+          </div>
+          <TouchNav
+            backHref={backHref}
+            backLabel="Elegir competidor"
+            nextHref={routes.financing(vehicle.slug)}
+            nextLabel="Cuota orientativa"
+            className="mt-auto shrink-0 px-0 pb-0 pt-3"
+          />
+        </div>
+      ) : (
+        <>
       <div className="flex-1 px-6 py-8 md:px-12">
         <motion.div
           className="mx-auto max-w-5xl space-y-10"
@@ -283,12 +339,7 @@ export function CompareDetailScreen({
           viewport={{ once: true, margin: "-80px" }}
           transition={transition.reveal}
         >
-          <p className="text-lg leading-relaxed text-white/70">
-            Corolla Cross es una excelente opción si priorizás solo la marca. El GS4 MAX
-            gana cuando comparás equipamiento de serie, airbags, tecnología y garantía —
-            y reconocemos con honestidad dónde Toyota sigue fuerte hoy, especialmente en
-            reventa.
-          </p>
+          <p className="text-lg leading-relaxed text-white/70">{verdictParagraph}</p>
           {target.lastVerified ? (
             <p className="mt-3 text-xs text-white/40">
               Datos verificados · {target.lastVerified}
@@ -303,6 +354,8 @@ export function CompareDetailScreen({
         nextHref={routes.financing(vehicle.slug)}
         nextLabel="Cuota orientativa"
       />
+        </>
+      )}
     </div>
   );
 }

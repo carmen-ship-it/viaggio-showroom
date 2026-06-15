@@ -1,0 +1,27 @@
+name: Governance Lint
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  gate-ids:
+    name: Gate ID lint (EB-001)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - run: npm ci
+
+      - name: lint:gates
+        run: npm run lint:gates
+
+      - name: lint:gates audit (informational)
+        run: npm run lint:gates:audit
+        continue-on-error: true

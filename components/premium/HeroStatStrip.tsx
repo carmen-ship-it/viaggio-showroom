@@ -87,11 +87,11 @@ function AnimatedStat({ value, label }: VehicleKeyStat) {
   }, [inView, parsed, reduced, kioskStatic, value]);
 
   return (
-    <div ref={ref} className="flex flex-col gap-1 px-2 py-1 md:px-4">
-      <span className="font-mono text-[32px] font-medium tabular-nums tracking-tight text-white md:text-[40px]">
+    <div ref={ref} className="flex min-w-0 flex-1 flex-col gap-1 px-2 py-1 md:px-3">
+      <span className="font-mono text-[clamp(1.35rem,2.2vw,2.5rem)] font-medium tabular-nums leading-none tracking-tight text-white">
         {display}
       </span>
-      <span className="text-sm font-medium uppercase tracking-[0.08em] text-white/55">
+      <span className="text-xs font-medium uppercase leading-tight tracking-[0.06em] text-white/55 md:text-sm">
         {label}
       </span>
     </div>
@@ -108,8 +108,8 @@ export function HeroStatStrip({ stats, className }: HeroStatStripProps) {
       animate={fadeUp.animate}
       transition={{ ...transition.reveal, delay: 0.35 }}
     >
-      <GlassCard animate={false} variant="elevated" className="px-6 py-5 md:px-10 md:py-6">
-        <div className="grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-white/10">
+      <GlassCard animate={false} variant="elevated" className="px-4 py-4 md:px-8 md:py-5">
+        <div className="flex flex-wrap items-stretch justify-between gap-y-3 sm:flex-nowrap sm:divide-x sm:divide-white/10">
           {stats.slice(0, 3).map((stat) => (
             <AnimatedStat key={stat.label} {...stat} />
           ))}

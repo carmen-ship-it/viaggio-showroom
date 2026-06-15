@@ -1,0 +1,151 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://viaggio.bo/schemas/canonical-session.schema.json",
+  "title": "CanonicalSessionRecord",
+  "description": "Cross-channel session join registry — C-09. Authoritative server-side manifest; see CPI_OS_DEPENDENCY_GRAPH.md §5.",
+  "type": "object",
+  "required": [
+    "canonicalSessionId",
+    "links",
+    "mintedAt",
+    "mintChannel",
+    "mintReason"
+  ],
+  "properties": {
+    "canonicalSessionId": {
+      "type": "string",
+      "format": "uuid",
+      "description": "UUID v4 purchase-thread identifier. CRM CloseRecord.sessionId must equal this value for join metric."
+    },
+    "links": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CanonicalSessionLink"
+      },
+      "minItems": 1,
+      "description": "All channel sessions bound to this purchase thread."
+    },
+    "mintedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "mintChannel": {
+      "$ref": "#/$defs/PathChannel"
+    },
+    "mintReason": {
+      "$ref": "#/$defs/CanonicalSessionMintReason"
+    },
+    "persistedAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When server registry first persisted this record."
+    },
+    "collisionResolution": {
+      "$ref": "#/$defs/CanonicalSessionCollisionResolution"
+    },
+    "ttlExpiresAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Default 30 days from mintedAt; after expiry, remint on next session_start."
+    }
+  },
+  "additionalProperties": false,
+  "$defs": {
+    "PathChannel": {
+      "type": "string",
+      "enum": ["kiosk", "voice", "whatsapp", "consultant_tablet", "copilot"]
+    },
+    "CanonicalSessionMintReason": {
+      "type": "string",
+      "enum": ["session_start", "async_continue", "crm_backfill"]
+    },
+    "CanonicalSessionLinkReason": {
+      "type": "string",
+      "enum": [
+        "kiosk_primary",
+        "whatsapp_deep_link",
+        "consultant_handoff",
+        "crm_reconciliation",
+        "explicit_merge"
+      ]
+    },
+    "CanonicalSessionCollisionResolution": {
+      "type": "string",
+      "enum": ["url_over_storage", "expired_remint", "superseded", "none"]
+    },
+    "CanonicalSessionLink": {
+      "type": "object",
+      "required": [
+        "canonicalSessionId",
+        "sessionId",
+        "channel",
+        "linkedAt",
+        "linkReason"
+      ],
+      "properties": {
+        "canonicalSessionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "channel": {
+          "$ref": "#/$defs/PathChannel"
+        },
+        "linkedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "linkReason": {
+          "$ref": "#/$defs/CanonicalSessionLinkReason"
+        },
+        "isPrimary": {
+          "type": "boolean",
+          "default": false,
+          "description": "True for the channel that minted canonicalSessionId."
+        }
+      },
+      "additionalProperties": false
+    },
+    "CanonicalSessionClientState": {
+      "type": "object",
+      "description": "sessionStorage/localStorage shape for client hint cache.",
+      "required": ["canonicalSessionId", "sessionId"],
+      "properties": {
+        "canonicalSessionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "sessionId": {
+          "type": "string",
+          "format": "uuid"
+        },
+        "cachedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    },
+    "WhatsAppDeepLinkParams": {
+      "type": "object",
+      "description": "Query params for cross-channel continue.",
+      "required": ["csid"],
+      "properties": {
+        "csid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "canonicalSessionId — required when continuing floor session."
+        },
+        "join": {
+          "type": "string",
+          "enum": ["explicit"],
+          "description": "Required for spouse/third-party device merge."
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

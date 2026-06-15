@@ -10,13 +10,14 @@ import {
 import { cn } from "@/lib/utils/cn";
 
 interface ConversionPathCardProps {
-  href: string;
+  href?: string;
   icon: React.ReactNode;
   title: string;
   description: string;
   onClick?: () => void;
   highlightPrimary?: boolean;
   variant?: "light" | "dark";
+  size?: "default" | "focus" | "focusPrimary";
 }
 
 export function ConversionPathCard({
@@ -27,11 +28,13 @@ export function ConversionPathCard({
   onClick,
   highlightPrimary = false,
   variant = "light",
+  size = "default",
 }: ConversionPathCardProps) {
   const isDark = variant === "dark";
 
   const className = cn(
-    "group flex min-h-[160px] flex-col justify-between rounded-2xl border p-7 transition-all",
+    "group flex flex-col justify-between rounded-2xl border p-7 transition-all",
+    size === "focusPrimary" ? "min-h-[220px]" : size === "focus" ? "min-h-[180px]" : "min-h-[160px]",
     isDark
       ? "border-white/10 bg-white/[0.04] text-white backdrop-blur-xl hover:border-white/20 hover:bg-white/[0.06]"
       : "border-black/8 bg-white text-[var(--text-on-light)] shadow-sm hover:shadow-md",
@@ -54,7 +57,9 @@ export function ConversionPathCard({
         {icon}
       </div>
       <div className="mt-5">
-        <h3 className="text-xl font-medium">{title}</h3>
+        <h3 className={cn("font-medium", size === "focusPrimary" ? "text-2xl" : "text-xl")}>
+          {title}
+        </h3>
         <p
           className={cn(
             "mt-2 text-base leading-relaxed",
@@ -78,6 +83,10 @@ export function ConversionPathCard({
         {content}
       </motion.button>
     );
+  }
+
+  if (!href) {
+    return null;
   }
 
   return (
@@ -161,6 +170,27 @@ export function FinanceIcon() {
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
       <rect x="3" y="6" width="18" height="14" rx="2" stroke="currentColor" strokeWidth="1.5" />
       <path d="M3 10h18M7 15h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+export function AdvisorIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden>
+      <circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" />
+      <path
+        d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+      />
+      <path
+        d="M17 8.5l1.5 1.5L21 7"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
     </svg>
   );
 }

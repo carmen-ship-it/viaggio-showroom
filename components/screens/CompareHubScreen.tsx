@@ -42,7 +42,7 @@ export function CompareHubScreen({
     "";
 
   const [selectedRouteSlug, setSelectedRouteSlug] = useState(defaultRouteSlug);
-  const [hoverCategory, setHoverCategory] = useState<string | null>(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   useEffect(() => {
     trackEvent({ type: "compare_view", vehicleSlug: vehicle.slug });
@@ -208,36 +208,41 @@ export function CompareHubScreen({
                     selectedTarget.dimensions,
                     category,
                   );
+                  const isActive = activeCategory === category;
 
                   return (
                     <button
                       key={category}
                       type="button"
-                      onMouseEnter={() => setHoverCategory(category)}
-                      onMouseLeave={() => setHoverCategory(null)}
-                      onFocus={() => setHoverCategory(category)}
-                      onBlur={() => setHoverCategory(null)}
+                      onClick={() =>
+                        setActiveCategory((prev) => (prev === category ? null : category))
+                      }
                       className={cn(
-                        "inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors",
-                        hoverCategory === category
+                        "inline-flex min-h-[44px] items-center gap-2 rounded-full border px-4 py-2 text-sm transition-colors",
+                        isActive
                           ? "border-[var(--color-accent-trust)]/50 bg-white/[0.08]"
                           : "border-white/10 bg-white/[0.03]",
                       )}
+                      aria-pressed={isActive}
                     >
                       {category}
-                      {previewVerdict && hoverCategory === category ? (
+                      {previewVerdict && isActive ? (
                         <CompareVerdictBadge verdict={previewVerdict} size="sm" />
                       ) : null}
                     </button>
                   );
                 })}
               </div>
-              {hoverCategory ? (
+              {activeCategory ? (
                 <p className="mt-3 text-sm text-white/55">
-                  En {hoverCategory.toLowerCase()} verás filas con veredicto honesto:
+                  En {activeCategory.toLowerCase()} verás filas con veredicto honesto:
                   nosotros ganamos, ellos ganan o empate.
                 </p>
-              ) : null}
+              ) : (
+                <p className="mt-3 text-sm text-white/45">
+                  Tocá una categoría para ver el veredicto previo.
+                </p>
+              )}
             </motion.div>
           ) : null}
         </div>

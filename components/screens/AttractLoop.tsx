@@ -3,14 +3,13 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { HeroMedia } from "@/components/media/HeroMedia";
-import { FallbackArtwork } from "@/components/media/fallback-art/FallbackArtwork";
-import { getFallbackSpec } from "@/lib/media/placeholder-library";
 
 interface AttractLoopProps {
   mediaId: string;
   tagline: string;
   brand: string;
   vehicleModelName: string;
+  priceFromLabel?: string;
   onStart: () => void;
 }
 
@@ -19,9 +18,9 @@ export function AttractLoop({
   tagline,
   brand,
   vehicleModelName,
+  priceFromLabel,
   onStart,
 }: AttractLoopProps) {
-  const heroSpec = getFallbackSpec(mediaId);
   const startedRef = useRef(false);
 
   const handleStart = () => {
@@ -53,12 +52,6 @@ export function AttractLoop({
         overlay={false}
         showAmbientLayer
       />
-      <div
-        className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-40"
-        aria-hidden
-      >
-        <FallbackArtwork spec={heroSpec} className="h-auto w-full max-w-5xl" />
-      </div>
       <div className="relative z-10 flex h-full flex-col items-center justify-between px-8 py-14 md:px-[var(--spacing-kiosk)] md:py-16">
         <header className="text-center">
           <p className="type-eyebrow text-white/50">{brand}</p>
@@ -71,6 +64,11 @@ export function AttractLoop({
           <h1 className="type-display mt-6 text-white">
             {tagline}
           </h1>
+          {priceFromLabel ? (
+            <p className="type-kiosk-lead mt-5 font-mono text-[var(--color-accent-warm)]">
+              Desde {priceFromLabel}
+            </p>
+          ) : null}
         </div>
 
         <motion.div

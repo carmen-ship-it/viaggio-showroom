@@ -20,6 +20,21 @@ export const demoModeConfig = {
   highlightPrimaryCta: true,
   /** Hide hero hotspots, secondary CTAs, and pre-researched path */
   disableExplorationBranches: true,
+  /** Show hero hotspots during executive demo (independent of exploration branches) */
+  enableHeroHotspotsInDemo: true,
+  /** S14: nombre + teléfono + día only */
+  kioskShortForm: true,
+  /** S13: two dominant conversion cards, compact recap */
+  conversionFocusMode: true,
+  /** S26: cuota + plazo only — hide TCO, tips, partner placeholders */
+  financingCompact: true,
+  /** S12: pin scorecard + verdict in top viewport */
+  compareCompactLayout: true,
+  /** Prefer single-viewport layouts on 1920×1080 demo path */
+  kioskViewportStrict: true,
+  /** Pre-fill test drive form for executive rehearsal */
+  demoPrefillCustomerName: "Roberto Mendoza",
+  demoPrefillCustomerPhone: "+591 712 345 678",
   /** Hide the Ajustes control — kiosk operators use staff reset instead */
   hideSettings: true,
   defaultVehicleSlug: "gs4-max",
@@ -64,6 +79,37 @@ export function shouldHighlightPrimaryCta(): boolean {
 
 export function shouldHideSettings(): boolean {
   return demoModeConfig.enabled && demoModeConfig.hideSettings;
+}
+
+export function shouldEnableHeroHotspotsInDemo(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.enableHeroHotspotsInDemo;
+}
+
+export function shouldUseKioskShortForm(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.kioskShortForm;
+}
+
+export function shouldUseConversionFocusMode(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.conversionFocusMode;
+}
+
+export function shouldUseFinancingCompact(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.financingCompact;
+}
+
+export function shouldUseCompareCompactLayout(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.compareCompactLayout;
+}
+
+export function shouldUseKioskViewportStrict(): boolean {
+  return demoModeConfig.enabled && demoModeConfig.kioskViewportStrict;
+}
+
+/** Tailwind classes for strict 1080p kiosk viewport shells */
+export function kioskViewportShellClass(): string {
+  return shouldUseKioskViewportStrict()
+    ? "h-[100dvh] max-h-[1080px] overflow-hidden"
+    : "min-h-screen";
 }
 
 /** Strip leading "S## · " from eyebrow labels in demo mode */

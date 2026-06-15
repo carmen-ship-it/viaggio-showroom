@@ -8,7 +8,7 @@ import type { Vehicle } from "@/types/vehicle";
 import type { WhatsAppContext } from "@/lib/whatsapp/buildWhatsAppLink";
 import { QRCodePanel } from "@/components/conversion/QRCodePanel";
 import { TouchNav } from "@/components/cinematic/TouchNav";
-import { formatScreenLabel } from "@/lib/config/demo-mode";
+import { formatScreenLabel, shouldHidePlaceholderWarnings, kioskViewportShellClass } from "@/lib/config/demo-mode";
 import { GlassCard } from "@/components/premium/GlassCard";
 import { buildWhatsAppLink, buildWhatsAppMessage } from "@/lib/whatsapp/buildWhatsAppLink";
 import { routes } from "@/lib/navigation/routes";
@@ -20,6 +20,7 @@ import {
 import { useSession } from "@/lib/session/SessionProvider";
 import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import { trackEvent } from "@/lib/analytics/trackEvent";
+import { cn } from "@/lib/utils/cn";
 
 const TOPIC_LABELS: Record<string, string> = {
   adas: "seguridad",
@@ -123,7 +124,7 @@ export function WhatsAppHandoffScreen({
         : "Vi lo que exploraste en el showroom — ¿te ayudo con prueba de manejo o cuota?";
 
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--canvas-soft)] text-white">
+    <div className={cn("flex flex-col bg-[var(--canvas-soft)] text-white", kioskViewportShellClass())}>
       <div className="relative overflow-hidden">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(74,155,142,0.22),transparent)]" />
         <motion.div
@@ -147,7 +148,12 @@ export function WhatsAppHandoffScreen({
       </div>
 
       <motion.div
-        className="mx-auto grid w-full max-w-6xl flex-1 gap-8 px-6 pb-12 md:grid-cols-2 md:px-12"
+        className={cn(
+          "mx-auto grid w-full max-w-6xl flex-1 gap-8 px-6 pb-12 md:px-12",
+          shouldHidePlaceholderWarnings()
+            ? "md:grid-cols-[1fr_1.2fr]"
+            : "md:grid-cols-2",
+        )}
         variants={staggerContainer}
         initial="initial"
         animate="animate"
@@ -176,6 +182,7 @@ export function WhatsAppHandoffScreen({
           </div>
         </motion.div>
 
+        {!shouldHidePlaceholderWarnings() ? (
         <motion.div variants={fadeUp} transition={transition.normal}>
           <QRCodePanel
             value={resumeUrl || `${routes.resume(vehicle.slug)}`}
@@ -191,6 +198,7 @@ export function WhatsAppHandoffScreen({
             </p>
           ) : null}
         </motion.div>
+        ) : null}
 
         <motion.div
           variants={fadeUp}
