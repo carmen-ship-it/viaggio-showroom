@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import {
   demoPrimaryCtaClass,
   shouldHighlightPrimaryCta,
+  shouldUseKioskViewportStrict,
 } from "@/lib/config/demo-mode";
 import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import { cn } from "@/lib/utils/cn";
@@ -61,7 +62,8 @@ export function TouchNav({
   return (
     <nav
       className={cn(
-        "flex items-center justify-between gap-6 px-6 py-6 md:px-[var(--spacing-kiosk)]",
+        "flex items-center justify-between gap-6 px-6 md:px-[var(--spacing-kiosk)]",
+        shouldUseKioskViewportStrict() ? "py-4" : "py-6",
         isLight && "border-t border-black/8 bg-white/95 backdrop-blur-xl",
         className,
       )}

@@ -26,6 +26,10 @@ const HOST_ROUTE_SCREENS: Array<{
     match: (p) => p === "/vehicles",
   },
   {
+    screenId: "S25",
+    match: (p) => /\/vehicles\/[^/]+\/trust\/faq$/.test(p),
+  },
+  {
     screenId: "S22",
     match: (p) => /\/vehicles\/[^/]+\/hero$/.test(p),
   },

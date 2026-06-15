@@ -1,6 +1,7 @@
 import { getPersona, getTopicById, getTour } from "@/lib/content";
 import { generateVehicleStaticParams } from "@/lib/content/static-params";
 import { getTourIds } from "@/lib/content";
+import { getMaxTrustTourSteps, isDemoMode } from "@/lib/config/demo-mode";
 import { MVP_TRUST_TOUR_STEP_COUNT } from "@/lib/tour/mvp";
 import { CinematicShell } from "@/components/cinematic";
 import { TourPlayer } from "@/components/screens/TourPlayer";
@@ -23,9 +24,10 @@ export default async function TourPage({ params }: TourPageProps) {
   const tour = getTour(slug, tourId);
   const persona = getPersona(tour.leadPersonaId);
 
+  const trustStepLimit = getMaxTrustTourSteps() ?? MVP_TRUST_TOUR_STEP_COUNT;
   const mvpSteps =
     tourId === "trust"
-      ? tour.steps.slice(0, MVP_TRUST_TOUR_STEP_COUNT)
+      ? tour.steps.slice(0, trustStepLimit)
       : tour.steps;
 
   const steps = mvpSteps.map((step) => ({
@@ -45,7 +47,7 @@ export default async function TourPage({ params }: TourPageProps) {
         steps={steps}
         persona={persona}
         vehicleSlug={slug}
-        backHref={routes.trustStory(slug)}
+        backHref={isDemoMode ? routes.faq(slug) : routes.trustStory(slug)}
       />
     </CinematicShell>
   );

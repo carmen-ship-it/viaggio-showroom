@@ -8,7 +8,9 @@ import {
   demoPrimaryCtaClass,
   shouldDisableExplorationBranches,
   shouldHighlightPrimaryCta,
+  kioskViewportShellClass,
 } from "@/lib/config/demo-mode";
+import { TouchNav } from "@/components/cinematic/TouchNav";
 import { HeroMedia } from "@/components/media/HeroMedia";
 import { PersonaAvatar } from "@/components/media/PersonaAvatar";
 import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
@@ -20,6 +22,7 @@ interface WelcomeScreenProps {
   vehicleTagline: string;
   personas: Persona[];
   onContinue: (path: VisitorPath) => void;
+  onBack?: () => void;
 }
 
 export function WelcomeScreen({
@@ -28,13 +31,14 @@ export function WelcomeScreen({
   vehicleTagline,
   personas,
   onContinue,
+  onBack,
 }: WelcomeScreenProps) {
   const [path, setPath] = useState<VisitorPath>("first_time");
   const lockFirstTimePath = shouldDisableExplorationBranches();
   const activePath: VisitorPath = lockFirstTimePath ? "first_time" : path;
 
   return (
-    <div className="relative flex min-h-screen flex-col justify-center overflow-hidden px-6 py-20 md:px-[var(--spacing-kiosk)]">
+    <div className={cn("relative flex min-h-0 flex-1 flex-col justify-center overflow-hidden px-6 py-12 md:px-[var(--spacing-kiosk)]", kioskViewportShellClass())}>
       <HeroMedia
         mediaId="gs4-max-hero-ambient"
         className="absolute inset-0 opacity-[0.18]"
@@ -72,26 +76,26 @@ export function WelcomeScreen({
           {vehicleTagline}
         </motion.p>
 
-        <motion.div
-          variants={fadeUp}
-          transition={transition.normal}
-          className="mt-12 grid gap-4 sm:grid-cols-2"
-        >
-          <button
-            type="button"
-            onClick={() => setPath("first_time")}
-            className={`min-h-[80px] rounded-2xl border px-7 py-5 text-left transition-all ${
-              activePath === "first_time"
-                ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10"
-                : "border-white/10 bg-white/[0.03] hover:border-white/20"
-            }`}
+        {!lockFirstTimePath ? (
+          <motion.div
+            variants={fadeUp}
+            transition={transition.normal}
+            className="mt-12 grid gap-4 sm:grid-cols-2"
           >
-            <p className="text-lg font-medium">Primera vez con GAC</p>
-            <p className="mt-2 text-base text-white/50">
-              Te guiamos desde confianza hasta deseo
-            </p>
-          </button>
-          {!lockFirstTimePath ? (
+            <button
+              type="button"
+              onClick={() => setPath("first_time")}
+              className={`min-h-[80px] rounded-2xl border px-7 py-5 text-left transition-all ${
+                activePath === "first_time"
+                  ? "border-[var(--color-accent)] bg-[var(--color-accent)]/10"
+                  : "border-white/10 bg-white/[0.03] hover:border-white/20"
+              }`}
+            >
+              <p className="text-lg font-medium">Primera vez con GAC</p>
+              <p className="mt-2 text-base text-white/50">
+                Te guiamos desde confianza hasta deseo
+              </p>
+            </button>
             <button
               type="button"
               onClick={() => setPath("pre_researched")}
@@ -106,8 +110,8 @@ export function WelcomeScreen({
                 Ir directo al vehículo y comparar
               </p>
             </button>
-          ) : null}
-        </motion.div>
+          </motion.div>
+        ) : null}
 
         {!lockFirstTimePath ? (
           <motion.p
@@ -125,6 +129,16 @@ export function WelcomeScreen({
           </motion.p>
         ) : null}
 
+        {lockFirstTimePath ? (
+          <motion.p
+            variants={fadeUp}
+            transition={transition.normal}
+            className="mt-10 text-lg text-white/55"
+          >
+            Primera vez con GAC — te guiamos desde confianza hasta deseo, sin presión.
+          </motion.p>
+        ) : null}
+
         <motion.button
           type="button"
           variants={fadeUp}
@@ -138,6 +152,14 @@ export function WelcomeScreen({
         >
           Empezar experiencia
         </motion.button>
+
+        {onBack ? (
+          <TouchNav
+            onBack={onBack}
+            backLabel="Volver"
+            className="mt-8 px-0 pb-0"
+          />
+        ) : null}
       </motion.div>
     </div>
   );

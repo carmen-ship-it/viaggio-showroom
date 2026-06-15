@@ -154,6 +154,12 @@ export function TestDriveForm({
   const dayOptions = useMemo(() => buildDayOptions(), []);
   const kioskShortForm = shouldUseKioskShortForm() && variant === "page";
 
+  useEffect(() => {
+    if (kioskShortForm && !preferredDay && dayOptions[0]) {
+      setPreferredDay(dayOptions[0].value);
+    }
+  }, [kioskShortForm, preferredDay, dayOptions]);
+
   const timeSlots = useMemo(
     () =>
       TIME_SLOT_IDS.map((id) => ({

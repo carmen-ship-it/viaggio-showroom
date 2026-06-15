@@ -11,6 +11,7 @@ import {
   formatScreenLabel,
   shouldDisableExplorationBranches,
   shouldUseConversionFocusMode,
+  shouldUseConversionSinglePrimary,
   kioskViewportShellClass,
 } from "@/lib/config/demo-mode";
 import {
@@ -63,7 +64,8 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
   } = useSession();
   const hideExploration = shouldDisableExplorationBranches();
   const focusMode = shouldUseConversionFocusMode();
-  const { trigger, activeHandoffs, now } = useHandoffStore();
+  const singlePrimary = shouldUseConversionSinglePrimary();
+  const { trigger, activeHandoffs, now, cancel } = useHandoffStore();
   const [modalOpen, setModalOpen] = useState(false);
   const [activeHandoffId, setActiveHandoffId] = useState<string | null>(null);
 
@@ -238,11 +240,13 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
       <motion.div
         className={cn(
           "grid flex-1 gap-5 px-6 md:px-[var(--spacing-kiosk)]",
-          focusMode
-            ? "mx-auto w-full max-w-4xl grid-cols-1 content-center py-6 md:grid-cols-2 md:py-8"
-            : hideExploration
-              ? "mx-auto w-full max-w-3xl md:grid-cols-1 md:py-12 py-10"
-              : "md:grid-cols-2 md:px-12 md:py-12 py-10",
+          singlePrimary
+            ? "mx-auto w-full max-w-2xl grid-cols-1 content-center py-8"
+            : focusMode
+              ? "mx-auto w-full max-w-4xl grid-cols-1 content-center py-6 md:grid-cols-2 md:py-8"
+              : hideExploration
+                ? "mx-auto w-full max-w-3xl md:grid-cols-1 md:py-12 py-10"
+                : "md:grid-cols-2 md:px-12 md:py-12 py-10",
         )}
         variants={staggerContainer}
         initial="initial"
@@ -267,9 +271,10 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
             onClick={handleAdvisorRequest}
             highlightPrimary
             variant="dark"
-            size={focusMode ? "focusPrimary" : "default"}
+            size={singlePrimary || focusMode ? "focusPrimary" : "default"}
           />
         </motion.div>
+        {!singlePrimary ? (
         <motion.div variants={fadeUp} transition={transition.normal}>
           <ConversionPathCard
             href={routes.testDrive(vehicle.slug)}
@@ -281,6 +286,7 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
             size={focusMode ? "focus" : "default"}
           />
         </motion.div>
+        ) : null}
         {!focusMode ? (
           <motion.div variants={fadeUp} transition={transition.normal}>
             <ConversionPathCard
@@ -319,13 +325,15 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
 
       <TouchNav
         backHref={backHref}
-        backLabel="Seguir explorando"
-        {...(focusMode
+        backLabel="Volver a cuota"
+        {...(singlePrimary
           ? {
-              nextHref: routes.whatsapp(vehicle.slug),
-              nextLabel: "WhatsApp con contexto",
+              nextHref: routes.testDrive(vehicle.slug),
+              nextLabel: "Agendá prueba de manejo",
             }
-          : {})}
+          : focusMode
+            ? {}
+            : {})}
       />
 
       <ConsultantHandoffModal
@@ -333,6 +341,15 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
         handoff={activeHandoff}
         now={now}
         onContinueExploring={() => setModalOpen(false)}
+        onCancelRequest={
+          activeHandoff
+            ? () => {
+                cancel(activeHandoff.id);
+                setModalOpen(false);
+                setActiveHandoffId(null);
+              }
+            : undefined
+        }
       />
     </div>
   );

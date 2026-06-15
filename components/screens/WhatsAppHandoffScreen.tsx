@@ -1,22 +1,19 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Dealership } from "@/types/dealership";
 import type { Vehicle } from "@/types/vehicle";
 import type { WhatsAppContext } from "@/lib/whatsapp/buildWhatsAppLink";
 import { QRCodePanel } from "@/components/conversion/QRCodePanel";
 import { TouchNav } from "@/components/cinematic/TouchNav";
-import { formatScreenLabel, shouldHidePlaceholderWarnings, kioskViewportShellClass } from "@/lib/config/demo-mode";
-import { GlassCard } from "@/components/premium/GlassCard";
-import { buildWhatsAppLink, buildWhatsAppMessage } from "@/lib/whatsapp/buildWhatsAppLink";
-import { routes } from "@/lib/navigation/routes";
-import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
 import {
-  buildResumeUrl,
-  getOrCreateResumeToken,
-} from "@/lib/session/resume-token";
+  formatScreenLabel,
+  kioskViewportShellClass,
+  shouldUseWhatsappCompactLayout,
+} from "@/lib/config/demo-mode";
+import { buildWhatsAppLink, buildWhatsAppMessage } from "@/lib/whatsapp/buildWhatsAppLink";
+import { fadeUp, transition } from "@/lib/motion/variants";
 import { useSession } from "@/lib/session/SessionProvider";
 import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import { trackEvent } from "@/lib/analytics/trackEvent";
@@ -53,10 +50,10 @@ export function WhatsAppHandoffScreen({
     recordTrustSignal,
   } = useSession();
 
-  const [resumeToken, setResumeToken] = useState("");
-  const [resumeUrl, setResumeUrl] = useState("");
   const { playQrReveal } = useInteractionSound();
   const qrPlayedRef = useRef(false);
+  const compact = shouldUseWhatsappCompactLayout();
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
     recordTrustSignal("whatsapp_intent");
@@ -64,17 +61,14 @@ export function WhatsAppHandoffScreen({
   }, [recordTrustSignal, vehicle.slug]);
 
   useEffect(() => {
-    const token = getOrCreateResumeToken(vehicle.slug);
-    setResumeToken(token);
-    setResumeUrl(buildResumeUrl(window.location.origin, vehicle.slug, token));
-  }, [vehicle.slug]);
-
-  useEffect(() => {
     if (qrPlayedRef.current) return;
     qrPlayedRef.current = true;
-    const timer = setTimeout(() => playQrReveal(), 400);
+    const timer = setTimeout(() => {
+      playQrReveal();
+      setRevealed(true);
+    }, compact ? 0 : 400);
     return () => clearTimeout(timer);
-  }, [playQrReveal]);
+  }, [playQrReveal, compact]);
 
   const topicLabels = topicsVisited
     .slice(0, 4)
@@ -114,98 +108,60 @@ export function WhatsAppHandoffScreen({
     "$1 $2 $3 $4",
   );
 
-  const consultantName = dealership.consultants?.[0] ?? "María Elena Vargas";
-
-  const consultantScript =
-    intent === "test_drive"
-      ? "Vi tu solicitud de prueba de manejo — ¿arrancamos por confirmar día y hora?"
-      : intent === "financing"
-        ? "Vi que exploraste la cuota orientativa — sentémonos con financiamiento para el número exacto."
-        : "Vi lo que exploraste en el showroom — ¿te ayudo con prueba de manejo o cuota?";
-
   return (
     <div className={cn("flex flex-col bg-[var(--canvas-soft)] text-white", kioskViewportShellClass())}>
-      <div className="relative overflow-hidden">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(74,155,142,0.22),transparent)]" />
-        <motion.div
-          className="relative mx-auto w-full max-w-6xl px-6 pb-10 pt-12 md:px-12 md:pt-16"
-          initial={fadeUp.initial}
-          animate={fadeUp.animate}
-          transition={transition.normal}
-        >
-          <p className="type-label text-[var(--color-accent-trust)]">
-            {formatScreenLabel("S15 · WhatsApp")}
-          </p>
-          <h1 className="type-headline mt-5 max-w-3xl text-white">
-            Continuá la conversación en tu celular
-          </h1>
-          <p className="type-kiosk-lead mt-6 max-w-2xl text-white/65">
-            El kiosk comparte el contexto de tu visita. Escaneá el código o abrí
-            WhatsApp — un consultor Viaggio responde con lo que ya exploraste, sin
-            repetir todo desde cero.
-          </p>
-        </motion.div>
-      </div>
-
       <motion.div
         className={cn(
-          "mx-auto grid w-full max-w-6xl flex-1 gap-8 px-6 pb-12 md:px-12",
-          shouldHidePlaceholderWarnings()
-            ? "md:grid-cols-[1fr_1.2fr]"
-            : "md:grid-cols-2",
+          "relative mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center px-6 md:px-12",
+          compact ? "py-8" : "py-12 md:py-16",
         )}
-        variants={staggerContainer}
-        initial="initial"
-        animate="animate"
+        initial={fadeUp.initial}
+        animate={fadeUp.animate}
+        transition={transition.normal}
       >
-        <motion.div variants={fadeUp} transition={transition.normal}>
+        <p className="type-label text-[var(--color-accent-trust)]">
+          {formatScreenLabel("S15 · WhatsApp")}
+        </p>
+        <h1 className="type-headline mt-4 max-w-3xl text-white">
+          {compact ? "Escaneá y listo" : "Continuá la conversación en tu celular"}
+        </h1>
+        <p className="type-kiosk-lead mt-4 max-w-2xl text-white/65">
+          {compact
+            ? "1. Escaneá el código · 2. Abrí WhatsApp con tu resumen."
+            : "El kiosk comparte el contexto de tu visita. Escaneá el código o abrí WhatsApp — un consultor Viaggio responde con lo que ya exploraste."}
+        </p>
+
+        <div className={cn("mt-8 grid gap-6", compact ? "md:grid-cols-[1fr_1fr]" : "md:grid-cols-2")}>
           <QRCodePanel
             value={whatsappHref}
             label="WhatsApp · Viaggio Motors"
-            hint="Escaneá con tu celular para abrir WhatsApp con el mensaje listo"
+            hint="Escaneá con tu celular"
             step={1}
-            size={260}
+            size={compact ? 220 : 260}
             variant="dark"
           />
-          <div className="mt-6 flex flex-col gap-3 sm:flex-row">
+          <div className="flex flex-col justify-center gap-4">
             <a
               href={whatsappHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="min-h-[56px] flex-1 rounded-full bg-[#25D366] px-6 py-3 text-center text-sm font-semibold text-white shadow-lg shadow-[#25D366]/20"
+              className="min-h-[56px] rounded-full bg-[#25D366] px-6 py-3 text-center text-base font-semibold text-white shadow-lg shadow-[#25D366]/20"
             >
               Abrir WhatsApp
             </a>
-            <span className="min-h-[56px] flex items-center justify-center rounded-full border border-white/15 bg-white/[0.04] px-6 font-mono text-sm tabular-nums text-white/80">
+            <span className="min-h-[48px] flex items-center justify-center rounded-full border border-white/15 bg-white/[0.04] px-6 font-mono text-sm tabular-nums text-white/80">
               {displayPhone}
             </span>
+            {revealed ? (
+              <p className="rounded-2xl border border-[var(--color-accent-trust)]/35 bg-[var(--color-accent-trust)]/10 px-5 py-4 text-center text-base text-white/85">
+                Listo — podés esperar al asesor o seguir mirando el showroom.
+              </p>
+            ) : null}
           </div>
-        </motion.div>
+        </div>
 
-        {!shouldHidePlaceholderWarnings() ? (
-        <motion.div variants={fadeUp} transition={transition.normal}>
-          <QRCodePanel
-            value={resumeUrl || `${routes.resume(vehicle.slug)}`}
-            label="Reanudar sesión (opcional)"
-            hint="Guardá tu exploración para continuar después en el celular"
-            step={2}
-            size={220}
-            variant="dark"
-          />
-          {resumeToken ? (
-            <p className="mt-4 text-center font-mono text-xs text-white/40">
-              Código · {resumeToken}
-            </p>
-          ) : null}
-        </motion.div>
-        ) : null}
-
-        <motion.div
-          variants={fadeUp}
-          transition={transition.normal}
-          className="md:col-span-2"
-        >
-          <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl md:p-8">
+        {!compact ? (
+          <div className="mt-8 rounded-3xl border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl">
             <p className="text-xs uppercase tracking-[0.2em] text-white/45">
               Vista previa del mensaje
             </p>
@@ -213,59 +169,10 @@ export function WhatsAppHandoffScreen({
               {message}
             </pre>
           </div>
-        </motion.div>
-
-        <motion.div
-          variants={fadeUp}
-          transition={transition.normal}
-          className="md:col-span-2"
-        >
-          <GlassCard accent="trust" variant="elevated" animate={false}>
-            <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-accent-trust)]">
-              Handoff al consultor
-            </p>
-            <h2 className="mt-3 text-2xl font-light">
-              Un consultor de Viaggio te atiende en breve
-            </h2>
-            <p className="mt-3 text-white/65">
-              Usualmente menos de 2 minutos en piso. Tu sesión viaja con el lead —
-              el consultor ya sabe qué temas viste y no te hace repetir el recorrido.
-            </p>
-            <blockquote className="mt-6 border-l-2 border-[var(--color-accent-trust)] pl-5 text-lg italic text-white/80">
-              &ldquo;Hola, soy {consultantName} de Viaggio. {consultantScript}&rdquo;
-            </blockquote>
-            <ul className="mt-6 grid gap-3 sm:grid-cols-3">
-              {[
-                "Contexto de sesión adjunto al mensaje",
-                "Sin formulario duplicado en piso",
-                "Te contactamos por WhatsApp con tu permiso",
-              ].map((item) => (
-                <li
-                  key={item}
-                  className="rounded-xl border border-white/8 bg-white/[0.03] px-4 py-3 text-sm text-white/60"
-                >
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </GlassCard>
-        </motion.div>
-
-        <motion.div
-          variants={fadeUp}
-          transition={transition.normal}
-          className="md:col-span-2"
-        >
-          <Link
-            href={routes.convert(vehicle.slug)}
-            className="min-h-[56px] block rounded-full border border-white/15 bg-white/[0.06] px-6 py-3.5 text-center text-base font-medium backdrop-blur-md"
-          >
-            Seguir explorando en el kiosk
-          </Link>
-        </motion.div>
+        ) : null}
       </motion.div>
 
-      <TouchNav backHref={backHref} backLabel="Volver" />
+      <TouchNav backHref={backHref} backLabel="Volver" className="shrink-0" />
     </div>
   );
 }

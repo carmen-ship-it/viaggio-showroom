@@ -290,6 +290,7 @@ export class AudioEngine {
       channel?: AudioChannel;
       fadeIn?: boolean;
       skipProbe?: boolean;
+      playbackRate?: number;
     } = {},
   ): boolean {
     const resolved = resolveAudioAsset(assetId, this.manifestAssets);
@@ -316,6 +317,11 @@ export class AudioEngine {
     }
 
     const element = this.getOrCreateElement(assetId, resolved.src, resolved.loop);
+    if (options.playbackRate && options.playbackRate !== 1) {
+      element.playbackRate = options.playbackRate;
+    } else {
+      element.playbackRate = 1;
+    }
     const track: ActiveTrack = {
       assetId,
       channel,
@@ -372,7 +378,12 @@ export class AudioEngine {
 
   async playAsset(
     assetId: string,
-    options: { channel?: AudioChannel; fadeIn?: boolean; skipProbe?: boolean } = {},
+    options: {
+      channel?: AudioChannel;
+      fadeIn?: boolean;
+      skipProbe?: boolean;
+      playbackRate?: number;
+    } = {},
   ): Promise<boolean> {
     this.bindVisibility();
 

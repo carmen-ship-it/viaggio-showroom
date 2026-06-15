@@ -6,6 +6,8 @@ import { AudioExperienceRoot } from "@/components/audio/AudioExperienceRoot";
 import { ScreenAudioController } from "@/components/audio/ScreenAudioController";
 import { IdleManager } from "@/components/overlays/IdleManager";
 import { SettingsOverlay } from "@/components/overlays/SettingsOverlay";
+import { KioskNavChrome } from "@/components/kiosk";
+import { DemoKioskBodyLock } from "@/components/kiosk/DemoKioskBodyLock";
 
 export default function ShowroomLayout({ children }: { children: ReactNode }) {
   return (
@@ -14,6 +16,8 @@ export default function ShowroomLayout({ children }: { children: ReactNode }) {
         <AudioProvider>
           <AudioExperienceRoot>
             <ScreenAudioController />
+            <DemoKioskBodyLock />
+            <KioskNavChrome />
             {children}
             <SettingsOverlay />
             <IdleManager />

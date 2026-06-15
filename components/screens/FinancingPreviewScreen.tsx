@@ -7,7 +7,7 @@ import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import type { FinancingData } from "@/lib/content/financing";
 import type { Vehicle } from "@/types/vehicle";
 import { TouchNav } from "@/components/cinematic/TouchNav";
-import { formatScreenLabel, shouldUseFinancingCompact, kioskViewportShellClass } from "@/lib/config/demo-mode";
+import { formatScreenLabel, shouldUseFinancingCompact, shouldUseFinancingLockTrim, shouldUseFinancingSinglePlazo, kioskViewportShellClass } from "@/lib/config/demo-mode";
 import { routes } from "@/lib/navigation/routes";
 import { trackEvent } from "@/lib/analytics/trackEvent";
 import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
@@ -56,8 +56,10 @@ export function FinancingPreviewScreen({
   const [trimId, setTrimId] = useState(
     financingSelection?.trimId ?? financing.trims[0]?.id ?? "",
   );
+  const singlePlazo = shouldUseFinancingSinglePlazo();
+  const lockTrim = shouldUseFinancingLockTrim();
   const [plazo, setPlazo] = useState(
-    financingSelection?.plazo ?? financing.plazos[2] ?? 36,
+    financingSelection?.plazo ?? singlePlazo ?? financing.plazos[2] ?? 36,
   );
 
   useEffect(() => {
@@ -129,8 +131,14 @@ export function FinancingPreviewScreen({
             </p>
           </div>
           <p className="mt-5 max-w-3xl text-base leading-relaxed text-[var(--text-secondary-on-light)]">
-            {financing.disclaimer} Los valores en pantalla no son vinculantes — tu
-            consultor confirma tasa, entrada y plazo con bancos aliados de Viaggio.
+            {compact
+              ? "Cuota orientativa — tu consultor confirma tasa y plazo."
+              : (
+                <>
+                  {financing.disclaimer} Los valores en pantalla no son vinculantes — tu
+                  consultor confirma tasa, entrada y plazo con bancos aliados de Viaggio.
+                </>
+              )}
           </p>
         </div>
       </div>
@@ -152,6 +160,7 @@ export function FinancingPreviewScreen({
           Sin simulación bancaria en el kiosk.
         </p>
 
+        {!lockTrim ? (
         <div className="mt-8 flex flex-wrap gap-3">
           {financing.trims.map((trim) => (
             <button
@@ -169,6 +178,7 @@ export function FinancingPreviewScreen({
             </button>
           ))}
         </div>
+        ) : null}
 
         <div className="mt-8 grid gap-6 lg:grid-cols-[1fr_220px]">
           <div className="rounded-3xl border border-black/8 bg-white p-8 shadow-[0_24px_64px_-40px_rgba(0,0,0,0.2)] md:p-10">
@@ -197,6 +207,7 @@ export function FinancingPreviewScreen({
               por mes · {selectedTrim?.label}
             </p>
 
+            {!singlePlazo ? (
             <div className="mt-6 flex flex-wrap gap-2">
               {financing.plazos.map((months) => (
                 <button
@@ -214,6 +225,11 @@ export function FinancingPreviewScreen({
                 </button>
               ))}
             </div>
+            ) : (
+              <p className="mt-4 text-sm text-[var(--text-secondary-on-light)]">
+                Plazo referencia: {singlePlazo} meses
+              </p>
+            )}
           </div>
 
           <FinancingVisualCard className="hidden lg:block" />

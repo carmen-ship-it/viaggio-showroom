@@ -10,7 +10,11 @@ import { WarrantyVisualCard } from "@/components/media/TrustMediaFramework";
 import { useSession } from "@/lib/session/SessionProvider";
 import { TouchNav } from "@/components/cinematic/TouchNav";
 import { routes } from "@/lib/navigation/routes";
-import { shouldHideDeveloperTools } from "@/lib/config/demo-mode";
+import {
+  kioskViewportShellClass,
+  shouldHideDeveloperTools,
+  shouldUseFaqCompactLayout,
+} from "@/lib/config/demo-mode";
 import { transition } from "@/lib/motion/variants";
 import { cn } from "@/lib/utils/cn";
 
@@ -25,6 +29,11 @@ interface FAQScreenProps {
   backHref: string;
 }
 
+function kioskFaqLead(answer: string): string {
+  const first = answer.split(/(?<=[.!?])\s+/)[0] ?? answer;
+  return first.length > 160 ? `${first.slice(0, 157).trim()}…` : first;
+}
+
 export function FAQScreen({
   title,
   subtitle,
@@ -37,6 +46,8 @@ export function FAQScreen({
 }: FAQScreenProps) {
   const [openId, setOpenId] = useState<string | null>(null);
   const { recordTrustSignal, trustSignals, canShowCompareCta } = useSession();
+  const compact = shouldUseFaqCompactLayout();
+  const displayItems = compact ? items.slice(0, 2) : items;
 
   const toggle = (id: string) => {
     setOpenId((prev) => {
@@ -47,79 +58,102 @@ export function FAQScreen({
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--canvas-soft)]">
-      <div className="flex flex-1 flex-col gap-8 px-6 py-10 lg:flex-row lg:px-[var(--spacing-kiosk)] lg:py-14">
-        <aside className="lg:w-[35%] lg:shrink-0">
-          <PersonaPortrait persona={persona} size="lg" className="lg:sticky lg:top-24" />
+    <div className={cn("flex flex-col bg-[var(--canvas-soft)]", kioskViewportShellClass())}>
+      <div
+        className={cn(
+          "flex min-h-0 flex-1 flex-col gap-6 px-6 lg:flex-row lg:px-[var(--spacing-kiosk)]",
+          compact ? "py-8 lg:py-10" : "py-10 lg:py-14",
+        )}
+      >
+        <aside className={cn(compact ? "lg:w-[28%]" : "lg:w-[35%]", "lg:shrink-0")}>
+          <PersonaPortrait persona={persona} size={compact ? "md" : "lg"} />
         </aside>
 
-        <div className="flex-1">
-          <p className="type-label text-[var(--color-accent-trust)]">
-            Confianza
-          </p>
-          <h1 className="type-headline mt-4 text-white">{title}</h1>
+        <div className="flex min-h-0 flex-1 flex-col">
+          <p className="type-label text-[var(--color-accent-trust)]">Confianza</p>
+          <h1 className={cn("type-headline text-white", compact ? "mt-3" : "mt-4")}>
+            {title}
+          </h1>
           {subtitle ? (
-            <p className="type-kiosk-lead mt-5 max-w-2xl text-white/60">{subtitle}</p>
+            <p
+              className={cn(
+                "type-kiosk-lead max-w-2xl text-white/60",
+                compact ? "mt-3 text-base" : "mt-5",
+              )}
+            >
+              {compact ? "Las dos dudas que más escuchamos en piso." : subtitle}
+            </p>
           ) : null}
 
-          <ul className="mt-10 space-y-4">
-            {items.map((item) => {
-              const isOpen = openId === item.id;
-              return (
-                <li key={item.id}>
-                  <button
-                    type="button"
-                    onClick={() => toggle(item.id)}
-                    className={cn(
-                      "flex min-h-[76px] w-full items-center justify-between rounded-2xl border px-6 py-5 text-left transition-colors",
-                      isOpen
-                        ? "border-[var(--color-accent-trust)]/40 bg-[var(--canvas-light)] text-[var(--text-on-light)]"
-                        : "border-white/10 bg-white/[0.04] hover:border-white/20",
-                    )}
-                    aria-expanded={isOpen}
-                  >
-                    <span className="pr-4 text-xl font-medium leading-snug text-balance">
-                      {item.question}
-                    </span>
-                    <span
-                      className={cn(
-                        "text-2xl transition-transform",
-                        isOpen && "rotate-45",
-                      )}
-                    >
-                      +
-                    </span>
-                  </button>
-                  <AnimatePresence initial={false}>
-                    {isOpen ? (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={transition.fast}
-                        className="overflow-hidden"
-                      >
-                        <div className="rounded-b-2xl border border-t-0 border-white/10 bg-[var(--canvas-light)] px-5 py-5 text-[var(--text-on-light)]">
-                          <p className="text-lg leading-relaxed">{item.answer}</p>
-                          {item.id === "garantia" || item.question.toLowerCase().includes("garantía") ? (
-                            <div className="mt-5">
-                              <WarrantyVisualCard compact />
-                            </div>
-                          ) : null}
-                          {item.proofSuggestion ? (
-                            <p className="mt-4 text-sm text-[var(--text-secondary-on-light)]">
-                              <span className="font-medium">Profundizar:</span>{" "}
-                              {item.proofSuggestion}
-                            </p>
-                          ) : null}
-                        </div>
-                      </motion.div>
-                    ) : null}
-                  </AnimatePresence>
+          {compact ? (
+            <ul className="mt-6 space-y-4">
+              {displayItems.map((item) => (
+                <li
+                  key={item.id}
+                  className="rounded-2xl border border-[var(--color-accent-trust)]/30 bg-[var(--canvas-light)] px-5 py-4 text-[var(--text-on-light)]"
+                >
+                  <p className="text-lg font-medium leading-snug">{item.question}</p>
+                  <p className="mt-3 text-base leading-relaxed">
+                    {kioskFaqLead(item.answer)}
+                  </p>
                 </li>
-              );
-            })}
-          </ul>
+              ))}
+            </ul>
+          ) : (
+            <ul className="mt-10 space-y-4">
+              {displayItems.map((item) => {
+                const isOpen = openId === item.id;
+                return (
+                  <li key={item.id}>
+                    <button
+                      type="button"
+                      onClick={() => toggle(item.id)}
+                      className={cn(
+                        "flex min-h-[76px] w-full items-center justify-between rounded-2xl border px-6 py-5 text-left transition-colors",
+                        isOpen
+                          ? "border-[var(--color-accent-trust)]/40 bg-[var(--canvas-light)] text-[var(--text-on-light)]"
+                          : "border-white/10 bg-white/[0.04] hover:border-white/20",
+                      )}
+                      aria-expanded={isOpen}
+                    >
+                      <span className="pr-4 text-xl font-medium leading-snug text-balance">
+                        {item.question}
+                      </span>
+                      <span
+                        className={cn(
+                          "text-2xl transition-transform",
+                          isOpen && "rotate-45",
+                        )}
+                      >
+                        +
+                      </span>
+                    </button>
+                    <AnimatePresence initial={false}>
+                      {isOpen ? (
+                        <motion.div
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: "auto", opacity: 1 }}
+                          exit={{ height: 0, opacity: 0 }}
+                          transition={transition.fast}
+                          className="overflow-hidden"
+                        >
+                          <div className="rounded-b-2xl border border-t-0 border-white/10 bg-[var(--canvas-light)] px-5 py-5 text-[var(--text-on-light)]">
+                            <p className="text-lg leading-relaxed">{item.answer}</p>
+                            {item.id === "garantia" ||
+                            item.question.toLowerCase().includes("garantía") ? (
+                              <div className="mt-5">
+                                <WarrantyVisualCard compact />
+                              </div>
+                            ) : null}
+                          </div>
+                        </motion.div>
+                      ) : null}
+                    </AnimatePresence>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
 
           {trustSignals >= 2 && !shouldHideDeveloperTools() ? (
             <motion.p
@@ -141,7 +175,13 @@ export function FAQScreen({
         </div>
       </div>
 
-      <TouchNav backHref={backHref} backLabel="Volver al hero" nextHref={nextHref} nextLabel={nextLabel} />
+      <TouchNav
+        backHref={backHref}
+        backLabel="Volver al hero"
+        nextHref={nextHref}
+        nextLabel={nextLabel}
+        className="shrink-0"
+      />
     </div>
   );
 }

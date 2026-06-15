@@ -19,6 +19,7 @@ import {
   persistAudioUnlocked,
 } from "./audio-session";
 import { DEFAULT_AUDIO_PREFERENCES } from "./constants";
+import { getHostNarrationPlaybackRate } from "@/lib/config/demo-mode";
 import { SHOWROOM_AMBIENT_ASSET_ID } from "./host-narration";
 import { SILENT_WAV_DATA_URI } from "./mobile-playback";
 import { AudioEngine } from "./AudioEngine";
@@ -288,9 +289,18 @@ export function AudioProvider({ children }: { children: ReactNode }) {
 
   const playHostNarration = useCallback(
     async (assetId: string) => {
-      return playNarration(assetId);
+      if (!engine || !audioUnlocked || preferences.masterMuted) return false;
+      const rate = getHostNarrationPlaybackRate();
+      const ok = await engine.playAsset(assetId, {
+        channel: "narration",
+        playbackRate: rate,
+      });
+      if (ok) {
+        trackEvent({ type: "narration_start", metadata: { assetId, playbackRate: rate } });
+      }
+      return ok;
     },
-    [playNarration],
+    [engine, audioUnlocked, preferences.masterMuted],
   );
 
   const pauseNarration = useCallback(() => {

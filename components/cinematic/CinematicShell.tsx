@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { shouldHideDeveloperTools } from "@/lib/config/demo-mode";
+import { shouldHideDeveloperTools, shouldUseKioskViewportStrict, kioskViewportShellClass } from "@/lib/config/demo-mode";
 import { cn } from "@/lib/utils/cn";
 
 interface CinematicShellProps {
@@ -20,7 +20,10 @@ export function CinematicShell({
   return (
     <div
       className={cn(
-        "relative min-h-screen w-full overflow-hidden bg-[var(--color-background)] text-[var(--color-foreground)]",
+        "relative w-full bg-[var(--color-background)] text-[var(--color-foreground)]",
+        shouldUseKioskViewportStrict()
+          ? kioskViewportShellClass()
+          : "min-h-screen overflow-hidden",
         className,
       )}
     >

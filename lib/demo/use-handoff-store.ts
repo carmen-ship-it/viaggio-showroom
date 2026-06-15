@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import {
   claimHandoff,
+  cancelHandoff,
   getActiveHandoffs,
   getHandoffs,
   subscribeHandoffs,
@@ -36,6 +37,8 @@ export function useHandoffStore() {
   const activeHandoffs = handoffs.filter((h) => h.status !== "completed");
   const pendingHandoffs = handoffs.filter((h) => h.status === "pending");
 
+  const cancel = useCallback((id: string) => cancelHandoff(id), []);
+
   return {
     handoffs,
     activeHandoffs,
@@ -43,6 +46,7 @@ export function useHandoffStore() {
     now,
     trigger,
     claim,
+    cancel,
     refresh: () => setHandoffs(getActiveHandoffs()),
   };
 }

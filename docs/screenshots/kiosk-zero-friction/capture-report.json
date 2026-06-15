@@ -1,0 +1,128 @@
+[
+  {
+    "screen": "S01",
+    "route": "/",
+    "filename": "S01-attract-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S02",
+    "route": "/",
+    "filename": "S02-welcome-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S03",
+    "route": "/vehicles",
+    "filename": "S03-selector-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S22",
+    "route": "/vehicles/gs4-max/hero",
+    "filename": "S22-hero-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S25",
+    "route": "/vehicles/gs4-max/trust/faq",
+    "filename": "S25-faq-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S06",
+    "route": "/vehicles/gs4-max/tour/trust",
+    "filename": "S06-tour-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S08",
+    "route": "/vehicles/gs4-max/themes/safety/adas",
+    "filename": "S08-adas-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S11",
+    "route": "/vehicles/gs4-max/compare",
+    "filename": "S11-compare-hub-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S12",
+    "route": "/vehicles/gs4-max/compare/corolla-cross",
+    "filename": "S12-compare-detail-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S26",
+    "route": "/vehicles/gs4-max/economics/financing",
+    "filename": "S26-financing-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S13",
+    "route": "/vehicles/gs4-max/convert",
+    "filename": "S13-convert-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S14",
+    "route": "/vehicles/gs4-max/test-drive",
+    "filename": "S14-test-drive-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S15",
+    "route": "/vehicles/gs4-max/whatsapp",
+    "filename": "S15-whatsapp-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  },
+  {
+    "screen": "S36",
+    "route": "/vehicles/gs4-max/convert",
+    "filename": "S36-handoff-modal-1920x1080.png",
+    "scrollHeight": 1080,
+    "viewportHeight": 1080,
+    "scrolls": false,
+    "status": "ok"
+  }
+]

@@ -178,6 +178,20 @@ export function claimHandoff(id: string, advisorName: string): LiveHandoff | nul
   return updated;
 }
 
+export function cancelHandoff(id: string): LiveHandoff | null {
+  const handoffs = readHandoffs();
+  const index = handoffs.findIndex((h) => h.id === id);
+  if (index === -1) return null;
+
+  const updated: LiveHandoff = {
+    ...handoffs[index],
+    status: "completed",
+  };
+  handoffs[index] = updated;
+  writeHandoffs(handoffs);
+  return updated;
+}
+
 export function completeHandoff(id: string): LiveHandoff | null {
   const handoffs = readHandoffs();
   const index = handoffs.findIndex((h) => h.id === id);

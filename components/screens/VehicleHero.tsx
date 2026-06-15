@@ -11,7 +11,7 @@ import {
   PremiumCTA,
 } from "@/components/premium";
 import { TouchNav } from "@/components/cinematic/TouchNav";
-import { shouldDisableExplorationBranches, shouldEnableHeroHotspotsInDemo, kioskViewportShellClass } from "@/lib/config/demo-mode";
+import { shouldDisableExplorationBranches, shouldEnableHeroHotspotsInDemo, shouldUseKioskViewportStrict, kioskViewportShellClass } from "@/lib/config/demo-mode";
 import { routes } from "@/lib/navigation/routes";
 import { useSession } from "@/lib/session/SessionProvider";
 import { fadeUp, transition } from "@/lib/motion/variants";
@@ -34,6 +34,7 @@ export function VehicleHero({
 }: VehicleHeroProps) {
   const { canShowCompareCta, canShowConvertCta, trustSignals } = useSession();
   const hideExploration = shouldDisableExplorationBranches();
+  const kioskStrict = shouldUseKioskViewportStrict();
   const showHotspots =
     hotspots.length > 0 &&
     (!hideExploration || shouldEnableHeroHotspotsInDemo());
@@ -51,8 +52,8 @@ export function VehicleHero({
         vehicleName={vehicle.modelName}
       />
 
-      <div className="relative z-10 flex min-h-screen flex-col">
-        <div className="relative flex flex-1 flex-col justify-end px-6 pb-8 pt-28 md:px-[var(--spacing-kiosk)] md:pb-12 md:pt-32">
+      <div className="relative z-10 flex min-h-0 flex-1 flex-col">
+        <div className={cn("relative flex min-h-0 flex-1 flex-col justify-end px-6 md:px-[var(--spacing-kiosk)]", kioskStrict ? "pb-4 pt-24" : "pb-8 pt-28 md:pb-12 md:pt-32")}>
           <div className="mx-auto w-full max-w-[70%] md:mx-0">
             <motion.p
               initial={fadeUp.initial}
@@ -102,17 +103,20 @@ export function VehicleHero({
             </div>
           ) : null}
 
-          <HeroStatStrip stats={stats} className="mt-10 md:mt-14" />
+          <HeroStatStrip stats={stats} className={kioskStrict ? "mt-6" : "mt-10 md:mt-14"} />
         </div>
 
         <motion.div
-          className="border-t border-white/10 bg-[var(--canvas-deep)]/85 px-6 py-6 backdrop-blur-2xl md:px-[var(--spacing-kiosk)]"
+          className={cn(
+            "shrink-0 border-t border-white/10 bg-[var(--canvas-deep)]/85 px-6 backdrop-blur-2xl md:px-[var(--spacing-kiosk)]",
+            kioskStrict ? "py-3" : "py-6",
+          )}
           initial={{ opacity: 0, y: 32 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ ...transition.reveal, delay: 0.45 }}
         >
           {hideExploration ? (
-            <p className="mb-3 text-sm text-white/45">
+            <p className="mb-2 text-sm text-white/45">
               Seguí el recorrido guiado — el siguiente paso te espera abajo.
             </p>
           ) : null}
@@ -166,7 +170,7 @@ export function VehicleHero({
             backLabel="Modelos"
             nextHref={routes.faq(vehicle.slug)}
             nextLabel="¿Es confiable?"
-            className="mt-4 px-0 pb-0 pt-2"
+            className={cn("px-0 pb-0", kioskStrict ? "pt-1" : "mt-4 pt-2")}
           />
         </motion.div>
       </div>

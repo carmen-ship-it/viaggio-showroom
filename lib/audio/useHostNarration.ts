@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { HostScreenId } from "./host-narration";
 import { getHostTrack, resolveHostTrackKey } from "./host-narration";
+import { getHostNarrationDelayMs } from "@/lib/config/demo-mode";
 import {
   isHostTrackOnCooldown,
   markHostTrackCooldown,
@@ -71,7 +72,7 @@ export function useHostNarration({
           if (track.cooldownMs) markHostTrackCooldown(track.sessionKey);
         }
       });
-    }, track.delayMs);
+    }, getHostNarrationDelayMs(track.delayMs));
 
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);

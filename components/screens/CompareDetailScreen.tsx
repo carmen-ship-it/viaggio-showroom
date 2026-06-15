@@ -39,8 +39,9 @@ export function CompareDetailScreen({
   const footerRef = useRef<HTMLDivElement>(null);
   const compactLayout = shouldUseCompareCompactLayout();
 
-  const verdictParagraph =
-    "Corolla Cross es una excelente opción si priorizás solo la marca. El GS4 MAX gana cuando comparás equipamiento de serie, airbags, tecnología y garantía — y reconocemos con honestidad dónde Toyota sigue fuerte hoy, especialmente en reventa.";
+  const verdictParagraph = compactLayout
+    ? "Corolla Cross gana en reventa. El GS4 MAX gana en equipamiento, airbags y garantía — con honestidad en ambos lados."
+    : "Corolla Cross es una excelente opción si priorizás solo la marca. El GS4 MAX gana cuando comparás equipamiento de serie, airbags, tecnología y garantía — y reconocemos con honestidad dónde Toyota sigue fuerte hoy, especialmente en reventa.";
 
   const anchorMediaId = vehicle.heroMediaId ?? "gs4-max-ext-front-34";
 

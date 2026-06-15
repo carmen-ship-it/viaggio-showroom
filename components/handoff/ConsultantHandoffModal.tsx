@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { formatWaitTimer } from "@/lib/demo/operations-data";
@@ -8,6 +9,7 @@ import {
   type LiveHandoff,
 } from "@/lib/demo/handoff-store";
 import { trackEvent } from "@/lib/analytics/trackEvent";
+import { routes } from "@/lib/navigation/routes";
 import { cn } from "@/lib/utils/cn";
 
 interface ConsultantHandoffModalProps {
@@ -15,6 +17,7 @@ interface ConsultantHandoffModalProps {
   handoff: LiveHandoff | null;
   now?: number;
   onContinueExploring: () => void;
+  onCancelRequest?: () => void;
 }
 
 export function ConsultantHandoffModal({
@@ -22,6 +25,7 @@ export function ConsultantHandoffModal({
   handoff,
   now = Date.now(),
   onContinueExploring,
+  onCancelRequest,
 }: ConsultantHandoffModalProps) {
   useEffect(() => {
     if (open && handoff) {
@@ -54,13 +58,22 @@ export function ConsultantHandoffModal({
             exit={{ opacity: 0, y: 16, scale: 0.98 }}
             transition={{ type: "spring", stiffness: 320, damping: 28 }}
           >
-            <div className="border-b border-white/10 bg-gradient-to-br from-[var(--color-accent-trust)]/20 via-transparent to-transparent px-8 py-8">
+            <div className="flex items-center justify-between gap-4 border-b border-white/10 px-8 py-4">
               <p className="text-xs font-semibold uppercase tracking-[0.2em] text-[var(--color-accent-trust)]">
                 Asesor en camino
               </p>
+              <Link
+                href={routes.home()}
+                className="min-h-[44px] rounded-full border border-white/15 px-4 text-sm font-semibold text-white hover:bg-white/10 inline-flex items-center"
+              >
+                Inicio
+              </Link>
+            </div>
+
+            <div className="border-b border-white/10 bg-gradient-to-br from-[var(--color-accent-trust)]/20 via-transparent to-transparent px-8 py-8">
               <h2
                 id="s36-handoff-title"
-                className="mt-3 text-3xl font-semibold leading-tight text-white md:text-4xl"
+                className="text-3xl font-semibold leading-tight text-white md:text-4xl"
               >
                 {isClaimed
                   ? `${handoff.claimedBy} viene hacia vos`
@@ -69,11 +82,11 @@ export function ConsultantHandoffModal({
               <p className="mt-4 text-lg leading-relaxed text-white/65">
                 {isClaimed
                   ? "Ya tenemos tu recorrido — podés seguir mirando la pantalla o esperarnos acá."
-                  : "Un consultor de Viaggio te atiende en breve. Podés esperar acá o seguir explorando sin perder tu sesión."}
+                  : "Un consultor de Viaggio te atiende en breve. Podés esperar acá o seguir explorando."}
               </p>
             </div>
 
-            <div className="space-y-5 px-8 py-7">
+            <div className="space-y-4 px-8 py-7">
               <div className="flex items-center justify-between gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-5 py-4">
                 <div>
                   <p className="text-xs font-medium uppercase tracking-[0.16em] text-white/45">
@@ -116,6 +129,16 @@ export function ConsultantHandoffModal({
               >
                 Seguir explorando
               </button>
+
+              {onCancelRequest ? (
+                <button
+                  type="button"
+                  onClick={onCancelRequest}
+                  className="w-full rounded-2xl border border-white/10 px-5 py-3 text-sm font-medium text-white/55 hover:text-white/80"
+                >
+                  Cancelar solicitud
+                </button>
+              ) : null}
             </div>
           </motion.div>
         </motion.div>

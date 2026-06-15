@@ -48,6 +48,11 @@ export function ExperienceEntry({
     allowReplay: true,
   });
 
+  useHostNarration({
+    screenId: "S02",
+    enabled: phase === "welcome",
+  });
+
   const handleAttractStart = () => {
     void unlockAudio();
     stopNarration();
@@ -76,7 +81,7 @@ export function ExperienceEntry({
         dealershipName={dealershipName}
         showLogos={phase !== "attract"}
       />
-      <PageTransition transitionKey={phase}>
+      <PageTransition transitionKey={phase} className="flex min-h-0 flex-1 flex-col">
         {phase === "attract" ? (
           <AttractLoop
             mediaId={attractMediaId}
@@ -96,6 +101,10 @@ export function ExperienceEntry({
             vehicleTagline={vehicle.tagline}
             personas={personas}
             onContinue={handleContinue}
+            onBack={() => {
+              stopNarration();
+              setPhase("attract");
+            }}
           />
         )}
       </PageTransition>

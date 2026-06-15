@@ -6,7 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useAudioOptional } from "@/lib/audio/AudioProvider";
 import { clearAllHostSessionKeys } from "@/lib/audio/audio-session";
 import { trackEvent } from "@/lib/analytics/trackEvent";
-import { formatScreenLabel } from "@/lib/config/demo-mode";
+import { formatScreenLabel, demoModeConfig } from "@/lib/config/demo-mode";
 import { routes } from "@/lib/navigation/routes";
 import { cn } from "@/lib/utils/cn";
 
@@ -114,6 +114,17 @@ export function IdleManager() {
               )}
             >
               Sí, continuar
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setShowPrompt(false);
+                clearTimers();
+                router.push(routes.whatsapp(demoModeConfig.defaultVehicleSlug));
+              }}
+              className="mt-3 min-h-[52px] w-full rounded-full border border-[var(--canvas-deep)]/20 text-base font-medium text-[var(--text-on-light)]"
+            >
+              Guardar y salir por WhatsApp
             </button>
           </motion.div>
         </>

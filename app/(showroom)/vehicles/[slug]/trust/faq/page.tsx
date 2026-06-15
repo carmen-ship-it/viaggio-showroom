@@ -4,6 +4,7 @@ import { generateVehicleStaticParams } from "@/lib/content/static-params";
 import { CinematicShell } from "@/components/cinematic";
 import { FAQScreen } from "@/components/screens/FAQScreen";
 import { routes } from "@/lib/navigation";
+import { isDemoMode } from "@/lib/config/demo-mode";
 
 interface FaqPageProps {
   params: Promise<{ slug: string }>;
@@ -29,8 +30,10 @@ export default async function FaqPage({ params }: FaqPageProps) {
         persona={persona}
         vehicleSlug={slug}
         backHref={routes.vehicleHero(slug)}
-        nextHref={routes.trustStory(slug)}
-        nextLabel="Historia Viaggio & GAC"
+        nextHref={
+          isDemoMode ? routes.tour(slug, "trust") : routes.trustStory(slug)
+        }
+        nextLabel={isDemoMode ? "Tour con Carlos" : "Historia Viaggio & GAC"}
       />
     </CinematicShell>
   );

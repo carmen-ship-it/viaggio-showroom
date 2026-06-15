@@ -2,10 +2,12 @@
 
 export type HostScreenId =
   | "S01"
+  | "S02"
   | "S03"
   | "S22"
   | "S06"
   | "S08"
+  | "S25"
   | "S12"
   | "S26"
   | "S13"
@@ -35,6 +37,14 @@ export const HOST_NARRATION_TRACKS: Record<string, HostNarrationTrack> = {
     sessionKey: "host-s01",
     cooldownMs: 240_000,
   },
+  "host-s02": {
+    assetId: "audio-narration-host-s02-welcome",
+    src: "/assets/audio/narration/host/host-s02-welcome.mp3",
+    screenId: "S02",
+    delayMs: 1000,
+    label: "Host — Bienvenida sesión",
+    sessionKey: "host-s02",
+  },
   "host-s03": {
     assetId: "audio-narration-host-s03-selector",
     src: "/assets/audio/narration/host/host-s03-selector.mp3",
@@ -50,6 +60,14 @@ export const HOST_NARRATION_TRACKS: Record<string, HostNarrationTrack> = {
     delayMs: 2000,
     label: "Host — Hero inmersivo",
     sessionKey: "host-s22",
+  },
+  "host-s25": {
+    assetId: "audio-narration-host-s25-faq",
+    src: "/assets/audio/narration/host/host-s25-faq.mp3",
+    screenId: "S25",
+    delayMs: 1000,
+    label: "Host — FAQ confianza",
+    sessionKey: "host-s25",
   },
   "host-s06-trust": {
     assetId: "audio-narration-host-s06-tour-intro-trust",
@@ -135,10 +153,14 @@ export function resolveHostTrackKey(options: {
   switch (screenId) {
     case "S01":
       return "host-s01";
+    case "S02":
+      return "host-s02";
     case "S03":
       return "host-s03";
     case "S22":
       return "host-s22";
+    case "S25":
+      return "host-s25";
     case "S06":
       if (tourId === "family") return "host-s06-family";
       if (tourId === "desire") return "host-s06-desire";

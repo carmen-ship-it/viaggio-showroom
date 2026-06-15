@@ -52,6 +52,7 @@ export default async function ComparePage({ params }: ComparePageProps) {
         vehicle={vehicle}
         targets={targets}
         backHref={routes.topic(slug, "safety", "adas")}
+        backLabel="Volver a ADAS"
       />
     </CinematicShell>
   );

@@ -3,6 +3,8 @@
 import { useRef } from "react";
 import { motion } from "framer-motion";
 import { HeroMedia } from "@/components/media/HeroMedia";
+import { shouldUseKioskViewportStrict } from "@/lib/config/demo-mode";
+import { cn } from "@/lib/utils/cn";
 
 interface AttractLoopProps {
   mediaId: string;
@@ -41,7 +43,10 @@ export function AttractLoop({
         event.preventDefault();
         handleStart();
       }}
-      className="relative h-screen w-full cursor-pointer overflow-hidden text-left"
+      className={cn(
+        "relative w-full cursor-pointer overflow-hidden text-left",
+        shouldUseKioskViewportStrict() ? "h-full min-h-0 flex-1" : "h-screen",
+      )}
       aria-label="Tocá para empezar"
     >
       <HeroMedia

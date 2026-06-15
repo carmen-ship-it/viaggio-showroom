@@ -21,6 +21,9 @@ import {
   shouldDisableExplorationBranches,
   shouldHideDeveloperTools,
   shouldHighlightPrimaryCta,
+  shouldUseTourCompactLayout,
+  shouldUseKioskViewportStrict,
+  isDemoMode,
 } from "@/lib/config/demo-mode";
 import { useSession } from "@/lib/session/SessionProvider";
 import { routes } from "@/lib/navigation/routes";
@@ -66,6 +69,8 @@ export function TourPlayer({
   const { recordTrustSignal, trustSignals } = useSession();
   const hideExploration = shouldDisableExplorationBranches();
   const hideDevChrome = shouldHideDeveloperTools();
+  const tourCompact = shouldUseTourCompactLayout();
+  const kioskStrict = shouldUseKioskViewportStrict();
   const current = steps[index];
   const progress = ((index + 1) / steps.length) * 100;
   const isLast = index === steps.length - 1;
@@ -96,7 +101,7 @@ export function TourPlayer({
   const accentColor = isFamily ? "#D4C4B0" : "var(--color-accent-trust)";
 
   return (
-    <div className="flex min-h-screen max-h-screen flex-col overflow-hidden bg-[var(--canvas-deep)]">
+    <div className={cn("flex flex-col overflow-hidden bg-[var(--canvas-deep)]", kioskStrict ? "h-[100dvh] max-h-[1080px]" : "min-h-screen max-h-screen")}>
       <div className="relative h-1 w-full shrink-0 bg-white/5">
         <motion.div
           className="h-full"
@@ -125,7 +130,10 @@ export function TourPlayer({
       <AnimatePresence mode="wait">
         <motion.div
           key={current.stepId}
-          className="flex min-h-0 flex-1 flex-col overflow-y-auto"
+          className={cn(
+            "flex min-h-0 flex-1 flex-col",
+            !tourCompact && "overflow-y-auto",
+          )}
           initial={crossfade.initial}
           animate={crossfade.animate}
           exit={crossfade.exit}
@@ -178,7 +186,7 @@ export function TourPlayer({
             </div>
           </div>
 
-          {current.topic ? (
+          {current.topic && !tourCompact ? (
             <div className="max-h-[26vh] shrink-0 overflow-y-auto px-6 py-3 md:px-[var(--spacing-kiosk)] md:py-4">
               <TopicRenderer
                 topic={current.topic}
@@ -241,7 +249,7 @@ export function TourPlayer({
           )
         ) : (
           <TouchNav
-            backLabel={index === 0 ? "Salir" : "Anterior"}
+            backLabel={index === 0 ? (isDemoMode ? "Volver a FAQ" : "Salir") : "Anterior"}
             onBack={index === 0 ? undefined : goBack}
             backHref={index === 0 ? backHref : undefined}
             onNext={goNext}

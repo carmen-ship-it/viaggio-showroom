@@ -13,7 +13,10 @@ import {
 import { TouchNav } from "@/components/cinematic/TouchNav";
 import {
   formatScreenLabel,
+  kioskViewportShellClass,
   shouldHideComingSoonVehicles,
+  shouldHideCompareCategoryPreview,
+  shouldUseKioskViewportStrict,
 } from "@/lib/config/demo-mode";
 import { routes } from "@/lib/navigation/routes";
 import { trackEvent } from "@/lib/analytics/trackEvent";
@@ -26,6 +29,7 @@ interface CompareHubScreenProps {
   vehicle: Vehicle;
   targets: CompareTarget[];
   backHref: string;
+  backLabel?: string;
 }
 
 export function CompareHubScreen({
@@ -33,6 +37,7 @@ export function CompareHubScreen({
   vehicle,
   targets,
   backHref,
+  backLabel = "Volver",
 }: CompareHubScreenProps) {
   const { canShowCompareCta, recordTrustSignal } = useSession();
 
@@ -64,6 +69,8 @@ export function CompareHubScreen({
   const comingSoonTargets = shouldHideComingSoonVehicles()
     ? []
     : hub.targets.filter((t) => !t.available);
+  const hideCategoryPreview = shouldHideCompareCategoryPreview();
+  const kioskStrict = shouldUseKioskViewportStrict();
 
   if (!canShowCompareCta) {
     return (
@@ -85,9 +92,12 @@ export function CompareHubScreen({
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--canvas-soft)]">
+    <div className={cn("flex flex-col bg-[var(--canvas-soft)]", kioskViewportShellClass())}>
       <motion.div
-        className="flex flex-1 flex-col gap-8 px-6 py-10 lg:flex-row lg:px-[var(--spacing-kiosk)] lg:py-14"
+        className={cn(
+          "flex min-h-0 flex-1 flex-col gap-6 px-6 lg:flex-row lg:px-[var(--spacing-kiosk)] lg:py-10",
+          kioskStrict ? "overflow-hidden py-6" : "py-10 lg:py-14",
+        )}
         initial={fadeUp.initial}
         animate={fadeUp.animate}
         transition={transition.reveal}
@@ -192,7 +202,7 @@ export function CompareHubScreen({
             ))}
           </motion.div>
 
-          {selectedTarget ? (
+          {selectedTarget && !hideCategoryPreview ? (
             <motion.div
               className="mt-8"
               initial={{ opacity: 0, y: 12 }}
@@ -250,13 +260,15 @@ export function CompareHubScreen({
 
       <TouchNav
         backHref={backHref}
-        backLabel="Volver al hero"
+        backLabel={backLabel}
         {...(detailHref
           ? {
               nextHref: detailHref,
-              nextLabel: selectedTarget
-                ? `Ver comparación con ${selectedTarget.displayName}`
-                : "Ver comparación",
+              nextLabel: hideCategoryPreview
+                ? "Ver comparación →"
+                : selectedTarget
+                  ? `Ver comparación con ${selectedTarget.displayName}`
+                  : "Ver comparación",
             }
           : {})}
       />

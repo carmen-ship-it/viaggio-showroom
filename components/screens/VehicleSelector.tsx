@@ -5,9 +5,10 @@ import { motion } from "framer-motion";
 import type { VehicleKeyStat, VehicleRegistryEntry } from "@/types/vehicle";
 import { MediaSurface } from "@/components/media/MediaSurface";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
-import { shouldHideComingSoonVehicles, shouldUseKioskViewportStrict } from "@/lib/config/demo-mode";
-import { useInteractionSound } from "@/lib/audio/useInteractionSound";
+import { TouchNav } from "@/components/cinematic/TouchNav";
 import { routes } from "@/lib/navigation/routes";
+import { shouldHideComingSoonVehicles, shouldUseKioskViewportStrict, kioskViewportShellClass } from "@/lib/config/demo-mode";
+import { useInteractionSound } from "@/lib/audio/useInteractionSound";
 import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
 import { cn } from "@/lib/utils/cn";
 
@@ -38,15 +39,17 @@ export function VehicleSelector({
   const soloHero = others.length === 0;
   const heroMediaId = hero.heroMediaId ?? `${hero.slug}-hero`;
 
+  const kioskStrict = shouldUseKioskViewportStrict();
+
   return (
-    <div className={shouldUseKioskViewportStrict() ? "h-[100dvh] max-h-[1080px] overflow-hidden" : "min-h-screen"}>
+    <div className={cn("flex flex-col", kioskStrict ? kioskViewportShellClass() : "min-h-screen")}>
       <GlobalHeader brand={brand} dealershipName={dealershipName} />
       <div
         className={cn(
-          "flex flex-col px-6 md:px-[var(--spacing-kiosk)]",
+          "flex min-h-0 flex-1 flex-col px-6 md:px-[var(--spacing-kiosk)]",
           soloHero
-            ? shouldUseKioskViewportStrict()
-              ? "h-[calc(100dvh-4rem)] justify-center py-8"
+            ? kioskStrict
+              ? "justify-center py-4"
               : "min-h-screen justify-center py-24 md:py-28"
             : "min-h-screen py-24 md:py-28",
         )}
@@ -55,7 +58,7 @@ export function VehicleSelector({
           initial={fadeUp.initial}
           animate={fadeUp.animate}
           transition={transition.normal}
-          className={cn("mb-12", soloHero && "text-center")}
+          className={cn(kioskStrict ? "mb-6" : "mb-12", soloHero && "text-center")}
         >
           <p className="type-label text-[var(--color-accent-warm)]">
             Selección de vehículo
@@ -78,8 +81,8 @@ export function VehicleSelector({
               className={cn(
                 "relative overflow-hidden rounded-3xl border border-[var(--color-accent-warm)]/25",
                 soloHero
-                  ? shouldUseKioskViewportStrict()
-                    ? "min-h-[58vh]"
+                  ? kioskStrict
+                    ? "min-h-0 max-h-[42vh] flex-1"
                     : "min-h-[68vh]"
                   : "min-h-[55vh]",
               )}
@@ -97,8 +100,8 @@ export function VehicleSelector({
                 className={cn(
                   "relative z-10 flex flex-col justify-end p-8 md:p-12",
                   soloHero
-                  ? shouldUseKioskViewportStrict()
-                    ? "min-h-[58vh]"
+                  ? kioskStrict
+                    ? "min-h-0 max-h-[42vh] flex-1"
                     : "min-h-[68vh]"
                   : "min-h-[55vh]",
                 )}
@@ -109,8 +112,8 @@ export function VehicleSelector({
                 <h2 className="type-display text-white">{hero.modelName}</h2>
                 <p className="type-kiosk-lead mt-4 max-w-xl text-white/75">{hero.tagline}</p>
                 {heroStats.length > 0 ? (
-                  <div className="mt-8 flex flex-wrap gap-3">
-                    {heroStats.map((stat) => (
+                  <div className={cn("flex flex-wrap gap-3", kioskStrict && "mt-4")}>
+                    {(kioskStrict ? heroStats.slice(0, 2) : heroStats).map((stat) => (
                       <span
                         key={stat.label}
                         className="rounded-full border border-white/15 bg-black/35 px-4 py-1.5 text-sm backdrop-blur-md"
@@ -120,7 +123,7 @@ export function VehicleSelector({
                     ))}
                   </div>
                 ) : null}
-                <span className="mt-8 inline-flex min-h-[52px] w-fit items-center gap-2 rounded-full bg-[var(--color-accent-warm)] px-7 py-3 text-base font-semibold text-[var(--canvas-deep)] shadow-lg shadow-[var(--color-accent-warm)]/20 transition-transform group-hover:scale-[1.02]">
+                <span className={cn("inline-flex min-h-[52px] w-fit items-center gap-2 rounded-full bg-[var(--color-accent-warm)] px-7 py-3 text-base font-semibold text-[var(--canvas-deep)] shadow-lg shadow-[var(--color-accent-warm)]/20 transition-transform group-hover:scale-[1.02]", kioskStrict ? "mt-5" : "mt-8")}>
                   Explorar experiencia →
                 </span>
               </div>
@@ -158,6 +161,7 @@ export function VehicleSelector({
           ) : null}
         </div>
       </div>
+      <TouchNav backHref={routes.home()} backLabel="Atrás" className="shrink-0" />
     </div>
   );
 }
