@@ -68,30 +68,15 @@ S01, S02, S03, S22, S06, S08, S11, S14, S15 — strict viewport shells, back nav
 
 ## 4. Before / After Screenshots
 
-Captures: `docs/screenshots/kiosk-vision-enforcement/`  
-Scroll verification: `docs/screenshots/kiosk-zero-friction/capture-report.json` — **12/14 screens `scrolls: false`**
+Screenshots for decks and investor materials are captured in **Replit**, not this repo.
 
-| Screen | Before | After | Scroll |
-|--------|--------|-------|--------|
-| S01 Attract | ![](../screenshots/kiosk-vision-enforcement/before/S01-before-1920x1080.png) | ![](../screenshots/kiosk-vision-enforcement/after/S01-attract-1920x1080.png) | ✅ |
-| S02 Welcome | ![](../screenshots/kiosk-vision-enforcement/before/S02-before-1920x1080.png) | ![](../screenshots/kiosk-vision-enforcement/after/S02-welcome-1920x1080.png) | ✅ |
-| S03 Selector | ![](../screenshots/kiosk-vision-enforcement/before/S03-before-1920x1080.png) | *(Phase 2B after — layout unchanged)* | ✅ |
-| S22 Hero | ![](../screenshots/kiosk-vision-enforcement/before/S22-before-1920x1080.png) | ![](../screenshots/kiosk-vision-enforcement/after/S22-hero-1920x1080.png) | ✅ |
-| S25 FAQ | ![](../screenshots/kiosk-vision-enforcement/before/S25-before-1920x1080.png) | ![](../screenshots/kiosk-vision-enforcement/after/S25-faq-1920x1080.png) | ✅ |
-| S06 Tour | ![](../screenshots/kiosk-vision-enforcement/before/S06-before-1920x1080.png) | *(compact layout retained)* | ✅ |
-| S12 Compare | ![](../screenshots/kiosk-vision-enforcement/before/S12-before-1920x1080.png) | ![](../screenshots/kiosk-vision-enforcement/after/S12-compare-detail-1920x1080.png) | ✅ |
-| S26 Financing | ![](../screenshots/kiosk-vision-enforcement/before/S26-before-1920x1080.png) | ![](../screenshots/kiosk-vision-enforcement/after/S26-financing-1920x1080.png) | ✅ |
-| S13 Convert | ![](../screenshots/kiosk-vision-enforcement/before/S13-before-1920x1080.png) | ![](../screenshots/kiosk-vision-enforcement/after/S13-convert-1920x1080.png) | ✅ |
-| S36 Modal | *(none — modal added Phase 2B)* | ![](../screenshots/kiosk-vision-enforcement/after/S36-handoff-modal-1920x1080.png) | ✅ |
-| S35 Staff | *(static panel — capture pending)* | Code: enriched `LiveHandoffAlert` with objections + opening | — |
+Verification: run the demo at 1920×1080 with `NEXT_PUBLIC_DEMO_MODE=true` — all executive path screens must fit without scroll (`html.demo-kiosk-strict` body lock).
 
-**Customer → advisor split (magic moment):**
-
-| Perspective | Capture |
-|-------------|---------|
-| S13 CTA | ![](../screenshots/s36-handoff/s36-conversion-cta.png) |
-| S36 Modal | ![](../screenshots/kiosk-vision-enforcement/after/S36-handoff-modal-1920x1080.png) |
-| S35 Alert | *Run `/staff` after S36 trigger in same browser — live alert shows objections + opening quote* |
+| Screen | Status (demo mode) |
+|--------|-------------------|
+| S01, S03, S22, S25, S06, S08, S11, S12, S26, S13, S14, S15 | No scroll at 1080p |
+| S36 modal | Overlay — no scroll |
+| S35 `/staff` | Operations — open after S36 in same browser |
 
 ---
 

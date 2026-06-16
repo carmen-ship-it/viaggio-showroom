@@ -7,13 +7,16 @@
 
 ---
 
-## Canonical Demo Path
+## Canonical Demo Path (kiosk mode)
 
 ```
-S01 → S02 → S03 → S22 → S25 → S24 → S06 → S08 → S11 → S12 → S26 → S13 → S14 → S15
+S01 → S02 → S03 → S22 → S25 → S06 → S08 → S11 → S12 → S26 → S13 → S14 → S15
+                                                              └─ S36 advisor modal
 ```
 
-Overlays available anytime: **S19** (Settings) · **S20** (Idle reset)
+Set `NEXT_PUBLIC_DEMO_MODE=true` — S24 trust story is skipped; FAQ goes directly to trust tour.
+
+Overlays: **S20** idle reset · **Inicio** home pill on deep screens
 
 ---
 

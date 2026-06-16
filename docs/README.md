@@ -1,8 +1,18 @@
-# Viaggio Digital Showroom — Documentation Index
+# Viaggio Digital Showroom — Documentation
 
-Phase 1 planning documentation for the premium interactive showroom at Viaggio Motors Bolivia (GAC Motor Bolivia), Santa Cruz.
+Product and implementation docs for the **Vercel-deployed kiosk demo**.
 
-## Core Documents (Required)
+Presentations, executive decks, and film production → **Replit**.
+
+## Demo operator docs
+
+| Document | Purpose |
+|----------|---------|
+| [Demo walkthrough](./demo-walkthrough.md) | Click-by-click kiosk script |
+| [Kiosk vision enforcement](./demo/KIOSK_VISION_ENFORCEMENT.md) | Phase 8 UX audit + fixes |
+| [Demo mode checklist](../DEMO_MODE_CHECKLIST.md) | `NEXT_PUBLIC_DEMO_MODE` reference |
+
+## Product planning (reference)
 
 | # | Document | Description |
 |---|----------|-------------|
