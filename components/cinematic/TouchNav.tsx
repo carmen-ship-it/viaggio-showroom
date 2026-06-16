@@ -45,14 +45,18 @@ export function TouchNav({
   };
 
   const backClasses = cn(
-    "min-h-[56px] min-w-[132px] rounded-full border px-7 py-3.5 text-base font-medium inline-flex items-center justify-center transition-colors",
+    "min-h-[64px] min-w-[148px] rounded-full border px-8 py-4 text-lg font-medium inline-flex items-center justify-center transition-colors",
     isLight
-      ? "border-black/15 bg-white text-[var(--text-on-light)] hover:border-black/25 hover:bg-[var(--canvas-light)]"
-      : "border-white/15 bg-white/5 text-white backdrop-blur-md hover:bg-white/10",
+      ? "border-black/15 bg-white text-[var(--text-on-light)]"
+      : "border-white/15 bg-white/5 text-white backdrop-blur-md",
+    !shouldUseKioskViewportStrict() &&
+      (isLight
+        ? "hover:border-black/25 hover:bg-[var(--canvas-light)]"
+        : "hover:bg-white/10"),
   );
 
   const nextClasses = cn(
-    "min-h-[56px] min-w-[180px] rounded-full px-9 py-3.5 text-base font-semibold inline-flex items-center justify-center",
+    "min-h-[64px] min-w-[200px] rounded-full px-10 py-4 text-lg font-semibold inline-flex items-center justify-center",
     isLight
       ? "bg-[var(--canvas-deep)] text-white shadow-lg shadow-black/10"
       : "bg-[var(--color-accent)] text-[var(--color-background)] shadow-lg shadow-[var(--color-accent)]/25",

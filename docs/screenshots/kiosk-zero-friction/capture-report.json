@@ -11,11 +11,8 @@
   {
     "screen": "S02",
     "route": "/",
-    "filename": "S02-welcome-1920x1080.png",
-    "scrollHeight": 1080,
-    "viewportHeight": 1080,
-    "scrolls": false,
-    "status": "ok"
+    "status": "error",
+    "error": "TimeoutError: locator.click: Timeout 5000ms exceeded.\nCall log:\n  - waiting for locator('button[aria-label=\"Tocá para empezar\"]')\n    - locator resolved to <button type=\"button\" aria-label=\"Tocá para empezar\" class=\"relative w-full cursor-pointer overflow-hidden text-left h-full min-h-0 flex-1\">…</button>\n  - attempting click action\n    - waiting for element to be visible, enabled and stable\n    - element is visible, enabled and stable\n    - scrolling into view if needed\n    - done scrolling\n    - element is not visible\n  - retrying click action\n    - waiting for element to be visible, enabled and stable\n  - element was detached from the DOM, retrying\n"
   },
   {
     "screen": "S03",
@@ -119,10 +116,7 @@
   {
     "screen": "S36",
     "route": "/vehicles/gs4-max/convert",
-    "filename": "S36-handoff-modal-1920x1080.png",
-    "scrollHeight": 1080,
-    "viewportHeight": 1080,
-    "scrolls": false,
-    "status": "ok"
+    "status": "error",
+    "error": "TimeoutError: locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for getByRole('button', { name: /Hablar con un asesor ahora/i })\n    - locator resolved to <button tabindex=\"0\" type=\"button\" class=\"group flex flex-col justify-between rounded-2xl border p-7 transition-all min-h-[220px] border-white/10 bg-white/[0.04] text-white backdrop-blur-xl hover:border-white/20 hover:bg-white/[0.06] border-[var(--color-accent)]/40 ring-1 ring-[var(--color-accent)]/20 demo-primary-cta-highlight text-left\">…</button>\n  - attempting click action\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <button type=\"button\" aria-label=\"Toque para comenzar la experiencia con sonido\" class=\"fixed inset-0 z-[100] flex cursor-pointer items-center justify-center bg-[var(--canvas-deep)]/72 backdrop-blur-md\">…</button> intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 × waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <button type=\"button\" aria-label=\"Toque para comenzar la experiencia con sonido\" class=\"fixed inset-0 z-[100] flex cursor-pointer items-center justify-center bg-[var(--canvas-deep)]/72 backdrop-blur-md\">…</button> intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    39 × waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <button type=\"button\" aria-label=\"Toque para comenzar la experiencia con sonido\" class=\"fixed inset-0 z-[100] flex cursor-pointer items-center justify-center bg-[var(--canvas-deep)]/72 backdrop-blur-md\">…</button> intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n"
   }
 ]

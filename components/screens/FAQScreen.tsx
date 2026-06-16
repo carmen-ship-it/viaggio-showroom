@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { FaqItem } from "@/types/trust";
 import type { Persona } from "@/types/persona";
 import { PersonaPortrait } from "@/components/persona/PersonaPortrait";
 import { WarrantyVisualCard } from "@/components/media/TrustMediaFramework";
 import { useSession } from "@/lib/session/SessionProvider";
+import { mapFaqItemToTopic } from "@/lib/session/session-intelligence";
 import { TouchNav } from "@/components/cinematic/TouchNav";
 import { routes } from "@/lib/navigation/routes";
 import {
@@ -45,9 +46,19 @@ export function FAQScreen({
   backHref,
 }: FAQScreenProps) {
   const [openId, setOpenId] = useState<string | null>(null);
-  const { recordTrustSignal, trustSignals, canShowCompareCta } = useSession();
+  const { recordTrustSignal, recordTopicVisit, trustSignals, canShowCompareCta } =
+    useSession();
   const compact = shouldUseFaqCompactLayout();
   const displayItems = compact ? items.slice(0, 2) : items;
+
+  useEffect(() => {
+    if (!compact) return;
+    recordTrustSignal("faq_view");
+    displayItems.forEach((item) => {
+      const mapped = mapFaqItemToTopic(item.id);
+      if (mapped) recordTopicVisit(mapped.topicId);
+    });
+  }, [compact, displayItems, recordTrustSignal, recordTopicVisit]);
 
   const toggle = (id: string) => {
     setOpenId((prev) => {
@@ -154,6 +165,13 @@ export function FAQScreen({
               })}
             </ul>
           )}
+
+          {compact && trustSignals >= 1 ? (
+            <p className="mt-5 flex items-center gap-2 text-sm text-[var(--color-accent-trust)]">
+              <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-[var(--color-accent-trust)]" />
+              CPI-OS registró tus preguntas de confianza
+            </p>
+          ) : null}
 
           {trustSignals >= 2 && !shouldHideDeveloperTools() ? (
             <motion.p

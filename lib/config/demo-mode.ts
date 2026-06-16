@@ -52,8 +52,8 @@ export const demoModeConfig = {
   conversionSinglePrimary: true,
   /** Host narration: zero delay on screen enter */
   hostNarrationImmediate: true,
-  /** Host narration playback rate (~25% faster) */
-  hostNarrationPlaybackRate: 1.25,
+  /** Host narration playback rate — premium narrator at natural pace */
+  hostNarrationPlaybackRate: 1,
   /** Top progress strip on executive path */
   showDemoPathProgress: true,
   /** Persistent Inicio control */

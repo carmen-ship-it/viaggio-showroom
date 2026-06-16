@@ -202,6 +202,20 @@ html.demo-kiosk-strict body {
   max-height: 1080px;
 }
 
+/* Touch-first kiosk: no hover-dependent affordances */
+html.demo-kiosk-strict a:hover,
+html.demo-kiosk-strict button:hover {
+  transform: none;
+}
+
+html.demo-kiosk-strict .group-hover\:opacity-100 {
+  opacity: 1;
+}
+
+html.demo-kiosk-strict .group-hover\:translate-y-0 {
+  transform: none;
+}
+
 html[data-audio-muted="true"] [data-audio-indicator] {
   opacity: 0.5;
 }

@@ -114,6 +114,13 @@ export function CompareDetailScreen({
             {vehicle.modelName} vs {target.displayName}
           </h1>
 
+          {compactLayout ? (
+            <p className="mt-3 flex items-center gap-2 text-sm text-[var(--color-accent-trust)]">
+              <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-[var(--color-accent-trust)]" />
+              CPI-OS registró esta comparación
+            </p>
+          ) : null}
+
           {!compactLayout ? (
             <div className="mt-6 grid grid-cols-2 gap-4 md:grid-cols-[1fr_auto_1fr] md:items-center">
               <div className="flex items-center gap-4">

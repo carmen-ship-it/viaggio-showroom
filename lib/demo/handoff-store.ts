@@ -34,6 +34,8 @@ export interface TriggerHandoffInput {
   suggestedOpening?: string;
   persona?: LeadPersona;
   sessionMinutes?: number;
+  /** Use Mendoza rehearsal seed instead of live session defaults */
+  useDemoSeed?: boolean;
 }
 
 const STORAGE_KEY = "viaggio-s36-handoffs";
@@ -121,10 +123,28 @@ export const mendozaHandoffDefaults: TriggerHandoffInput = {
   sessionMinutes: 22,
 };
 
+const HANDOFF_BASE: TriggerHandoffInput = {
+  customerName: "Visitante en piso",
+  vehicle: "GAC GS4 MAX",
+  temperature: "hot",
+  interestSummary: "Recorrido showroom",
+  kioskId: "Kiosco 1",
+  topicsExplored: [],
+  objections: [],
+  suggestedOpening:
+    "Vi que recorrieron el GS4 MAX en el kiosco. ¿Quieren que les preparemos una prueba de manejo?",
+  persona: "mixto",
+  sessionMinutes: 8,
+};
+
 export function buildHandoffPayload(
   input: TriggerHandoffInput = {},
 ): Omit<LiveHandoff, "id" | "triggeredAt" | "status"> {
-  const merged = { ...mendozaHandoffDefaults, ...input };
+  const useDemoSeed = input.useDemoSeed === true;
+  const merged = useDemoSeed
+    ? { ...mendozaHandoffDefaults, ...input }
+    : { ...HANDOFF_BASE, ...input };
+
   return {
     customerName: merged.customerName!,
     vehicle: merged.vehicle!,

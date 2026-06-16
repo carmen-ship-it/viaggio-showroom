@@ -160,7 +160,9 @@ export function CompareHubScreen({
                     "group relative min-h-[160px] overflow-hidden rounded-2xl border text-left transition-all",
                     isSelected
                       ? "border-[var(--color-accent-trust)] ring-2 ring-[var(--color-accent-trust)]/30"
-                      : "border-white/10 hover:border-white/25 hover:-translate-y-1",
+                      : kioskStrict
+                        ? "border-white/10"
+                        : "border-white/10 hover:border-white/25 hover:-translate-y-1",
                   )}
                   aria-pressed={isSelected}
                 >

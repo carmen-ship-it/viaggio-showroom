@@ -155,6 +155,12 @@ export function FinancingPreviewScreen({
         <h1 className="type-headline text-[var(--text-on-light)]">
           Cuota mensual orientativa
         </h1>
+        {compact && compareTarget ? (
+          <p className="mt-3 flex items-center gap-2 text-sm text-[var(--color-accent-trust)]">
+            <span className="inline-flex h-2 w-2 animate-pulse rounded-full bg-[var(--color-accent-trust)]" />
+            CPI-OS recuerda tu comparación con {compareTarget}
+          </p>
+        ) : null}
         <p className="type-kiosk-lead mt-5 max-w-2xl text-[var(--text-secondary-on-light)]">
           Una idea realista del pago mensual del {vehicle.modelName} en Santa Cruz.
           Sin simulación bancaria en el kiosk.

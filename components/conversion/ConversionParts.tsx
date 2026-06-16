@@ -6,6 +6,7 @@ import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
 import {
   demoPrimaryCtaClass,
   shouldHighlightPrimaryCta,
+  shouldUseKioskViewportStrict,
 } from "@/lib/config/demo-mode";
 import { cn } from "@/lib/utils/cn";
 
@@ -31,13 +32,20 @@ export function ConversionPathCard({
   size = "default",
 }: ConversionPathCardProps) {
   const isDark = variant === "dark";
+  const kioskStrict = shouldUseKioskViewportStrict();
 
   const className = cn(
     "group flex flex-col justify-between rounded-2xl border p-7 transition-all",
-    size === "focusPrimary" ? "min-h-[220px]" : size === "focus" ? "min-h-[180px]" : "min-h-[160px]",
+    size === "focusPrimary" ? "min-h-[240px]" : size === "focus" ? "min-h-[200px]" : "min-h-[180px]",
     isDark
-      ? "border-white/10 bg-white/[0.04] text-white backdrop-blur-xl hover:border-white/20 hover:bg-white/[0.06]"
-      : "border-black/8 bg-white text-[var(--text-on-light)] shadow-sm hover:shadow-md",
+      ? cn(
+          "border-white/10 bg-white/[0.04] text-white backdrop-blur-xl",
+          !kioskStrict && "hover:border-white/20 hover:bg-white/[0.06]",
+        )
+      : cn(
+          "border-black/8 bg-white text-[var(--text-on-light)] shadow-sm",
+          !kioskStrict && "hover:shadow-md",
+        ),
     highlightPrimary && "border-[var(--color-accent)]/40 ring-1 ring-[var(--color-accent)]/20",
     highlightPrimary &&
       shouldHighlightPrimaryCta() &&
@@ -57,7 +65,7 @@ export function ConversionPathCard({
         {icon}
       </div>
       <div className="mt-5">
-        <h3 className={cn("font-medium", size === "focusPrimary" ? "text-2xl" : "text-xl")}>
+        <h3 className={cn("font-medium", size === "focusPrimary" ? "text-3xl" : "text-2xl")}>
           {title}
         </h3>
         <p

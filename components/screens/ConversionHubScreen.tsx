@@ -20,14 +20,15 @@ import {
   ChatIcon,
   ConversionPathCard,
   FinanceIcon,
-  SessionRecap,
   ShareIcon,
 } from "@/components/conversion/ConversionParts";
+import { SessionMemoryPanel } from "@/components/kiosk/SessionMemoryPanel";
 import { ConsultantHandoffModal } from "@/components/handoff/ConsultantHandoffModal";
 import { useHandoffStore } from "@/lib/demo/use-handoff-store";
 import { routes } from "@/lib/navigation/routes";
 import { fadeUp, staggerContainer, transition } from "@/lib/motion/variants";
 import { useSession } from "@/lib/session/SessionProvider";
+import { buildSessionIntelligence } from "@/lib/session/session-intelligence";
 import { trackEvent } from "@/lib/analytics/trackEvent";
 import { cn } from "@/lib/utils/cn";
 
@@ -38,18 +39,6 @@ interface ConversionHubScreenProps {
   backHref: string;
 }
 
-const TOPIC_LABELS: Record<string, string> = {
-  adas: "Seguridad ADAS",
-  "family-comfort": "Espacio familiar",
-  "family-safety": "Seguridad familiar",
-  "warranty-terms": "Garantía",
-  engine: "Motor",
-  chassis: "Chasis",
-  "brand-heritage": "Marca GAC",
-  "daily-driving": "Manejo diario",
-  children: "Los chicos",
-  "family-trips": "Viajes en familia",
-};
 
 export function ConversionHubScreen(props: ConversionHubScreenProps) {
   const { vehicle, dealership, backHref } = props;
@@ -76,20 +65,38 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
       : null) ??
     null;
 
+  const sessionSnapshot = useMemo(
+    () => ({
+      topicsVisited,
+      compareTarget,
+      financingSelection,
+      financingInterestFlagged,
+      trustSignals,
+      customerName,
+      vehicleName: vehicle.modelName,
+    }),
+    [
+      topicsVisited,
+      compareTarget,
+      financingSelection,
+      financingInterestFlagged,
+      trustSignals,
+      customerName,
+      vehicle.modelName,
+    ],
+  );
+
+  const intelligence = useMemo(
+    () => buildSessionIntelligence(sessionSnapshot),
+    [sessionSnapshot],
+  );
+
   const handleAdvisorRequest = useCallback(() => {
     const financingLabel = financingSelection
       ? `${financingSelection.trimLabel} · ${financingSelection.plazo} meses`
       : financingInterestFlagged
         ? "Cuota a confirmar"
-        : null;
-
-    const interestParts = [
-      compareTarget ? `Comparó con ${compareTarget}` : null,
-      financingLabel,
-      topicsVisited.includes("family-comfort") || topicsVisited.includes("family-safety")
-        ? "Interés en espacio familiar"
-        : null,
-    ].filter(Boolean);
+        : undefined;
 
     const displayName = customerName || "Visitante en piso";
 
@@ -97,9 +104,11 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
       customerName: displayName,
       vehicle: `${vehicle.modelName}`,
       comparisonViewed: compareTarget ?? undefined,
-      financingViewed: financingLabel ?? undefined,
-      interestSummary: interestParts.length ? interestParts.join(" · ") : "Recorrido showroom",
-      topicsExplored: topicsVisited.map((id) => TOPIC_LABELS[id] ?? id),
+      financingViewed: financingLabel,
+      interestSummary: intelligence.interestSummary,
+      topicsExplored: intelligence.topicsExplored,
+      objections: intelligence.objections,
+      suggestedOpening: intelligence.suggestedOpening,
       sessionMinutes: Math.max(8, topicsVisited.length * 2),
     });
 
@@ -130,7 +139,8 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
     customerName,
     financingInterestFlagged,
     financingSelection,
-    topicsVisited,
+    intelligence,
+    topicsVisited.length,
     trigger,
     vehicle.modelName,
     vehicle.slug,
@@ -141,43 +151,10 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
     trackEvent({ type: "conversion_hub_viewed", vehicleSlug: vehicle.slug });
   }, [recordTrustSignal, vehicle.slug]);
 
-  const recapChips = useMemo(() => {
-    const chips: { id: string; label: string }[] = [];
-
-    topicsVisited.slice(0, 4).forEach((topicId) => {
-      chips.push({
-        id: `topic-${topicId}`,
-        label: TOPIC_LABELS[topicId] ?? topicId,
-      });
-    });
-
-    if (compareTarget) {
-      chips.push({ id: "compare", label: `vs ${compareTarget}` });
-    }
-
-    if (financingSelection) {
-      chips.push({
-        id: "financing",
-        label: `${financingSelection.trimLabel} · ${financingSelection.plazo} meses`,
-      });
-    }
-
-    if (financingInterestFlagged) {
-      chips.push({ id: "financing-intent", label: "Cuota a confirmar" });
-    }
-
-    if (trustSignals >= 2) {
-      chips.push({ id: "trust", label: "Confianza explorada" });
-    }
-
-    return chips;
-  }, [
-    topicsVisited,
-    compareTarget,
-    financingSelection,
-    financingInterestFlagged,
-    trustSignals,
-  ]);
+  const recapChips = useMemo(
+    () => intelligence.memoryChips,
+    [intelligence.memoryChips],
+  );
 
   return (
     <div className={cn("flex flex-col bg-[var(--canvas-soft)]", kioskViewportShellClass())}>
@@ -205,11 +182,11 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
                 {formatScreenLabel("S13 · Tu recorrido")}
               </p>
               <h1 className="type-headline mt-4 text-white">
-                ¿Cómo querés dar el siguiente paso?
+                El sistema ya conoce tu recorrido
               </h1>
               <p className={cn("type-kiosk-lead text-white/65", focusMode ? "mt-3" : "mt-5")}>
-                Elegí la forma que te resulte más cómoda. Sin presión — un consultor
-                Viaggio te acompaña cuando quieras.
+                CPI-OS registró lo que exploraste. Elegí cómo querés continuar — un
+                asesor llega preparado.
               </p>
             </div>
             {!focusMode ? (
@@ -223,17 +200,11 @@ export function ConversionHubScreen(props: ConversionHubScreenProps) {
             ) : null}
           </div>
 
-          <div
-            className={cn(
-              "rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-md",
-              focusMode ? "mt-5 p-4" : "mt-10 p-7",
-            )}
-          >
-            <p className="type-label text-white/45">Resumen de sesión</p>
-            <div className={cn(focusMode ? "mt-2" : "mt-4")}>
-              <SessionRecap chips={recapChips} />
-            </div>
-          </div>
+          <SessionMemoryPanel
+            chips={recapChips}
+            memoryCount={intelligence.memoryCount}
+            className={focusMode ? "mt-5" : "mt-10"}
+          />
         </motion.div>
       </div>
 

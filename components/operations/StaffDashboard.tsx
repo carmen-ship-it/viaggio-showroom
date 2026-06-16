@@ -282,22 +282,39 @@ function LiveHandoffAlert({ handoff, now }: { handoff: LiveHandoff; now: number 
   const elapsed = getElapsedSeconds(handoff, now);
 
   return (
-    <div className="mb-6 overflow-hidden rounded-2xl border border-rose-300 bg-gradient-to-r from-rose-600 to-rose-500 p-5 text-white shadow-lg shadow-rose-500/25 animate-pulse">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div>
+    <div className="mb-6 overflow-hidden rounded-2xl border border-rose-300 bg-gradient-to-r from-rose-600 to-rose-500 p-6 text-white shadow-lg shadow-rose-500/25 animate-pulse">
+      <div className="flex flex-wrap items-start justify-between gap-6">
+        <div className="min-w-0 flex-1 space-y-3">
           <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-white/80">
-            Handoff caliente
+            CPI-OS · Handoff caliente
           </p>
-          <p className="mt-1 text-xl font-semibold">
+          <p className="text-2xl font-semibold">
             {handoff.customerName} · {handoff.kioskId}
           </p>
-          <p className="mt-1 text-sm text-white/85">{handoff.interestSummary}</p>
+          <p className="text-sm text-white/90">{handoff.interestSummary}</p>
+          {handoff.objections.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {handoff.objections.map((objection) => (
+                <span
+                  key={objection}
+                  className="rounded-full border border-white/25 bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wide"
+                >
+                  {objection}
+                </span>
+              ))}
+            </div>
+          ) : null}
+          {handoff.suggestedOpening ? (
+            <p className="max-w-2xl text-sm italic text-white/85">
+              &ldquo;{handoff.suggestedOpening}&rdquo;
+            </p>
+          ) : null}
         </div>
-        <div className="text-right">
+        <div className="shrink-0 text-right">
           <p className="text-[10px] font-medium uppercase tracking-wider text-white/70">
             Esperando
           </p>
-          <p className="font-mono text-4xl font-bold tabular-nums">
+          <p className="font-mono text-5xl font-bold tabular-nums">
             {formatWaitTimer(elapsed)}
           </p>
         </div>
